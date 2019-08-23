@@ -5,17 +5,13 @@
 				<el-avatar icon="el-icon-user-solid"></el-avatar></br>name
 			</el-col>
 			<el-col :span="20">
-				<el-row>
 					<div class="inner">内容</div>
-				</el-row>
-				<el-row>
 					<div class="but">
 						举报
 						楼层
 						{{dateFormat(time)}}
 						回复
 					</div>
-				</el-row>
 			</el-col>
 		</el-row>
 	</div>
@@ -64,5 +60,7 @@
 	.but {
 		font-size: 1px;
 		text-align: right;
+		vertical-align: bottom;
+		position:absolute;right:0px;bottom:0px;
 	}
 </style>
