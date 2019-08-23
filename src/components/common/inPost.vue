@@ -5,24 +5,28 @@
 				<el-avatar icon="el-icon-user-solid"></el-avatar></br>name
 			</el-col>
 			<el-col :span="20">
-				<div class="inner">内容</div>
-				<div class="but">
-					<li>举报</li>
-					楼层
-					{{dateFormat(time)}}
-					<el-link type="primary">回复</el-link>
-				</div>
+				<el-row>
+					<div class="inner">内容</div>
+				</el-row>
+				<el-row>
+					<div class="but">
+						举报
+						楼层
+						{{dateFormat(time)}}
+						回复
+					</div>
+				</el-row>
 			</el-col>
 		</el-row>
 	</div>
 </template>
 
 <script>
-	var t=new Date();
+	var t = new Date();
 	export default {
 		data() {
 			return {
-				time:t,
+				time: t,
 			}
 		},
 		methods: { //   时间格式化
@@ -59,5 +63,6 @@
 
 	.but {
 		font-size: 1px;
+		text-align: right;
 	}
 </style>
