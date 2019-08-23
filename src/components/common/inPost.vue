@@ -9,7 +9,7 @@
 				<div class="but">
 					<el-link type="primary">举报</el-link>
 					楼层
-					{{ dateFormat(new date())}}
+					
 					<el-link type="primary">回复</el-link>
 				</div>
 			</el-col>
