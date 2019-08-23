@@ -11,7 +11,7 @@ import blogHeader from "@/components/common/BlogHeader.vue";
 import post from "@/components/common/post.vue";
 export default {
   name: "App",
-  components: { blogHeader,post }
+  components: { blogHeader }
 };
 </script>
 
