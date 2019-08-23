@@ -7,9 +7,9 @@
 			<el-col :span="20">
 				<div class="inner">内容</div>
 				<div class="but">
-					<el-link type="primary">举报</el-link>
+					<li>举报</li>
 					楼层
-					
+					{{dateFormat(time)}}
 					<el-link type="primary">回复</el-link>
 				</div>
 			</el-col>
@@ -18,10 +18,11 @@
 </template>
 
 <script>
+	var t=new Date();
 	export default {
 		data() {
 			return {
-				time,
+				time:t,
 			}
 		},
 		methods: { //   时间格式化
