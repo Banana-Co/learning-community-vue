@@ -1,35 +1,41 @@
 <template>
 	<div>
-		<div></div>
-		<el-col :span="4"> <navi></navi> </el-col>
-		<el-col :span="16">
-			<post></post>
-			<post></post>
-			<post></post>
-			<post></post>
-			<post></post>
-			<post></post>
-			<post></post>
-			<post></post>
-			<post></post>
-			<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage"
-			 :page-size="20" layout="prev, pager, next, jumper" :total="1000" :hide-on-single-page="true"> </el-pagination>
-		</el-col>
+		<div>
+			<el-carousel height="400px" type="card">
+				<el-carousel-item v-for="item in items" :key="item">
+					<el-image style="width: 700px; height: 400px" :src="item"></el-image>
+				</el-carousel-item>
+			</el-carousel>
 
+		</div>
+		<el-row>
+			<el-col :span="4">
+				<el-button>发布帖子</el-button>
+			</el-col>
+			<el-col :span="16">
+				<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage"
+				 :page-size="20" layout="prev, pager, next, jumper" :total="1000" :hide-on-single-page="true"> </el-pagination>
 
-
-
-
-
+			</el-col>
+		</el-row>
+		<el-row>
+			<el-col :span="4">
+				<navi></navi>
+			</el-col>
+			<el-col :span="16">
+				<outpost></outpost>
+			</el-col>
+		</el-row>
 	</div>
 </template>
 
 <script>
-	import post from "@/components/common/post.vue";
+	import outpost from "@/components/common/outPost.vue";
 	import navi from "@/components/common/navi.vue";
 	export default {
 		components: {
-			post,navi
+			outpost,
+			navi
 		},
 		methods: {
 			handleSizeChange(val) {
@@ -42,6 +48,7 @@
 		data() {
 			return {
 				currentPage: 1,
+				items: [require("@/assets/access.jpg"), require("@/assets/access1.jpg"), require("@/assets/default-8.png")]
 			};
 		}
 	};
