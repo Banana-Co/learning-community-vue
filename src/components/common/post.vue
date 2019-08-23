@@ -6,7 +6,7 @@
 					<el-avatar icon="el-icon-user-solid"></el-avatar>
 				</div>
 			</el-col>
-			<el-col :span="15">
+			<el-col :span="11">
 				<div>标题</div>
 			</el-col>
 			<el-col :span="4">
@@ -14,6 +14,9 @@
 			</el-col>
 			<el-col :span="4">
 				<div>回复数</div>
+			</el-col>
+			<el-col :span="4">
+				<div>发布时间</div>
 			</el-col>
 		</el-card>
 		

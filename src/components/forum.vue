@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<div>测试</div>
-		<el-col :span="4"></el-col>
-		<el-col :span="16" :offset="4">
+		<div></div>
+		<el-col :span="4"> <navi></navi> </el-col>
+		<el-col :span="16">
 			<post></post>
 			<post></post>
 			<post></post>
@@ -26,9 +26,10 @@
 
 <script>
 	import post from "@/components/common/post.vue";
+	import navi from "@/components/common/navi.vue";
 	export default {
 		components: {
-			post
+			post,navi
 		},
 		methods: {
 			handleSizeChange(val) {
