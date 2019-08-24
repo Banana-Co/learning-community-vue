@@ -5,9 +5,6 @@ const store = new Vuex.Store({
 	state:{
 		count:1
 	},
-	state2:{
-		count2:20
-	},
 	getters:{
 		getStateCount:function(state){
 			return state.count+1;
