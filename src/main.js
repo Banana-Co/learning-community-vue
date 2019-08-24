@@ -7,13 +7,14 @@ import App from './App'
 import router from './router'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
+import store from './store'//引入store
 Vue.use(ElementUI)
 Vue.use(mavonEditor)
 // 引用axios，并设置基础URL为后端服务api地址
 var axios = require('axios')
 // axios.defaults.baseURL = 'http://62.234.157.209:8000'
-// axios.defaults.baseURL = 'http://localhost:8000'
-axios.defaults.baseURL = 'http://152.136.103.126:8000'
+ axios.defaults.baseURL = 'http://localhost:8000'
+//axios.defaults.baseURL = 'http://152.136.103.126:8000'
 // 将API方法绑定到全局
 Vue.prototype.$axios = axios
 Vue.config.productionTip = false
@@ -22,6 +23,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

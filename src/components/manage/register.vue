@@ -1,13 +1,5 @@
 <template>
 	<div class="wrap">
-		<!-- <p v-show="showTishi">{{tishi}}</p>
-      <input type="text" v-model="loginInfoVo.username" placeholder="请输入用户名" />
-      <input type="password"  v-model="loginInfoVo.password" placeholder="请输入6~20位密码" />
-      <button v-on:click="register">注册</button>
-			<span v-on:click="ToLogin">已有账号？马上登录</span>
-			 <br/>
-			<span v-on:click="ToMain">查看用户</span> -->
-
 		<div class="grid-content"><br /><br /><br /><br /><br /><br /><br /></div>
 		<center>
 			<el-card class="login-card">
@@ -70,12 +62,6 @@
 					.then(successResponse => {
 						this.responseResult = JSON.stringify(successResponse.data)
 						if (successResponse.data.code === 200) {
-							this.$axios.post('http://111.231.66.49:3000/api/User', {
-								pid: this.loginInfoVo.username,
-								name: this.loginInfoVo.username
-							}).catch(function(error) {
-								console.log(error);
-							})
 							setCookie('username', this.loginInfoVo.username, 1000 * 60)
 							this.$router.push('/messageFlow')
 						} else if (successResponse.data.code === 201) {

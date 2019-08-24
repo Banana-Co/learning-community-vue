@@ -9,14 +9,21 @@ import register from '@/components/manage/register.vue'
 import main from '@/components/main/Main.vue'
 import change from '@/components/manage/change.vue'
 import forum from '@/components/forum.vue'
+import content from '@/components/common/content.vue'
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/forum'
+      redirect: '/login'
+			//redirect: '/forum'
     },
+		{
+		  path: '/content',
+		  name: 'content',
+		  component: content
+		},
 		{
 		  path: '/forum',
 		  name: 'forum',
