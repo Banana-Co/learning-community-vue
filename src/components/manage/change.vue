@@ -51,8 +51,8 @@
 					this.$axios
 						.post('/changepswd', {
 							username: this.loginInfoVo.username,
-							old_password:this.loginInfoVo.password0,
-							new_password: this.loginInfoVo.password1,
+							oldPswd:this.loginInfoVo.password0,
+							newPswd: this.loginInfoVo.password1,
 						})
 						.then(successResponse => {
 							this.responseResult = JSON.stringify(successResponse.data)
