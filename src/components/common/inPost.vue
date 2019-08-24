@@ -5,7 +5,7 @@
 				<el-avatar icon="el-icon-user-solid"></el-avatar></br>name
 			</el-col>
 			<el-col :span="20">
-					<div class="inner"><span>内容</span></div>
+					<div class="inner"><span>监控量:{{this.$store.state.count}}</span></div>
 					<div class="but">
 						<span>举报</span>
 						<span>楼层</span>

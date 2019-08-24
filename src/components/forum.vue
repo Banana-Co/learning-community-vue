@@ -6,11 +6,15 @@
 					<el-image style="width: 700px; height: 400px" :src="item"></el-image>
 				</el-carousel-item>
 			</el-carousel>
-
+			
 		</div>
+		<h3>监控量:{{this.$store.state.count}}</h3>
+		<!-- <h3>计算:{{this.$store.getters.getStateCount}}</h3> -->
+		<button @click="addFun">+</button>
+		<button @click="minusFun">-</button>
 		<el-row>
 			<el-col :span="4">
-				<el-button>发布帖子{{this.$store.state.count}}</el-button>
+				<el-button>发布帖子 </el-button>
 			</el-col>
 			<el-col :span="16">
 				<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage"
@@ -43,6 +47,12 @@
 			},
 			handleCurrentChange(val) {
 				console.log(`当前页: ${val}`);
+			},
+			addFun(){
+				this.$store.commit("add");
+			},
+			minusFun(){
+				this.$store.commit("reduction");
 			}
 		},
 		data() {

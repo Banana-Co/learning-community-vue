@@ -1,9 +1,25 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 Vue.use(Vuex);
-const store = new vuex.store({
+const store = new Vuex.Store({
 	state:{
-		const:1
+		count:1
+	},
+	state2:{
+		count2:20
+	},
+	getters:{
+		getStateCount:function(state){
+			return state.count+1;
+		}
+	},
+	mutations:{
+		add(state){
+			state.count=state.count+1;
+		},
+		reduction(state){
+			state.count=state.count-1;
+		}
 	}
 })
  
