@@ -10,7 +10,7 @@
 		</div>
 		<el-row>
 			<el-col :span="4">
-				<el-button>发布帖子</el-button>
+				<el-button>发布帖子{{this.$store.state.count}}</el-button>
 			</el-col>
 			<el-col :span="16">
 				<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage"
