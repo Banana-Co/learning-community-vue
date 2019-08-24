@@ -5,12 +5,12 @@
 				<el-avatar icon="el-icon-user-solid"></el-avatar></br>name
 			</el-col>
 			<el-col :span="20">
-					<div class="inner">内容</div>
+					<div class="inner"><span>内容</span></div>
 					<div class="but">
-						举报
-						楼层
-						{{dateFormat(time)}}
-						回复
+						<span>举报</span>
+						<span>楼层</span>
+						<span>{{dateFormat(time)}}</span>
+						<span>回复</span>
 					</div>
 			</el-col>
 		</el-row>
@@ -55,12 +55,14 @@
 
 	.inner {
 		text-align: left;
+		padding: 20px 20px 0 0;
 	}
 
 	.but {
+		line-height: 20px;
 		font-size: 1px;
 		text-align: right;
 		vertical-align: bottom;
-		position:absolute;right:0px;bottom:0px;
+		/* position:absolute;right:0px;bottom:0px; */
 	}
 </style>
