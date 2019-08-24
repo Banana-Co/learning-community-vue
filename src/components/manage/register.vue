@@ -63,7 +63,7 @@
 						this.responseResult = JSON.stringify(successResponse.data)
 						if (successResponse.data.code === 200) {
 							setCookie('username', this.loginInfoVo.username, 1000 * 60)
-							this.$router.push('/messageFlow')
+							this.$router.push('/forum')
 						} else if (successResponse.data.code === 201) {
 							this.tishi = "该用户已存在"
 							this.showTishi = true

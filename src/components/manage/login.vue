@@ -60,7 +60,7 @@
 						if (successResponse.data.code === 200) {
 							
 							setCookie('username', this.loginInfoVo.username, 1000 * 60)
-								this.$router.push('/messageFlow')
+								this.$router.push('/forum')
 						} else if (successResponse.data.code === 300) {
 							this.tishi = "该用户不存在"
 							this.showTishi = true
