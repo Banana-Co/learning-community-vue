@@ -71,6 +71,34 @@ const routes=[
 	  component: change
 	},
 ];
-export default new Router({
+const router = new Router({
   routes
-})
+});
+export default router;
+
+// 页面刷新时，重新赋值有没登录
+// if (window.localStorage.getItem('isLogin')) {
+//   store.commit('setIsLogin', window.localStorage.getItem('isLogin'));
+// }
+// 
+// 
+// 
+// router.beforeEach((to, from, next) => {
+//   if (to.matched.some(r => r.meta.requiresAuth)) {  // 判断该路由是否需要登录权限
+//     console.log(store.getters.isLogin);
+//     if (store.getters.isLogin) {  // 通过vuex 如果当前有登录
+//       next();
+//     }
+//     else {
+//       console.log("没有登录")
+//       next({
+//         path: '/login',
+//         query: {redirect: to.fullPath}
+//       })
+//     }
+//   }
+//   else {
+//     next();
+//   }
+// });
+

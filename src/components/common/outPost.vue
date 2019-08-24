@@ -29,9 +29,6 @@
 
 <script>
 	export default {
-		data() {
-
-		},
 		methods: {
 			ToContent() {
 				this.$router.push(
