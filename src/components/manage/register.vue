@@ -55,7 +55,7 @@
 			},
 			register() {
 				this.$axios
-					.post('addPost', {
+					.post('register', {
 						username: this.loginInfoVo.username,
 						password: this.loginInfoVo.password
 					})

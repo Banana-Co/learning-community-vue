@@ -17,6 +17,14 @@ const store = new Vuex.Store({
 		reduction(state){
 			state.count=state.count-1;
 		}
+	},
+	actions:{
+		addFun(context){
+			context.commit("add");
+		},
+		reductionFun(context){
+			context.commit("reduction");
+		}
 	}
 })
  
