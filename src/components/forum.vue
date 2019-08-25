@@ -37,11 +37,13 @@
 <script>
 	import outpost from "@/components/common/outPost.vue";
 	import navi from "@/components/common/navi.vue";
+	import PostDialog from "@/components/message/PostDialog.vue"
 	import {mapState,mapActions,mapGetters} from 'vuex';
 	export default {
 		components: {
 			outpost,
-			navi
+			navi,
+			PostDialog,
 		},
 		computed: {
 			...mapState({

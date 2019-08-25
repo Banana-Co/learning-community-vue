@@ -5,7 +5,7 @@
 				<center><span>你好!</span></center>
 			</div>
 			<div>
-				<el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false"
+				<el-upload class="avatar-uploader" action="http://localhost:8000/uploadFile" :show-file-list="false"
 				 :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
 					<img v-if="imageUrl" :src="imageUrl" class="avatar">
 					<i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -20,7 +20,6 @@
 			<div>
 				<el-button plain @click="ToChange">更改密码</el-button>
 				<el-button plain @click="quit">注销</el-button>
-				<el-button plain @click="changeA">修改头像</el-button>
 			</div>
 			<div>
 				<center>
@@ -48,6 +47,7 @@
 					username: ''
 				},
 				imageUrl: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+				file:'',
 			}
 		},
 		mounted() {
@@ -91,30 +91,9 @@
 				this.$router.replace('/login')
 			},
 			handleAvatarSuccess(file) {
-				console.log(file);
-				let formData = new FormData();
-				formData.append("file", file);
-				this.$axios({
-						url: "/uploadFile",
-						method: "post",
-						data: formData,
-						headers: {
-							"Content-Type": "multipart/form-data;charset=utf-8"
-						}
-					})
-					// .post('/uploadFile', file,)
-					.then(successResponse => {
-						this.responseResult = JSON.stringify(successResponse.data)
-						if (successResponse.data.code === 200) {
-							this.imageUrl = URL.createObjectURL(file.raw);
-							console.log("successs")
-						} else if(successResponse.data.code === 300) {
-							console.log("not exist")
-						} else if(successResponse.data.code === 400) {
-							console.log("fail")
-						}
-					})
-					.catch(failResponse => {})
+				
+				 console.log(file);
+				
 			},
 			beforeAvatarUpload(file) {
 				const isJPG = file.type === 'image/jpeg';
