@@ -20,7 +20,8 @@
 			<div>
 				<el-button plain @click="ToChange">更改密码</el-button>
 				<el-button plain @click="quit">注销</el-button>
-				<el-button plain @click="changeA">修改头像</el-button>
+				<el-button plain><el-upload class="avatar-uploader" action="http://localhost:8000/uploadFile" :show-file-list="false" :on-success="handleAvatarSuccess"
+				 :before-upload="beforeAvatarUpload">修改头像</el-upload></el-button>
 			</div>
 			<div>
 				<center>
@@ -65,12 +66,17 @@
 			// 		}).then((res)=>{
 			//     this.time = res.data
 			// })
-			this.$axios.post(`/getUser`,{username:this.name}).then((response) => {
-				console.log(response)
+			this.$axios.get(`/getUser/${this.name}`).then((response) => {
+				this.time = response.data.createdDate
+				if(response.data.avatarUrl!=''){
+					this.imageUrl=response.data.avatarUrl
+				}
+				
+				//console.log(response)
 			})
-			this.$axios.get(`/time/${this.name}`).then((res) => {
-				this.time = res.data
-			})
+			// this.$axios.get(`/time/${this.name}`).then((res) => {
+			// 	this.time = res.data
+			// })
 		},
 		methods: {
 			ToMessage() {
