@@ -7,7 +7,7 @@ import App from './App'
 import router from './router'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
-import store from './store'//引入store
+import store from './store/store'//引入store
 Vue.use(ElementUI)
 Vue.use(mavonEditor)
 // 引用axios，并设置基础URL为后端服务api地址
