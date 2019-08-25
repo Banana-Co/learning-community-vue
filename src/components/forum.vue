@@ -8,10 +8,11 @@
 			</el-carousel>
 			
 		</div>
-		<h3>监控量:{{count1}}</h3>
+		<!-- <h3>监控量:{{count1}}</h3> -->
 		<!-- <h3>计算:{{this.$store.getters.getStateCount}}</h3> -->
-		<button @click="addFun">+</button>
-		<button @click="minusFun">-</button>
+		<!-- <button @click="addFun">+</button>
+		<button @click="minusFun">-</button> -->
+		<button @click="ToLogin">登录</button>
 		<el-row>
 			<el-col :span="4">
 				<el-button>发布帖子 </el-button>
@@ -54,14 +55,19 @@
 			handleCurrentChange(val) {
 				console.log(`当前页: ${val}`);
 			},
-			addFun(){
-				//this.$store.commit("add");
-				this.$store.dispatch("addFun");
+			// addFun(){
+			// 	//this.$store.commit("add");
+			// 	this.$store.dispatch("addFun");
+			// },
+			// minusFun(){
+			// 	//this.$store.commit("reduction");
+			// 	this.$store.dispatch("reductionFun");
+			// },
+			ToLogin() {
+				this.$router.replace({
+					path: '/login'
+				})
 			},
-			minusFun(){
-				//this.$store.commit("reduction");
-				this.$store.dispatch("reductionFun");
-			}
 		},
 		data() {
 			return {

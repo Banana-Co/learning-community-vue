@@ -1,15 +1,18 @@
 <template>
 	<div class="wrap">
-		<div class="grid-content"><br/><br/><br/><br/><br/><br/><br/></div>
-		<center><el-card class="login-card">
-			<p v-show="showTishi" class="tishiText">{{tishi}}</p>
-			<el-input type="text" v-model="loginInfoVo.username" placeholder="请输入用户名"></el-input>
-			<el-input type="password" v-model="loginInfoVo.password" placeholder="请输入密码"></el-input>
-			<br/><el-button type="primary" v-on:click="login">登录</el-button><br/>
-			<div >
-				<span v-on:click="ToRegister">没有账号？马上注册</span><br/>
-			</div>
-		</el-card></center>
+		<div class="grid-content"><br /><br /><br /><br /><br /><br /><br /></div>
+		<center>
+			<el-card class="login-card">
+				<p v-show="showTishi" class="tishiText">{{tishi}}</p>
+				<el-input type="text" v-model="loginInfoVo.username" placeholder="请输入用户名"></el-input>
+				<el-input type="password" v-model="loginInfoVo.password" placeholder="请输入密码"></el-input>
+				<br />
+				<el-button type="primary" v-on:click="login">登录</el-button><br />
+				<div>
+					<span v-on:click="ToRegister">没有账号？马上注册</span><br />
+				</div>
+			</el-card>
+		</center>
 	</div>
 </template>
 
@@ -18,6 +21,7 @@
 		setCookie,
 		getCookie
 	} from '../../assets/js/cookie.js'
+	import {mapState,mapActions,mapGetters} from 'vuex';
 	export default {
 		data() {
 			return {
@@ -33,10 +37,15 @@
 		mounted() {
 			/*页面挂载获取cookie，如果存在username的cookie，则跳转到主页，不需登录*/
 			if (getCookie('username')) {
-				this.$router.push(
+				this.$router.replace(
 					'/forum'
 				)
 			}
+			// if (localStorage.getItem('Flag')) {
+			// 	this.$router.push(
+			// 		'/forum'
+			// 	)
+			// }
 		},
 		methods: {
 			ToMain() {
@@ -58,9 +67,12 @@
 					.then(successResponse => {
 						this.responseResult = JSON.stringify(successResponse.data)
 						if (successResponse.data.code === 200) {
-							
+
 							setCookie('username', this.loginInfoVo.username, 1000 * 60)
-								this.$router.push('/forum')
+							// this.$store.dispatch('setUser', true)
+							// localStorage.setItem('Flag', 'isLogin')
+							// localStorage.setItem('username', userName)
+							this.$router.replace('/forum')
 						} else if (successResponse.data.code === 300) {
 							this.tishi = "该用户不存在"
 							this.showTishi = true
@@ -82,14 +94,14 @@
 		text-align: center;
 	}
 
-	.login-card{
+	.login-card {
 		width: 320px;
 	}
 
-	.tishiText{
+	.tishiText {
 		color: red;
 	}
-	
+
 	span {
 		cursor: pointer;
 	}

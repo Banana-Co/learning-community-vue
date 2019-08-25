@@ -45,6 +45,9 @@ import { setCookie,getCookie,delCookie } from '../../assets/js/cookie.js'
 					}).then((res)=>{
 			    this.time = res.data
 			})
+			// this.$axios.get('/time=${this.name}').then((res)=>{
+			//     this.time = res.data
+			// })
         },
         methods:{
 			ToMessage() {
@@ -60,7 +63,9 @@ import { setCookie,getCookie,delCookie } from '../../assets/js/cookie.js'
             quit(){
                 /*删除cookie*/
                 delCookie('username')
-				this.$router.replace('/')
+				// localStorage.removeItem('Flag')
+				// localStorage.removeItem('username')
+				this.$router.replace('/login')
             }
         }
     }

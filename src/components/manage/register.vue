@@ -63,6 +63,9 @@
 						this.responseResult = JSON.stringify(successResponse.data)
 						if (successResponse.data.code === 200) {
 							setCookie('username', this.loginInfoVo.username, 1000 * 60)
+							// this.$store.dispatch('setUser', true)
+							// localStorage.setItem('Flag', 'isLogin')
+							// localStorage.setItem('username', userName)
 							this.$router.push('/forum')
 						} else if (successResponse.data.code === 201) {
 							this.tishi = "该用户已存在"
