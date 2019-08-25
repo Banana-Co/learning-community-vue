@@ -20,16 +20,24 @@
 			</el-col>
 			<el-col :span="16">
 				<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage"
-				 :page-size="20" layout="prev, pager, next, jumper" :total="1000" :hide-on-single-page="true"> </el-pagination>
+				 :page-size="10" layout="prev, pager, next, jumper" :total="totalPostNum" :hide-on-single-page="true"> </el-pagination>
 
 			</el-col>
 		</el-row>
 		<el-row>
 			<el-col :span="4">
-				<navi></navi>
+				<navi
+          @sort-change="handleSortChange">
+         </navi>
 			</el-col>
 			<el-col :span="16">
-				<outpost></outpost>
+				<outpost
+          v-for="post in posts"
+          :key="1"
+          :title="post.title"
+          :author="post.author"
+          :replyNum="post.replyNum"
+          :createdDate="post.createdDate"></outpost>
 			</el-col>
 		</el-row>
 	</div>
@@ -56,8 +64,15 @@
 				console.log(`每页 ${val} 条`);
 			},
 			handleCurrentChange(val) {
+			    this.getPostPage()
 				console.log(`当前页: ${val}`);
 			},
+        handleSortChange(val) {
+			    this.sortedby = val.sortedby;
+			    this.order = val.order;
+			    this.currentPage = 1;
+			    this.getPostPage();
+        },
 			// addFun(){
 			// 	//this.$store.commit("add");
 			// 	this.$store.dispatch("addFun");
@@ -71,14 +86,38 @@
 					path: '/login'
 				})
 			},
+        getPostPage() {
+            this.$axios
+                .get('http://localhost:8000/api/post/getPostByPage', {
+                    params: {
+                        page: this.currentPage,
+                        sortedby: this.sortedby,
+                        order: this.order
+                    }
+                })
+                .then(res => {
+                    this.posts = res.data.content;
+                    this.totalPostNum = res.data.totalElements;
+                })
+                .catch(function(error) {
+                    console.log(error);
+                })
+        }
 		},
 		data() {
 			return {
 				currentPage: 1,
 				items: [require("@/assets/access.jpg"), require("@/assets/access1.jpg"), require("@/assets/default-8.png")],
-          postDialogVisible: false
+          postDialogVisible: false,
+          posts: [],
+          totalPostNum: 1,
+          sortedby: "createdDate",
+          order: "desc"
 			};
-		}
+		},
+      created: function () {
+          this.getPostPage();
+      }
 	};
 </script>
 

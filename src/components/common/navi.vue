@@ -6,7 +6,11 @@
 				<i class="el-icon-setting"></i>
 				<span slot="title">最新发布</span>
 			</el-menu-item>
-			<el-menu-item index="2">
+      <el-menu-item index="2">
+        <i class="el-icon-setting"></i>
+        <span slot="title">最早发布</span>
+      </el-menu-item>
+			<el-menu-item index="3">
 				<i class="el-icon-setting"></i>
 				<span slot="title">最新回复</span>
 			</el-menu-item>
@@ -24,6 +28,10 @@
 		methods: {
 			handleSelect(key, keyPath) {
 				console.log(key, keyPath);
+				if (key == 1)
+				    this.$emit('sort-change', {sortedby: 'createdDate', order: 'desc'});
+				else if (key == 2)
+				    this.$emit('sort-change', {sortedby: 'createdDate', order: 'asc'});
 			}
 		}
 	}
