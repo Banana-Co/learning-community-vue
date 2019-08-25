@@ -20,6 +20,7 @@
 			<div>
 				<el-button plain @click="ToChange">更改密码</el-button>
 				<el-button plain @click="quit">注销</el-button>
+				<el-button plain @click="changeA">修改头像</el-button>
 			</div>
 			<div>
 				<center>
@@ -90,10 +91,9 @@
 				// localStorage.removeItem('username')
 				this.$router.replace('/login')
 			},
-			handleAvatarSuccess(file) {
-				
-				 console.log(file);
-				
+			handleAvatarSuccess(res, file) {
+				this.imageUrl = URL.createObjectURL(file.raw);
+				console.log(this.imageUrl);
 			},
 			beforeAvatarUpload(file) {
 				const isJPG = file.type === 'image/jpeg';
