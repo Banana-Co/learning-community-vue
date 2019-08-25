@@ -61,22 +61,12 @@
 			if (uname == "") {
 				this.$router.replace('/')
 			}
-			// this.$axios.post('/time',{
-			// 			username: this.name,
-			// 		}).then((res)=>{
-			//     this.time = res.data
-			// })
 			this.$axios.get(`/getUser/${this.name}`).then((response) => {
 				this.time = response.data.createdDate
 				if(response.data.avatarUrl!=''){
 					this.imageUrl=response.data.avatarUrl
 				}
-				
-				//console.log(response)
 			})
-			// this.$axios.get(`/time/${this.name}`).then((res) => {
-			// 	this.time = res.data
-			// })
 		},
 		methods: {
 			ToMessage() {
@@ -119,10 +109,11 @@
 			},
 			beforeAvatarUpload(file) {
 				const isJPG = file.type === 'image/jpeg';
+				//const isPNG = file.type === 'image/png';
 				const isLt2M = file.size / 1024 / 1024 < 2;
 
 				if (!isJPG) {
-					this.$message.error('上传头像图片只能是 JPG 格式!');
+					this.$message.error('上传头像图片只能是 JPG格式!');
 				}
 				if (!isLt2M) {
 					this.$message.error('上传头像图片大小不能超过 2MB!');

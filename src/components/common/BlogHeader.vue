@@ -7,7 +7,7 @@
 			</el-col>
 			<el-col :span="6" :offset="14">
 				<el-button type="text" @click="ToIndex">
-					<el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" :size="60"></el-avatar>
+					<el-avatar :src="imageUrl"  :size="60"></el-avatar>
 				</el-button>
 			</el-col>
 		</el-row>
@@ -32,6 +32,11 @@
 </style>
 
 <script>
+	import {
+		setCookie,
+		getCookie,
+		delCookie
+	} from '../../assets/js/cookie.js'
 	export default {
 		name: 'BlogHeader',
 		data() {
@@ -39,7 +44,23 @@
 				input: '',
 				select: '',
 				activeIndex: '1',
+				imageUrl: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+				name:'',
 			}
+		},
+		mounted() {
+			/*页面挂载获取保存的cookie值，渲染到页面上*/
+			let uname = getCookie('username')
+			this.name = uname
+			/*如果cookie不存在，则跳转到登录页*/
+			if (this.name != "") {
+				this.$axios.get(`/getUser/${this.name}`).then((response) => {
+					if(response.data.avatarUrl!=''){
+						this.imageUrl=response.data.avatarUrl
+					}
+				})
+			}
+			
 		},
 		methods: {
 			ToIndex() {

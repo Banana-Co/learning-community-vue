@@ -1,9 +1,9 @@
 <template>
 	<div>
 		<div>
-			<el-carousel height="400px" type="card">
+			<el-carousel height="300px" type="card">
 				<el-carousel-item v-for="item in items" :key="item">
-					<el-image style="width: 700px; height: 400px" :src="item"></el-image>
+					<el-image style="width: 500px; height: 300px" :src="item"></el-image>
 				</el-carousel-item>
 			</el-carousel>
 

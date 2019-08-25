@@ -12,7 +12,6 @@ const main = () => import('@/components/main/Main.vue')
 const changePassword = () => import('@/components/manage/changePassword.vue')
 const forum = () => import('@/components/forum.vue')
 const content = () => import('@/components/common/content.vue')
-const avatar = () => import('@/components/common/avatar.vue')
 Vue.use(Router)
 
 const routes = [{
@@ -22,14 +21,6 @@ const routes = [{
 			isLogin: false
 		},
 		//redirect: '/forum'
-	},
-	{
-		path: '/avatar',
-		name: 'avatar',
-		component: avatar,
-		meta: {
-			isLogin: true
-		},
 	},
 	{
 		path: '/content',
