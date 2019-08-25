@@ -1,9 +1,9 @@
 <template>
 	<div>
 		<div>
-			<el-carousel height="400px" type="card">
+			<el-carousel height="300px" type="card">
 				<el-carousel-item v-for="item in items" :key="item">
-					<el-image style="width: 700px; height: 400px" :src="item"></el-image>
+					<el-image style="width: 500px; height: 300px" :src="item"></el-image>
 				</el-carousel-item>
 			</el-carousel>
 
@@ -15,8 +15,8 @@
 		<el-button @click="ToLogin">登录</el-button>
 		<el-row>
 			<el-col :span="4">
-				<el-button @click="postDialogVisible=true">发布帖子 </el-button>
-        <post-dialog :visible.sync="postDialogVisible"></post-dialog>
+				<el-button @click="showPost">发布帖子 </el-button>
+				<post-dialog :visible.sync="postDialogVisible"></post-dialog>
 			</el-col>
 			<el-col :span="16">
 				<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage"
@@ -103,6 +103,9 @@
                     console.log(error);
                 })
         }
+			showPost(){
+				this.postDialogVisible=true;
+			},
 		},
 		data() {
 			return {

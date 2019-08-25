@@ -68,7 +68,7 @@
             },
             postToBackEnd() {
                 this.$axios
-                    .post('http://localhost:8000/api/post/addPost', {
+                    .post('addPost', {
                         title: this.form.title,
                         content: this.form.content
                     })

@@ -5,7 +5,7 @@
 				<center><span>你好!</span></center>
 			</div>
 			<div>
-				<el-upload class="avatar-uploader" action="http://localhost:8000/uploadImage" :show-file-list="false" :on-success="handleAvatarSuccess"
+				<el-upload class="avatar-uploader" action="http://localhost:8000/uploadFile" :show-file-list="false" :on-success="handleAvatarSuccess"
 				 :before-upload="beforeAvatarUpload">
 					<img v-if="imageUrl" :src="imageUrl" class="avatar">
 					<i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -20,7 +20,8 @@
 			<div>
 				<el-button plain @click="ToChange">更改密码</el-button>
 				<el-button plain @click="quit">注销</el-button>
-				<el-button plain @click="changeA">修改头像</el-button>
+				<el-button plain><el-upload class="avatar-uploader" action="http://localhost:8000/uploadFile" :show-file-list="false" :on-success="handleAvatarSuccess"
+				 :before-upload="beforeAvatarUpload">修改头像</el-upload></el-button>
 			</div>
 			<div>
 				<center>
@@ -60,13 +61,11 @@
 			if (uname == "") {
 				this.$router.replace('/')
 			}
-			// this.$axios.post('/time',{
-			// 			username: this.name,
-			// 		}).then((res)=>{
-			//     this.time = res.data
-			// })
-			this.$axios.get(`/time/${this.name}`).then((res) => {
-				this.time = res.data
+			this.$axios.get(`/getUser/${this.name}`).then((response) => {
+				this.time = response.data.createdDate
+				if(response.data.avatarUrl!=''){
+					this.imageUrl=response.data.avatarUrl
+				}
 			})
 		},
 		methods: {
@@ -96,10 +95,11 @@
 				if (res.code === 200) {
 					this.url = res.message
 					this.imageUrl=this.url
-					this.$axios.post('/time',{
+					this.$axios.post('/uploadAvatar',{
 								username: this.name,
+								avatarUrl: this.url,
 							}).then((response)=>{
-					    this.time = res.data
+					    console.log(response)
 					})
 				} else if (res.code === 300) {
 					console.log("not exist")
@@ -109,10 +109,11 @@
 			},
 			beforeAvatarUpload(file) {
 				const isJPG = file.type === 'image/jpeg';
+				//const isPNG = file.type === 'image/png';
 				const isLt2M = file.size / 1024 / 1024 < 2;
 
 				if (!isJPG) {
-					this.$message.error('上传头像图片只能是 JPG 格式!');
+					this.$message.error('上传头像图片只能是 JPG格式!');
 				}
 				if (!isLt2M) {
 					this.$message.error('上传头像图片大小不能超过 2MB!');
