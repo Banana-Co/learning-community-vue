@@ -15,8 +15,8 @@
 		<el-button @click="ToLogin">登录</el-button>
 		<el-row>
 			<el-col :span="4">
-				<!-- <el-button>发布帖子 </el-button> -->
-				<div> <PostDialog></PostDialog> </div>
+				<el-button @click="showPost">发布帖子 </el-button>
+				<div> <PostDialog :visible.sync="PostDialogVisible"></PostDialog> </div>
 			</el-col>
 			<el-col :span="16">
 				<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage"
@@ -71,11 +71,15 @@
 					path: '/login'
 				})
 			},
+			showPost(){
+				this.PostDialogVisible=true;
+			}
 		},
 		data() {
 			return {
 				currentPage: 1,
-				items: [require("@/assets/access.jpg"), require("@/assets/access1.jpg"), require("@/assets/default-8.png")]
+				items: [require("@/assets/access.jpg"), require("@/assets/access1.jpg"), require("@/assets/default-8.png")],
+				PostDialogVisible: false,
 			};
 		}
 	};

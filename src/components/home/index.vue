@@ -5,7 +5,7 @@
 				<center><span>你好!</span></center>
 			</div>
 			<div>
-				<el-upload class="avatar-uploader" action="http://localhost:8000/uploadImage" :show-file-list="false" :on-success="handleAvatarSuccess"
+				<el-upload class="avatar-uploader" action="http://localhost:8000/uploadFile" :show-file-list="false" :on-success="handleAvatarSuccess"
 				 :before-upload="beforeAvatarUpload">
 					<img v-if="imageUrl" :src="imageUrl" class="avatar">
 					<i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -65,6 +65,9 @@
 			// 		}).then((res)=>{
 			//     this.time = res.data
 			// })
+			this.$axios.post(`/getUser`,{username:this.name}).then((response) => {
+				console.log(response)
+			})
 			this.$axios.get(`/time/${this.name}`).then((res) => {
 				this.time = res.data
 			})
@@ -96,10 +99,11 @@
 				if (res.code === 200) {
 					this.url = res.message
 					this.imageUrl=this.url
-					this.$axios.post('/time',{
+					this.$axios.post('/uploadAvatar',{
 								username: this.name,
+								avatarUrl: this.url,
 							}).then((response)=>{
-					    this.time = res.data
+					    console.log(response)
 					})
 				} else if (res.code === 300) {
 					console.log("not exist")
