@@ -102,7 +102,7 @@
                 .catch(function(error) {
                     console.log(error);
                 })
-        }
+        },
 			showPost(){
 				this.postDialogVisible=true;
 			},
