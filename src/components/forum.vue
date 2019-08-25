@@ -6,7 +6,7 @@
 					<el-image style="width: 700px; height: 400px" :src="item"></el-image>
 				</el-carousel-item>
 			</el-carousel>
-			
+
 		</div>
 		<!-- <h3>监控量:{{count1}}</h3> -->
 		<!-- <h3>计算:{{this.$store.getters.getStateCount}}</h3> -->
@@ -15,7 +15,8 @@
 		<button @click="ToLogin">登录</button>
 		<el-row>
 			<el-col :span="4">
-				<el-button>发布帖子 </el-button>
+				<el-button @click="postDialogVisible=true"> 发布帖子 </el-button>
+        <post-dialog :visible.sync="postDialogVisible"></post-dialog>
 			</el-col>
 			<el-col :span="16">
 				<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage"
@@ -37,11 +38,13 @@
 <script>
 	import outpost from "@/components/common/outPost.vue";
 	import navi from "@/components/common/navi.vue";
+	import PostDialog from "@/components/message/PostDialog";
 	import {mapState,mapActions,mapGetters} from 'vuex';
 	export default {
 		components: {
 			outpost,
-			navi
+			navi,
+      PostDialog
 		},
 		computed: {
 			...mapState({
@@ -72,7 +75,8 @@
 		data() {
 			return {
 				currentPage: 1,
-				items: [require("@/assets/access.jpg"), require("@/assets/access1.jpg"), require("@/assets/default-8.png")]
+				items: [require("@/assets/access.jpg"), require("@/assets/access1.jpg"), require("@/assets/default-8.png")],
+        postDialogVisible: false
 			};
 		}
 	};
