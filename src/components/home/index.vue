@@ -5,8 +5,8 @@
 				<center><span>你好!</span></center>
 			</div>
 			<div>
-				<el-upload class="avatar-uploader" action="http://localhost:8000/uploadFile" :show-file-list="false"
-				 :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+				<el-upload class="avatar-uploader" action="http://localhost:8000/uploadImage" :show-file-list="false" :on-success="handleAvatarSuccess"
+				 :before-upload="beforeAvatarUpload">
 					<img v-if="imageUrl" :src="imageUrl" class="avatar">
 					<i v-else class="el-icon-plus avatar-uploader-icon"></i>
 				</el-upload>
@@ -48,7 +48,8 @@
 					username: ''
 				},
 				imageUrl: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
-				file:'',
+				file: '',
+				url: '',
 			}
 		},
 		mounted() {
@@ -92,8 +93,19 @@
 				this.$router.replace('/login')
 			},
 			handleAvatarSuccess(res, file) {
-				this.imageUrl = URL.createObjectURL(file.raw);
-				console.log(this.imageUrl);
+				if (res.code === 200) {
+					this.url = res.message
+					this.imageUrl=this.url
+					this.$axios.post('/time',{
+								username: this.name,
+							}).then((response)=>{
+					    this.time = res.data
+					})
+				} else if (res.code === 300) {
+					console.log("not exist")
+				} else if (res.code === 400) {
+					console.log("fail")
+				}
 			},
 			beforeAvatarUpload(file) {
 				const isJPG = file.type === 'image/jpeg';
