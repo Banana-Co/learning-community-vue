@@ -6,7 +6,7 @@
 					<el-image style="width: 700px; height: 400px" :src="item"></el-image>
 				</el-carousel-item>
 			</el-carousel>
-			
+
 		</div>
 		<!-- <h3>监控量:{{count1}}</h3> -->
 		<!-- <h3>计算:{{this.$store.getters.getStateCount}}</h3> -->
@@ -15,8 +15,8 @@
 		<el-button @click="ToLogin">登录</el-button>
 		<el-row>
 			<el-col :span="4">
-				<el-button @click="showPost">发布帖子 </el-button>
-				<div> <PostDialog :visible.sync="PostDialogVisible"></PostDialog> </div>
+				<el-button @click="postDialogVisible=true">发布帖子 </el-button>
+        <post-dialog :visible.sync="postDialogVisible"></post-dialog>
 			</el-col>
 			<el-col :span="16">
 				<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage"
