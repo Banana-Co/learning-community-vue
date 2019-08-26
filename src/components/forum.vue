@@ -15,11 +15,11 @@
 
 		<el-row>
 			<el-col :span="4">
-				<el-button @click="showPost" v-show="isLogin">发布帖子 </el-button>
+				<el-button @click="showPost">发布帖子 </el-button>
 				<post-dialog :visible.sync="postDialogVisible" :author="name" :avatarUrl='avatarUrl'></post-dialog>
 			</el-col>
 			<el-col :span="16">
-				<el-button @click="ToLogin" v-show="notLogin">登录</el-button>
+				<!-- <el-button @click="ToLogin" v-show="notLogin">登录</el-button> -->
 			</el-col>
 		</el-row>
 		<el-row>
@@ -70,10 +70,6 @@
 		// 		count1: state => state.count
 		// 	})
 		// },
-
-		mounted() {
-
-		},
 		methods: {
 			handleSizeChange(val) {
 				console.log(`每页 ${val} 条`);
@@ -112,7 +108,18 @@
 					})
 			},
 			showPost() {
-				this.postDialogVisible = true;
+				if (this.name == '') {
+					this.$alert('请先登录', '提示', {
+						confirmButtonText: '确定',
+						callback: action => {
+							this.$router.push(
+								'/login'
+							)
+						}
+					});
+				}else{
+					this.postDialogVisible = true;
+				}
 			},
 		},
 		data() {
@@ -143,13 +150,13 @@
 				})
 				this.isLogin = true;
 				this.notLogin = false;
-				console.log('登陆状态：'+this.isLogin);
+				console.log('登陆状态：' + this.isLogin);
 			} else {
 				this.isLogin = false;
 				this.notLogin = true;
-				console.log('登陆状态：'+this.isLogin);
+				console.log('登陆状态：' + this.isLogin);
 			}
-		}
+		},
 	};
 </script>
 
