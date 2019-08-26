@@ -7,7 +7,7 @@
 			</el-col>
 			<el-col :span="6" :offset="14">
 				<el-button type="text" @click="ToIndex">
-					<el-avatar :src="imageUrl" :size="60"></el-avatar>
+					<el-avatar :src="avatarUrl" :size="60"></el-avatar>
 				</el-button>
 			</el-col>
 		</el-row>
@@ -44,7 +44,7 @@
 				input: '',
 				select: '',
 				activeIndex: '1',
-				imageUrl: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+				avatarUrl: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
 				name: '',
 			}
 		},
