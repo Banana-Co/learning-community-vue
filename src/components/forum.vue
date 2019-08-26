@@ -35,7 +35,7 @@
 		<el-row>
 			<el-col :span="4">
 			</el-col>
-			<el-col :span="16">
+			<el-col :span="16" :offset="4">
 				<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage"
 				 :page-size="10" layout="prev, pager, next, jumper" :total="totalPostNum" :hide-on-single-page="true">
 				</el-pagination>
