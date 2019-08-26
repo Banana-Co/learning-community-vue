@@ -33,7 +33,8 @@
 			<el-col :span="16">
 				<outpost
           v-for="post in posts"
-          :key="1"
+          :key="post.id"
+          :id="post.id"
           :title="post.title"
           :author="post.author"
           :replyNum="post.replyNum"
@@ -88,7 +89,7 @@
 			},
         getPostPage() {
             this.$axios
-                .get('http://localhost:8000/api/post/getPostByPage', {
+                .get('getPostByPage', {
                     params: {
                         page: this.currentPage,
                         sortedby: this.sortedby,
