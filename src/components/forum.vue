@@ -28,8 +28,14 @@
 				</navi>
 			</el-col>
 			<el-col :span="16">
-				<outpost v-for="post in posts" :key="1" :title="post.title" :author="post.author" :replyNum="post.replyNum"
-				 :createdDate="post.createdDate"></outpost>
+				<outpost
+          v-for="post in posts"
+          :key="post.id"
+          :id="post.id"
+          :title="post.title"
+          :author="post.author"
+          :replyNum="post.replyNum"
+          :createdDate="post.createdDate"></outpost>
 			</el-col>
 		</el-row>
 		<el-row>
@@ -82,7 +88,7 @@
 					}
 				})
 			}
-			
+
 			// console.log(this.name)
 			// if(this.name!=''){
 			// 	this.isLogin=true;
