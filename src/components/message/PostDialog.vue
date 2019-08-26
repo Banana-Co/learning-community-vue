@@ -70,7 +70,8 @@
                 this.$axios
                     .post('addPost', {
                         title: this.form.title,
-                        content: this.form.content
+                        content: this.form.content,
+						author: this.author,
                     })
                     .then(res => {
                         if (res.status == 200) {
@@ -96,6 +97,8 @@
             }
         },
         props:
-            ['visible']
+            ['visible',
+			'author',
+			]
     }
 </script>

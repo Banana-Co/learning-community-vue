@@ -79,7 +79,7 @@
 			},
 			getPostPage() {
 				this.$axios
-					.get('http://localhost:8000/api/post/getPostByPage', {
+					.get('getPostByPage', {
 						params: {
 							page: this.currentPage,
 							sortedby: this.sortedby,
