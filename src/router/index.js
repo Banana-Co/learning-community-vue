@@ -23,7 +23,7 @@ const routes = [{
 		//redirect: '/forum'
 	},
 	{
-		path: '/content',
+		path: '/content/:id',
 		name: 'content',
 		component: content,
 		meta: {
@@ -122,7 +122,7 @@ export default router;
 // 		}
 // 	}
 // })
-// 
+//
 // router.afterEach(route => {
 // 	window.scroll(0, 0)
 // })

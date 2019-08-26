@@ -1,20 +1,17 @@
 <template>
   <div>
-    <el-dialog title="发布帖子" :visible.sync="formDialogVisible" :before-close="handleClose">
-      <el-row>
-        <el-input v-model="form.title" placeholder="请输入帖子标题" autocomplete="off" ></el-input>
-      </el-row>
+    <el-dialog title="发布回复" :visible.sync="formDialogVisible" :before-close="handleClose">
       <el-row>
         <mavon-editor
           v-model="form.content"
-          placeholder="请输入帖子内容"
+          placeholder="请输入回复内容"
           defaultOpen="edit"
           :boxShadow="false">
         </mavon-editor>
       </el-row>
       <div slot="footer" class="dialog-footer">
         <el-button @click="handleClose">取 消</el-button>
-        <el-button type="primary" @click="addPost">确 定</el-button>
+        <el-button type="primary" @click="addReply">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -34,7 +31,6 @@
         data() {
             return {
                 form: {
-                    title: '',
                     content: ''
                 },
                 formLabelWidth: '120px',
@@ -53,11 +49,11 @@
             closeDialog() {
                 this.formDialogVisible = false;
             },
-            addPost() {
-                if (this.form.title == '' || this.form.content == '')
-                    this.$alert('标题或内容不能为空')
+            addReply() {
+                if (this.form.content == '')
+                    this.$alert('内容不能为空')
                 else {
-                    this.$confirm('是否发布帖子?', '', {
+                    this.$confirm('是否发布回复?', '', {
                         confirmButtonText: '确定',
                         cancelButtonText: '取消',
                     }).then(() => {
@@ -68,19 +64,14 @@
             },
             postToBackEnd() {
                 this.$axios
-                    .post('addPost', {
-                        title: this.form.title,
-                        content: this.form.content,
-						author: this.author,
-						replyNum:0,
-						likeNum:0,
-						avatarUrl:this.avatarUrl,
+                    .post('addComment', {
+                        fatherId: this.postId,
+                        content: this.form.content
                     })
                     .then(res => {
                         if (res.status == 200) {
                             this.closeDialog();
-                            this.$alert('帖子发布成功');
-                            this.form.title = '';
+                            this.$alert('回复发布成功');
                             this.form.content = '';
                         }
                         else {
@@ -90,7 +81,7 @@
                     .catch(function (error) {
                         console.log(error);
                     });
-					location.reload();
+                location.reload()
             },
             handleClose(done) {
                 this.$confirm('确认关闭？')
@@ -101,9 +92,6 @@
             }
         },
         props:
-            ['visible',
-			'author',
-			'avatarUrl',
-			]
+            ['visible', 'post-id']
     }
 </script>

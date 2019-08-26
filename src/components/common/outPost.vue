@@ -30,11 +30,12 @@
 		methods: {
 			ToContent() {
 				this.$router.push(
-					'/content'
+					`/content/${this.id}`
 				)
 			},
 		},
       props: [
+          'id',
           'title',
           'author',
           'replyNum',

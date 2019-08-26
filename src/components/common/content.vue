@@ -1,15 +1,67 @@
 <template>
-	<div><inpost></inpost><inpost></inpost><inpost></inpost></div>
-	
+  <div>
+    <span>{{this.postDetail.title}}</span>
+    <el-divider></el-divider>
+    <in-post :content="postDetail.content" :author="postDetail.author"></in-post>
+  <el-row>
+    <el-button @click="replyDialogVisible=true"> 发表回复 </el-button>
+    <reply-dialog :post-id="this.$route.params.id" :visible.sync="replyDialogVisible"></reply-dialog>
+  </el-row>
+    <in-post v-for="reply in replies" :key="reply.createdDate" :content="reply.content" :author="reply.author"></in-post>
+  </div>
 </template>
 
 <script>
-	import inpost from "@/components/common/inPost.vue";
+	import InPost from "@/components/common/inPost.vue";
+  import OutPost from "./outPost";
+  import ReplyDialog from "../message/ReplyDialog";
 	export default {
-		components: {
-			inpost
-		},
-	};
+      components: {
+          OutPost,
+          InPost,
+          ReplyDialog
+      },
+      data() {
+        return {
+            postDetail: {},
+            replies: [],
+            replyDialogVisible: false
+        }
+      },
+      methods: {
+          getPostDetail() {
+              this.$axios
+                  .get(`findPostById=${this.$route.params.id}`)
+                  .then(res => {
+                      console.log(res.data)
+                      this.postDetail = res.data;
+                  })
+                  .catch(function (error) {
+                      console.log(error);
+                  })
+          },
+          getReply() {
+              this.$axios
+                  .get(`findCommentByFatherId=${this.$route.params.id}`)
+                  .then(res => {
+                      console.log(res.data)
+                      this.replies = res.data;
+                  })
+                  .catch(function (error) {
+                      console.log(error);
+                  })
+          },
+          handleClickReturn() {
+              this.$router.push({
+                  path: "/forum"
+              })
+          }
+      },
+      created: function () {
+          this.getPostDetail();
+          this.getReply()
+      }
+  }
 </script>
 
 <style>
