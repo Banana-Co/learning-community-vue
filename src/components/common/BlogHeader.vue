@@ -3,7 +3,10 @@
 		<el-row>
 
 			<el-col :span="4">
-				<el-button type="text"><img src="@/assets/logo2.png" alt="" @click="ToForum" height="40px"></el-button>
+				<el-button type="text" @click="ToForum">
+					<!-- <img src="@/assets/logo2.png" alt="" @click="ToForum" height="40px"> -->
+					<h1>论坛LOGO</h1>
+				</el-button>
 			</el-col>
 			<el-col :span="6" :offset="14">
 				<el-button type="text" @click="ToIndex">

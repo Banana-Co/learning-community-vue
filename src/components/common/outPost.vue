@@ -7,7 +7,7 @@
 					</div>
 				</el-col>
 				<el-col :span="11">
-					<div>标题: {{this.title}}</div>
+					<div>{{this.title}}</div>
 				</el-col>
 				<el-col :span="4">
 					<div>作者: {{this.author}}</div>
