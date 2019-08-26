@@ -66,7 +66,7 @@
                 this.$axios
                     .post('addComment', {
                         fatherId: this.postId,
-                        content: this.form.content
+                        content: this.form.content,
                     })
                     .then(res => {
                         if (res.status == 200) {

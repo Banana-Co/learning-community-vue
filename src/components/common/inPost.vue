@@ -2,7 +2,7 @@
 	<div class="inPost">
 		<el-row>
 			<el-col :span="4">
-				<el-avatar icon="el-icon-user-solid"></el-avatar></br>name
+				<el-avatar  :src="avatarUrl"  :size="60"></el-avatar></br>{{this.author}}
 			</el-col>
 			<el-col :span="20">
 					<div class="inner"><span>{{this.content}}</span></div>
@@ -43,7 +43,13 @@
 			},
 		},
       props: [
-          'content'
+		  'content',
+          'id',
+          'title',
+          'author',
+          'replyNum',
+          'createdDate',
+		  'avatarUrl',
       ]
 	}
 </script>

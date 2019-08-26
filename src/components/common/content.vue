@@ -2,12 +2,12 @@
   <div>
     <span>{{this.postDetail.title}}</span>
     <el-divider></el-divider>
-    <in-post :content="postDetail.content" :author="postDetail.author"></in-post>
+    <in-post :content="postDetail.content" :author="postDetail.author" :avatarUrl='postDetail.avatarUrl'></in-post>
   <el-row>
     <el-button @click="replyDialogVisible=true"> 发表回复 </el-button>
     <reply-dialog :post-id="this.$route.params.id" :visible.sync="replyDialogVisible"></reply-dialog>
   </el-row>
-    <in-post v-for="reply in replies" :key="reply.createdDate" :content="reply.content" :author="reply.author"></in-post>
+    <in-post v-for="reply in replies" :key="reply.createdDate" :content="reply.content" :author="reply.author" :avatarUrl='reply.avatarUrl'></in-post>
   </div>
 </template>
 
