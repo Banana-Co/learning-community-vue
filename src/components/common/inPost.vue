@@ -1,8 +1,10 @@
 <template>
-	<div class="inPost">
+	<div>
+		<el-card  class="inPost">
 		<el-row>
 			<el-col :span="4">
-				<el-avatar  :src="avatarUrl"  :size="60"></el-avatar></br>{{this.author}}
+				<el-row><el-avatar  :src="avatarUrl"  :size="60"></el-avatar></el-row>
+				<el-row>{{this.author}}</el-row>
 			</el-col>
 			<el-col :span="20">
 					<div class="inner"><span>{{this.content}}</span></div>
@@ -11,9 +13,11 @@
 						<span>楼层</span>
 						<span>{{dateFormat(time)}}</span>
 						<span>回复</span>
+						<span>点赞</span>
 					</div>
 			</el-col>
 		</el-row>
+		</el-card>
 	</div>
 </template>
 
@@ -73,6 +77,6 @@
 		font-size: 1px;
 		text-align: right;
 		vertical-align: bottom;
-		/* position:absolute;right:0px;bottom:0px; */
+		position:absolute;right:0px;bottom:0px;
 	}
 </style>
