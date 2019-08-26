@@ -22,7 +22,9 @@
 					<span slot="title">刷题</span></el-menu-item>
 				<el-menu-item index="3"><i class="el-icon-document"></i>
 					<span slot="title">校园周边</span></el-menu-item>
+					
 			</el-menu>
+			  
 		</el-row>
 	</div>
 </template>
