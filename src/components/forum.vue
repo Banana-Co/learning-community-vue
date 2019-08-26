@@ -1,28 +1,25 @@
 <template>
 	<div>
-		<div>
+		<!-- <div>
 			<el-carousel height="300px" type="card">
 				<el-carousel-item v-for="item in items" :key="item">
 					<el-image style="width: 500px; height: 300px" :src="item"></el-image>
 				</el-carousel-item>
 			</el-carousel>
 
-		</div>
+		</div> -->
 		<!-- <h3>监控量:{{count1}}</h3> -->
 		<!-- <h3>计算:{{this.$store.getters.getStateCount}}</h3> -->
 		<!-- <button @click="addFun">+</button>
 		<button @click="minusFun">-</button> -->
-		<el-button @click="ToLogin">登录</el-button>
+		
 		<el-row>
 			<el-col :span="4">
 				<el-button @click="showPost" >发布帖子 </el-button>
 				<post-dialog :visible.sync="postDialogVisible" :author="name" :avatarUrl='avatarUrl'></post-dialog>
 			</el-col>
 			<el-col :span="16">
-				<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage"
-				 :page-size="10" layout="prev, pager, next, jumper" :total="totalPostNum" :hide-on-single-page="true">
-				</el-pagination>
-
+<el-button @click="ToLogin">登录</el-button>
 			</el-col>
 		</el-row>
 		<el-row>
@@ -33,6 +30,16 @@
 			<el-col :span="16">
 				<outpost v-for="post in posts" :key="1" :title="post.title" :author="post.author" :replyNum="post.replyNum"
 				 :createdDate="post.createdDate"></outpost>
+			</el-col>
+		</el-row>
+		<el-row>
+			<el-col :span="4">
+			</el-col>
+			<el-col :span="16">
+				<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage"
+				 :page-size="10" layout="prev, pager, next, jumper" :total="totalPostNum" :hide-on-single-page="true">
+				</el-pagination>
+			
 			</el-col>
 		</el-row>
 	</div>
