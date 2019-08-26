@@ -106,6 +106,7 @@
 				} else if (res.code === 400) {
 					console.log("fail")
 				}
+				location.reload();
 			},
 			beforeAvatarUpload(file) {
 				const isJPG = file.type === 'image/jpeg';

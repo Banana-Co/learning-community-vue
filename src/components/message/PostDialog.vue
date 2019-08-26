@@ -90,6 +90,7 @@
                     .catch(function (error) {
                         console.log(error)
                     });
+					location.reload();
             },
             handleClose(done) {
                 this.$confirm('确认关闭？')
