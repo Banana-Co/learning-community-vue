@@ -5,11 +5,13 @@
 				<center><span>你好!</span></center>
 			</div>
 			<div>
-				<el-upload class="avatar-uploader" action="http://localhost:8000/uploadFile" :show-file-list="false" :on-success="handleAvatarSuccess"
-				 :before-upload="beforeAvatarUpload">
-					<img v-if="imageUrl" :src="imageUrl" class="avatar">
-					<i v-else class="el-icon-plus avatar-uploader-icon"></i>
-				</el-upload>
+
+				<el-tooltip class="item" effect="dark" content="点击修改头像" placement="top">
+					<el-upload class="avatar-uploader" action="http://localhost:8000/uploadFile" :show-file-list="false" :on-success="handleAvatarSuccess"
+					 :before-upload="beforeAvatarUpload">
+						<img v-if="imageUrl" :src="imageUrl" class="avatar">
+					</el-upload>
+				</el-tooltip>
 			</div>
 			<div>
 				<span><br />用户名:<br />{{name}}</span><br /><br />
@@ -20,8 +22,8 @@
 			<div>
 				<el-button plain @click="ToChange">更改密码</el-button>
 				<el-button plain @click="quit">注销</el-button>
-				<el-button plain><el-upload class="avatar-uploader" action="http://localhost:8000/uploadFile" :show-file-list="false" :on-success="handleAvatarSuccess"
-				 :before-upload="beforeAvatarUpload">修改头像</el-upload></el-button>
+				<!-- <el-button plain><el-upload class="avatar-uploader" action="http://localhost:8000/uploadFile" :show-file-list="false" :on-success="handleAvatarSuccess"
+				 :before-upload="beforeAvatarUpload">修改头像</el-upload></el-button> -->
 			</div>
 			<div>
 				<center>
@@ -63,8 +65,8 @@
 			}
 			this.$axios.get(`/getUser/${this.name}`).then((response) => {
 				this.time = response.data.createdDate
-				if(response.data.avatarUrl!=''){
-					this.imageUrl=response.data.avatarUrl
+				if (response.data.avatarUrl != '') {
+					this.imageUrl = response.data.avatarUrl
 				}
 			})
 		},
@@ -94,12 +96,12 @@
 			handleAvatarSuccess(res, file) {
 				if (res.code === 200) {
 					this.url = res.message
-					this.imageUrl=this.url
-					this.$axios.post('/uploadAvatar',{
-								username: this.name,
-								avatarUrl: this.url,
-							}).then((response)=>{
-					    console.log(response)
+					this.imageUrl = this.url
+					this.$axios.post('/uploadAvatar', {
+						username: this.name,
+						avatarUrl: this.url,
+					}).then((response) => {
+						console.log(response)
 					})
 				} else if (res.code === 300) {
 					console.log("not exist")
