@@ -78,7 +78,7 @@
 			},
 			ToChange() {
 				this.$router.push(
-					'/change'
+					'/changePassword'
 				)
 			},
 			changeA() {

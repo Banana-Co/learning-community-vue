@@ -67,6 +67,8 @@
                     .post('addComment', {
                         fatherId: this.postId,
                         content: this.form.content,
+						author:this.author,
+						avatarUrl:this.avatarUrl,
                     })
                     .then(res => {
                         if (res.status == 200) {
@@ -92,6 +94,8 @@
             }
         },
         props:
-            ['visible', 'post-id']
+            ['visible', 'post-id',
+			'author',
+			'avatarUrl',]
     }
 </script>
