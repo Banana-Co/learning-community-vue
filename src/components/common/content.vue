@@ -5,14 +5,14 @@
 		<el-row>
 			<el-col :span="4">
 				<el-button @click="replyDialogVisible=true"> 发表回复 </el-button>
-				<reply-dialog :post-id="this.$route.params.id" :visible.sync="replyDialogVisible" :author="name" :avatarUrl='avatarUrl'></reply-dialog>
+				<reply-dialog :post-id="this.$route.params.id" :visible.sync="replyDialogVisible" :author="name" :avatarUrl="avatarUrl" :floor="0"></reply-dialog>
 				<navi @sort-change="handleSortChange">
 				</navi>
 			</el-col>
 			<el-col :span="16">
 				<in-post :content="postDetail.content" :author="postDetail.author" :avatarUrl='postDetail.avatarUrl'></in-post>
 				<in-post v-for="reply in replies" :key="reply.createdDate" :content="reply.content" :author="reply.author"
-				 :avatarUrl='reply.avatarUrl'></in-post>
+				 :avatarUrl="reply.avatarUrl" :floor="reply"></in-post>
 			</el-col>
 		</el-row>
 

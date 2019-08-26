@@ -10,7 +10,7 @@
 					<div class="inner"><span>{{this.content}}</span></div>
 					<div class="but">
 						<span>举报</span>
-						<span>楼层</span>
+						<span>{{this.floor}}</span>
 						<span>{{dateFormat(time)}}</span>
 						<span>回复</span>
 						<span>点赞</span>
@@ -54,6 +54,7 @@
           'replyNum',
           'createdDate',
 		  'avatarUrl',
+		  'floor',
       ]
 	}
 </script>
