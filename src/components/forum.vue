@@ -29,7 +29,7 @@
 			</el-col>
 			<el-col :span="16">
 				<outpost v-for="post in posts" :key="post.id" :id="post.id" :title="post.title" :author="post.author" :replyNum="post.replyNum"
-				 :createdDate="post.createdDate"></outpost>
+				 :createdDate="post.createdDate" :avatarUrl="post.avatarUrl"></outpost>
 			</el-col>
 		</el-row>
 		<el-row>
