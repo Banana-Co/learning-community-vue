@@ -72,6 +72,9 @@
                         title: this.form.title,
                         content: this.form.content,
 						author: this.author,
+						replyNum:0,
+						likeNum:0,
+						avatarUrl:this.avatarUrl,
                     })
                     .then(res => {
                         if (res.status == 200) {
@@ -99,6 +102,7 @@
         props:
             ['visible',
 			'author',
+			'avatarUrl',
 			]
     }
 </script>

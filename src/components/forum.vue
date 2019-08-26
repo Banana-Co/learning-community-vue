@@ -15,8 +15,8 @@
 		<el-button @click="ToLogin">登录</el-button>
 		<el-row>
 			<el-col :span="4">
-				<el-button @click="showPost">发布帖子 </el-button>
-				<post-dialog :visible.sync="postDialogVisible"></post-dialog>
+				<el-button @click="showPost" >发布帖子 </el-button>
+				<post-dialog :visible.sync="postDialogVisible" :author="name" :avatarUrl='avatarUrl'></post-dialog>
 			</el-col>
 			<el-col :span="16">
 				<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage"
@@ -47,16 +47,40 @@
 		mapActions,
 		mapGetters
 	} from 'vuex';
+	import {
+		setCookie,
+		getCookie,
+		delCookie
+	} from '../assets/js/cookie.js'
 	export default {
 		components: {
 			outpost,
 			navi,
 			PostDialog,
 		},
-		computed: {
-			...mapState({
-				count1: state => state.count
-			})
+		// computed: {
+		// 	...mapState({
+		// 		count1: state => state.count
+		// 	})
+		// },
+		mounted() {
+			/*页面挂载获取保存的cookie值，渲染到页面上*/
+			let uname = getCookie('username')
+			this.name = uname
+			if(this.name!=''){
+				this.$axios.get(`/getUser/${this.name}`).then((response) => {
+					this.time = response.data.createdDate
+					if(response.data.avatarUrl!=''){
+						this.avatarUrl=response.data.avatarUrl
+					}
+				})
+			}
+			
+			// console.log(this.name)
+			// if(this.name!=''){
+			// 	this.isLogin=true;
+			// 	this.notLogin=false;
+			// }
 		},
 		methods: {
 			handleSizeChange(val) {
@@ -88,6 +112,7 @@
 					})
 					.then(res => {
 						this.posts = res.data.content;
+						console.log(this.posts);
 						this.totalPostNum = res.data.totalElements;
 					})
 					.catch(function(error) {
@@ -106,7 +131,11 @@
 				posts: [],
 				totalPostNum: 1,
 				sortedby: "createdDate",
-				order: "desc"
+				order: "desc",
+				name:"",
+				avatarUrl:"https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
+				// isLogin:false,
+				// notLogin:true,
 			};
 		},
 		created: function() {
