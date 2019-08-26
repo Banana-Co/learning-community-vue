@@ -3,7 +3,7 @@
 			<el-card shadow="hover" class="outPost" @click.native="ToContent">
 				<el-col :span="1">
 					<div class="avatar">
-						<el-avatar icon="el-icon-user-solid"></el-avatar>
+						<el-avatar  :src="avatarUrl"  :size="60"></el-avatar>
 					</div>
 				</el-col>
 				<el-col :span="11">
@@ -38,7 +38,8 @@
           'title',
           'author',
           'replyNum',
-          'createdDate'
+          'createdDate',
+		  'avatarUrl',
       ]
 	}
 </script>

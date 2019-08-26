@@ -70,7 +70,11 @@
                 this.$axios
                     .post('addPost', {
                         title: this.form.title,
-                        content: this.form.content
+                        content: this.form.content,
+						author: this.author,
+						replyNum:0,
+						likeNum:0,
+						avatarUrl:this.avatarUrl,
                     })
                     .then(res => {
                         if (res.status == 200) {
@@ -86,6 +90,7 @@
                     .catch(function (error) {
                         console.log(error)
                     });
+					location.reload();
             },
             handleClose(done) {
                 this.$confirm('确认关闭？')
@@ -96,6 +101,9 @@
             }
         },
         props:
-            ['visible']
+            ['visible',
+			'author',
+			'avatarUrl',
+			]
     }
 </script>
