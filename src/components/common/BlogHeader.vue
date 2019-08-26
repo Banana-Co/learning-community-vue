@@ -3,11 +3,11 @@
 		<el-row>
 
 			<el-col :span="4">
-				<el-button type="text"><img src="@/assets/logo2.png" alt="" @click="ToLogin" height="40px"></el-button>
+				<el-button type="text"><img src="@/assets/logo2.png" alt="" @click="ToForum" height="40px"></el-button>
 			</el-col>
 			<el-col :span="6" :offset="14">
 				<el-button type="text" @click="ToIndex">
-					<el-avatar :src="imageUrl"  :size="60"></el-avatar>
+					<el-avatar :src="imageUrl" :size="60"></el-avatar>
 				</el-button>
 			</el-col>
 		</el-row>
@@ -45,36 +45,43 @@
 				select: '',
 				activeIndex: '1',
 				imageUrl: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
-				name:'',
+				name: '',
 			}
 		},
-		mounted() {
-			/*页面挂载获取保存的cookie值，渲染到页面上*/
+		created() {
 			let uname = getCookie('username')
 			this.name = uname
-			/*如果cookie不存在，则跳转到登录页*/
-			if (this.name != "") {
+			if (this.name != '') {
 				this.$axios.get(`/getUser/${this.name}`).then((response) => {
-					if(response.data.avatarUrl!=''){
-						this.imageUrl=response.data.avatarUrl
+					this.time = response.data.createdDate
+					if (response.data.avatarUrl != '') {
+						this.avatarUrl = response.data.avatarUrl
 					}
 				})
 			}
-			
 		},
 		methods: {
 			ToIndex() {
-				this.$router.push(
-					'/index'
-				)
+				if (this.name == '') {
+					this.$router.push(
+						'/login'
+					)
+				} else {
+					this.$router.push(
+						'/index'
+					)
+				}
 			},
-			ToLogin() {
-				this.$router.replace({
-					path: '/login'
+			ToForum() {
+				this.$router.push({
+					path: '/forum'
 				})
 			},
 			handleSelect(key, keyPath) {
 				console.log(key, keyPath);
+				this.$router.push({
+					path: '/forum'
+				})
 			},
 		}
 	}

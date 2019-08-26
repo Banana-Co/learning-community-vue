@@ -1,28 +1,25 @@
 <template>
 	<div>
-		<div>
+		<!-- <div>
 			<el-carousel height="300px" type="card">
 				<el-carousel-item v-for="item in items" :key="item">
 					<el-image style="width: 500px; height: 300px" :src="item"></el-image>
 				</el-carousel-item>
 			</el-carousel>
 
-		</div>
+		</div> -->
 		<!-- <h3>监控量:{{count1}}</h3> -->
 		<!-- <h3>计算:{{this.$store.getters.getStateCount}}</h3> -->
 		<!-- <button @click="addFun">+</button>
 		<button @click="minusFun">-</button> -->
-		<el-button @click="ToLogin">登录</el-button>
+
 		<el-row>
 			<el-col :span="4">
-				<el-button @click="showPost" >发布帖子 </el-button>
+				<el-button @click="showPost">发布帖子 </el-button>
 				<post-dialog :visible.sync="postDialogVisible" :author="name" :avatarUrl='avatarUrl'></post-dialog>
 			</el-col>
 			<el-col :span="16">
-				<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage"
-				 :page-size="10" layout="prev, pager, next, jumper" :total="totalPostNum" :hide-on-single-page="true">
-				</el-pagination>
-
+				<!-- <el-button @click="ToLogin" v-show="notLogin">登录</el-button> -->
 			</el-col>
 		</el-row>
 		<el-row>
@@ -31,14 +28,18 @@
 				</navi>
 			</el-col>
 			<el-col :span="16">
-				<outpost
-          v-for="post in posts"
-          :key="post.id"
-          :id="post.id"
-          :title="post.title"
-          :author="post.author"
-          :replyNum="post.replyNum"
-          :createdDate="post.createdDate"></outpost>
+				<outpost v-for="post in posts" :key="post.id" :id="post.id" :title="post.title" :author="post.author" :replyNum="post.replyNum"
+				 :createdDate="post.createdDate" :avatarUrl="post.avatarUrl"></outpost>
+			</el-col>
+		</el-row>
+		<el-row>
+			<el-col :span="4">
+			</el-col>
+			<el-col :span="16">
+				<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage"
+				 :page-size="10" layout="prev, pager, next, jumper" :total="totalPostNum" :hide-on-single-page="true">
+				</el-pagination>
+
 			</el-col>
 		</el-row>
 	</div>
@@ -69,25 +70,6 @@
 		// 		count1: state => state.count
 		// 	})
 		// },
-		mounted() {
-			/*页面挂载获取保存的cookie值，渲染到页面上*/
-			let uname = getCookie('username')
-			this.name = uname
-			if(this.name!=''){
-				this.$axios.get(`/getUser/${this.name}`).then((response) => {
-					this.time = response.data.createdDate
-					if(response.data.avatarUrl!=''){
-						this.avatarUrl=response.data.avatarUrl
-					}
-				})
-			}
-
-			// console.log(this.name)
-			// if(this.name!=''){
-			// 	this.isLogin=true;
-			// 	this.notLogin=false;
-			// }
-		},
 		methods: {
 			handleSizeChange(val) {
 				console.log(`每页 ${val} 条`);
@@ -118,7 +100,7 @@
 					})
 					.then(res => {
 						this.posts = res.data.content;
-						console.log(this.posts);
+						//console.log(this.posts);
 						this.totalPostNum = res.data.totalElements;
 					})
 					.catch(function(error) {
@@ -126,7 +108,18 @@
 					})
 			},
 			showPost() {
-				this.postDialogVisible = true;
+				if (this.name == '') {
+					this.$alert('请先登录', '提示', {
+						confirmButtonText: '确定',
+						callback: action => {
+							this.$router.push(
+								'/login'
+							)
+						}
+					});
+				}else{
+					this.postDialogVisible = true;
+				}
 			},
 		},
 		data() {
@@ -138,15 +131,32 @@
 				totalPostNum: 1,
 				sortedby: "createdDate",
 				order: "desc",
-				name:"",
-				avatarUrl:"https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-				// isLogin:false,
-				// notLogin:true,
+				name: '',
+				avatarUrl: "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
+				isLogin: false,
+				notLogin: true,
 			};
 		},
-		created: function() {
+		created() {
 			this.getPostPage();
-		}
+			let uname = getCookie('username')
+			this.name = uname
+			if (this.name != '') {
+				this.$axios.get(`/getUser/${this.name}`).then((response) => {
+					this.time = response.data.createdDate
+					if (response.data.avatarUrl != '') {
+						this.avatarUrl = response.data.avatarUrl
+					}
+				})
+				this.isLogin = true;
+				this.notLogin = false;
+				console.log('登陆状态：' + this.isLogin);
+			} else {
+				this.isLogin = false;
+				this.notLogin = true;
+				console.log('登陆状态：' + this.isLogin);
+			}
+		},
 	};
 </script>
 
