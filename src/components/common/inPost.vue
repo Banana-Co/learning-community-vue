@@ -3,17 +3,17 @@
 		<el-card  class="inPost">
 		<el-row>
 			<el-col :span="4">
-				<el-row><el-avatar  :src="avatarUrl"  :size="60"></el-avatar></el-row>
-				<el-row>{{this.author}}</el-row>
+				<el-row><el-avatar  :src="this.con.avatarUrl"  :size="60"></el-avatar></el-row>
+				<el-row>{{this.con.author}}</el-row>
 			</el-col>
 			<el-col :span="20">
-					<div class="inner"><span>{{this.content}}</span></div>
+					<div class="inner"><span>{{this.con.content}}</span></div>
 					<div class="but">
+						<span>{{this.con.floor}}楼</span>
+						<span>{{this.con.createdDate}}</span>
 						<span>举报</span>
-						<span>{{this.floor}}</span>
-						<span>{{dateFormat(time)}}</span>
 						<span>回复</span>
-						<span>点赞</span>
+						<span>点赞:{{this.con.likeNum}}</span>
 					</div>
 			</el-col>
 		</el-row>
@@ -47,14 +47,8 @@
 			},
 		},
       props: [
-		  'content',
           'id',
-          'title',
-          'author',
-          'replyNum',
-          'createdDate',
-		  'avatarUrl',
-		  'floor',
+		  'con',
       ]
 	}
 </script>
