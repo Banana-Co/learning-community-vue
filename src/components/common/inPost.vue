@@ -14,6 +14,7 @@
 					<div class="reply" v-if="isReply"><span>回复@{{this.father.name}}</span></div>
 					<div class="inner"><span>{{this.con.content}}</span></div>
 					<div class="but">
+						<span>{{formattedDate}}</span>
 						<span>{{this.con.createdDate}}</span>
 						<el-button size="mini">举报</el-button>
 						<el-button size="mini" @click="replyDialogVisible=true">回复</el-button>
@@ -27,13 +28,10 @@
 </template>
 
 <script>
-	var t = new Date();
-	import ReplyDialog from "../message/ReplyDialog";
-	export default {
-		name: "InPost",
-		components: {
-			ReplyDialog,
-		},
+	import {dateFormat} from "../../assets/js/time.js";
+
+  export default {
+	    name: "InPost",
 		data() {
 			return {
 				time: t,
@@ -50,25 +48,17 @@
 				this.isReply=true;
 			}
 		},
+      computed : {
+	        formattedDate: function() {
+	            return dateFormat(this.con.createdDate)
+          }
+      },
 		methods: { //   时间格式化
-			dateFormat: function(time) {
-				var date = new Date(time);
-				var year = date.getFullYear();
-				/* 在日期格式中，月份是从0开始的，因此要加0
-				 * 使用三元表达式在小于10的前面加0，以达到格式统一  如 09:11:05
-				 * */
-				var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-				var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-				var hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-				var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-				var seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-				// 拼接
-				return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
-			},
-			like() {
-				console.log(this.con)
-				this.$axios.post('addLike', this.con).then((response) => {
-						console.log(response)
+			like(){
+				this.$axios.post('like',{id:this.id}).then(res => {
+						this.posts = res.data.content;
+						//console.log(this.posts);
+						this.totalPostNum = res.data.totalElements;
 					})
 					.catch(function(error) {
 						console.log(error);
@@ -94,7 +84,6 @@
 	.inner {
 		text-align: left;
 		padding: 20px 20px 0 0;
-
 	}
 	.reply{
 		text-align: left;
@@ -102,7 +91,7 @@
 
 	.but {
 		line-height: 20px;
-		font-size: 1px;
+		font-size: 12px;
 		text-align: right;
 		vertical-align: bottom;
 		position: absolute;

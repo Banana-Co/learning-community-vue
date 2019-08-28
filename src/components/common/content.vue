@@ -11,6 +11,10 @@
 			</el-col>
 			<el-col :span="16">
 				<in-post v-for="reply in replies" :key="reply.createdDate"  :con="reply" :name='name' :avatarUrl='avatarUrl'></in-post>
+				<in-post v-for="reply in replyPage" :key="reply.createdDate"  :con="reply"></in-post>
+        <el-pagination @current-change="handleCurrentChange" :current-page.sync="currentPage"
+                       :page-size="10" layout="prev, pager, next, jumper" :total="postDetail.replyNum" :hide-on-single-page="true">
+        </el-pagination>
 			</el-col>
 		</el-row>
 
@@ -26,7 +30,8 @@
 		setCookie,
 		getCookie,
 		delCookie
-	} from '../../assets/js/cookie.js'
+	} from '../../assets/js/cookie.js';
+	import {sortByField} from '../../assets/js/sort.js'
 	export default {
 		components: {
 			OutPost,
@@ -41,8 +46,18 @@
 				replyDialogVisible: false,
 				name: '',
 				avatarUrl: '',
+				replyNum:'',
+          currentPage: 1,
+          sortedby: 'no',
+          order: 'asc'
 			}
 		},
+      computed: {
+		    replyPage: function() {
+		        return this.getPagedAndSortedReply(this.replies, this.currentPage, this.sortedby, this.order)
+                .slice((this.currentPage - 1)*10, this.currentPage*10);
+        }
+      },
 		methods: {
 			getPostDetail() {
 				this.$axios
@@ -56,8 +71,13 @@
 					})
 			},
 			handleSortChange(val) {
+			    this.sortedby = val.sortedby;
+			    this.order = val.order;
 				console.log("sort")
 			},
+        handleCurrentChange(val) {
+			    this.currentPage = val;
+        },
 			getReply() {
 				this.$axios
 					.get(`findCommentByFatherId=${this.$route.params.id}`)
@@ -73,7 +93,10 @@
 				this.$router.push({
 					path: "/forum"
 				})
-			}
+			},
+      getPagedAndSortedReply(replies, currentPage, sortedby, order) {
+        return replies.sort(sortByField(sortedby, order));
+      }
 		},
 		created() {
 			this.getPostDetail();
@@ -93,4 +116,8 @@
 </script>
 
 <style>
+  .el-pagination {
+    margin-top: 30px;
+    margin-bottown: 100px
+  }
 </style>
