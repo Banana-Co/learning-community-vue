@@ -12,6 +12,7 @@ const main = () => import('@/components/main/Main.vue')
 const changePassword = () => import('@/components/manage/changePassword.vue')
 const forum = () => import('@/components/forum.vue')
 const content = () => import('@/components/common/content.vue')
+const myPost = () => import('@/components/home/myPost.vue')
 Vue.use(Router)
 
 const routes = [{
@@ -21,6 +22,14 @@ const routes = [{
 			isLogin: false
 		},
 		//redirect: '/forum'
+	},
+	{
+		path: '/myPost',
+		name: 'myPost',
+		component: myPost,
+		meta: {
+			isLogin: true
+		},
 	},
 	{
 		path: '/content/:id',

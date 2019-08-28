@@ -10,7 +10,7 @@
 				</navi>
 			</el-col>
 			<el-col :span="16">
-				<in-post v-for="reply in replyPage" :key="reply.no"  :con="reply"></in-post>
+				<in-post v-for="reply in replies" :key="reply.createdDate"  :con="reply" :name='name' :avatarUrl='avatarUrl'></in-post>
         <el-pagination @current-change="handleCurrentChange" :current-page.sync="currentPage"
                        :page-size="10" layout="prev, pager, next, jumper" :total="postDetail.replyNum" :hide-on-single-page="true">
         </el-pagination>
@@ -58,6 +58,17 @@
         }
       },
 		methods: {
+			getPostDetail() {
+				this.$axios
+					.get(`findPostById=${this.$route.params.id}`)
+					.then(res => {
+						//console.log(res.data)
+						this.postDetail = res.data;
+					})
+					.catch(function(error) {
+						console.log(error);
+					})
+			},
 			handleSortChange(val) {
 			    switch (val) {
               case 0:
@@ -78,23 +89,12 @@
 			handleCurrentChange(val) {
 			    this.currentPage = val;
         },
-        getReply() {
+			getReply() {
 				this.$axios
 					.get(`findCommentByFatherId=${this.$route.params.id}`)
 					.then(res => {
 						//console.log(res.data)
 						this.replies = res.data;
-					})
-					.catch(function(error) {
-						console.log(error);
-					})
-			},
-			getPostDetail() {
-				this.$axios
-					.get(`findPostById=${this.$route.params.id}`)
-					.then(res => {
-						//console.log(res.data)
-						this.postDetail = res.data;
 					})
 					.catch(function(error) {
 						console.log(error);
