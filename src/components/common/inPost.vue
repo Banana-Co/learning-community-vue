@@ -1,7 +1,7 @@
 <template>
 	<div class="inPost">
-		<el-card >
-			<el-row >
+		<el-card>
+			<el-row>
 				<el-col :span="4">
 					<el-row>
 						<el-avatar :src="this.con.avatarUrl" :size="60"></el-avatar>
@@ -10,18 +10,26 @@
 
 				</el-col>
 				<el-col :span="20">
-						<div class='floor'><span>#{{this.con.no}}</span></div>
-						<div class="reply" v-if="isReply"><span>回复#{{this.con.fatherNo}}</span></div>
-						<div class="inner"><span>{{this.con.content}}</span></div>
+					<div class='floor'><span>#{{this.con.no}}</span></div>
+					<div class="reply" v-if="isReply"><span>回复#{{this.con.fatherNo}}</span></div>
+					<el-row>
+						<div class="inner">
+							<mavon-editor v-model="this.con.content" :subfield="false" :defaultOpen="defaultData" :toolbarsFlag="false"
+							 :boxShadow="false" />
+						</div>
+					</el-row>
+					<br />
+					<el-row>
 						<div class="but">
 							<span>{{formattedDate}}</span>
 							<el-button size="mini">举报</el-button>
 							<el-button size="mini" @click="replyDialogVisible=true">回复</el-button>
 							<el-button size="mini" @click="like">点赞:{{this.con.likeNum}}</el-button>
 						</div>
-						<reply-dialog :postId="this.$route.params.id" :visible.sync="replyDialogVisible" :author="name" :avatarUrl="avatarUrl"
-						 :floor='this.con.no'></reply-dialog>
-					
+					</el-row>
+					<reply-dialog :postId="this.$route.params.id" :visible.sync="replyDialogVisible" :author="name" :avatarUrl="avatarUrl"
+					 :floor='this.con.no'></reply-dialog>
+
 
 				</el-col>
 			</el-row>
@@ -47,6 +55,7 @@
 					name: '',
 					content: '',
 				},
+				defaultData: "preview"
 			}
 		},
 		created() {
@@ -85,14 +94,16 @@
 		margin-left: auto;
 		margin-right: auto;
 	}
-	.right{
+
+	.right {
 		border-left: 1px solid black;
 	}
+
 	.inner {
 		text-align: left;
 		padding: 20px 20px 0 0;
 	}
-	
+
 	.reply {
 		text-align: left;
 	}
