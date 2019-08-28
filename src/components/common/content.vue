@@ -6,11 +6,11 @@
 			<el-col :span="4">
 				<el-button @click="replyDialogVisible=true"> 发表回复 </el-button>
 				<reply-dialog :postId="this.$route.params.id" :visible.sync="replyDialogVisible" :author="name" :avatarUrl="avatarUrl" :floor='0'></reply-dialog>
-				<navi @sort-change="handleSortChange">
+				<navi :sortbys="sortbys" @sort-change="handleSortChange">
 				</navi>
 			</el-col>
 			<el-col :span="16">
-				<in-post v-for="reply in replies" :key="reply.createdDate"  :con="reply" :name='name' :avatarUrl='avatarUrl'></in-post>
+				<in-post v-for="reply in replyPage" :key="reply.createdDate"  :con="reply" :name='name' :avatarUrl='avatarUrl'></in-post>
         <el-pagination @current-change="handleCurrentChange" :current-page.sync="currentPage"
                        :page-size="10" layout="prev, pager, next, jumper" :total="postDetail.replyNum" :hide-on-single-page="true">
         </el-pagination>
@@ -45,10 +45,10 @@
 				replyDialogVisible: false,
 				name: '',
 				avatarUrl: '',
-				replyNum:'',
           currentPage: 1,
           sortedby: 'no',
-          order: 'asc'
+          order: 'asc',
+          sortbys: ['最早发布','最晚发布','最多点赞']
 			}
 		},
       computed: {
@@ -70,11 +70,23 @@
 					})
 			},
 			handleSortChange(val) {
-			    this.sortedby = val.sortedby;
-			    this.order = val.order;
-				console.log("sort")
+			    switch (val) {
+              case 0:
+                  this.sortedby = 'no';
+                  this.order = 'asc';
+                  break;
+              case 1:
+                  this.sortedby = 'no';
+                  this.order = 'desc';
+                  break;
+              case 2:
+                  this.sortedby = 'likeNum';
+                  this.order = 'desc';
+                  break;
+          }
+          this.currentPage = 1;
 			},
-        handleCurrentChange(val) {
+			handleCurrentChange(val) {
 			    this.currentPage = val;
         },
 			getReply() {
