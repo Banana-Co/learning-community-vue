@@ -15,7 +15,6 @@
 					<div class="inner"><span>{{this.con.content}}</span></div>
 					<div class="but">
 						<span>{{formattedDate}}</span>
-						<span>{{this.con.createdDate}}</span>
 						<el-button size="mini">举报</el-button>
 						<el-button size="mini" @click="replyDialogVisible=true">回复</el-button>
 						<el-button size="mini" @click="like">点赞:{{this.con.likeNum}}</el-button>
