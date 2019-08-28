@@ -34,6 +34,9 @@
 				formDialogVisible: this.visible
 			}
 		},
+		created() {
+			console.log(this.floor);
+		},
 		watch: {
 			formDialogVisible(val) {
 				this.$emit('update:visible', val)
@@ -91,6 +94,7 @@
 		props: ['visible', 'postId',
 			'author',
 			'avatarUrl', 
+			'floor',
 		]
 	}
 </script>

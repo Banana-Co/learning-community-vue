@@ -16,9 +16,9 @@
 						<span>{{this.con.createdDate}}</span>
 						<el-button size="mini">举报</el-button>
 						<el-button size="mini" @click="replyDialogVisible=true">回复</el-button>
-						<reply-dialog :postId="this.$route.params.id" :visible.sync="replyDialogVisible" :author="name" :avatarUrl="avatarUrl"></reply-dialog>
 						<el-button size="mini" @click="like">点赞:{{this.con.likeNum}}</el-button>
 					</div>
+					<reply-dialog :postId="this.$route.params.id" :visible.sync="replyDialogVisible" :author="name" :avatarUrl="avatarUrl" :floor='this.con.no'></reply-dialog>
 				</el-col>
 			</el-row>
 		</el-card>
@@ -75,11 +75,9 @@
 
 <style>
 	.inPost {
-		height: 300px;
 		margin-left: auto;
 		margin-right: auto;
 		margin-top: 1px;
-		overflow: hidden;
 	}
 
 	.inner {
