@@ -11,7 +11,7 @@
 				</el-col>
 				<el-col :span="20">
 					<div class='floor'><span>#{{this.con.no}}</span></div>
-					<div class="reply" v-if="isReply"><span>回复@{{this.con.fatherNo}}</span></div>
+					<div class="reply" v-if="isReply"><span>回复#{{this.con.fatherNo}}</span></div>
 					<div class="inner"><span>{{this.con.content}}</span></div>
 					<div class="but">
 						<span>{{formattedDate}}</span>
