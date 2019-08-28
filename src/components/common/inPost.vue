@@ -50,13 +50,13 @@ import ReplyDialog from "../message/ReplyDialog";
 			}
 		},
       computed : {
-	        formattedDate: function() {
+	        formattedDate() {
 	            return dateFormat(this.con.createdDate)
           }
       },
 		methods: { //   时间格式化
 			like(){
-				this.$axios.post('addLike',{id:this.id}).then(res => {
+				this.$axios.post('addLike',this.id).then(res => {
 						this.posts = res.data.content;
 						//console.log(this.posts);
 						this.totalPostNum = res.data.totalElements;

@@ -16,7 +16,7 @@
 				<div>回复数: {{this.con.replyNum}}</div>
 			</el-col>
 			<el-col :span="4">
-				<div>发布时间: {{this.con.createdDate}}</div>
+				<div>发布时间: {{formattedDate}}</div>
 			</el-col>
 
 		</el-card>
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+	import {dateFormat} from "../../assets/js/time.js";
 	export default {
 		methods: {
 			ToContent() {
@@ -33,6 +34,11 @@
 					`/content/${this.id}`
 				)
 			},
+		},
+		computed : {
+		      formattedDate() {
+		          return dateFormat(this.con.createdDate)
+		    }
 		},
 		props: [
 			'id',
