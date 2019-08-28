@@ -24,7 +24,7 @@
 							<span>{{formattedDate}}</span>
 							<el-button size="mini">举报</el-button>
 							<el-button size="mini" @click="replyDialogVisible=true">回复</el-button>
-							<el-button size="mini" @click="like">点赞:{{this.con.likeNum}}</el-button>
+							<el-button size="mini" @click="like" :icon="icon">{{this.con.likeNum}}</el-button>
 						</div>
 					</el-row>
 					<reply-dialog :postId="this.$route.params.id" :visible.sync="replyDialogVisible" :author="name" :avatarUrl="avatarUrl"
@@ -55,14 +55,16 @@
 					name: '',
 					content: '',
 				},
-				defaultData: "preview"
+				defaultData: "preview",
+				isLiked:false,
+				icon:'el-icon-star-off',
 			}
 		},
 		created() {
 			if (this.con.fatherNo != 0 && this.con.fatherNo != -1) {
 				this.isReply = true;
 			}
-			console.log(this.con.content);
+			//console.log(this.con.content);
 		},
 		computed: {
 			formattedDate() {
@@ -72,8 +74,16 @@
 		methods: { //   时间格式化
 			like() {
 				this.$axios.post('addLike', this.con).then(res => {
+						if(this.isLiked==false){
+							this.icon='el-icon-star-on';
+							this.isLiked=true;
+							this.con.likeNum++;
+						}else{
+							this.icon='el-icon-star-off';
+							this.isLiked=false;
+							this.con.likeNum--;
+						}
 						this.posts = res.data.content;
-						//console.log(this.posts);
 						this.totalPostNum = res.data.totalElements;
 					})
 					.catch(function(error) {
