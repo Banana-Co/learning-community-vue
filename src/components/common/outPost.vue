@@ -47,7 +47,7 @@
 
 <style>
 	.outPost {
-		width: 1000px;
+		height: 100px;
 		margin-left: auto;
 		margin-right: auto;
 		margin-top: 15px;

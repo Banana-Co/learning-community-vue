@@ -61,7 +61,6 @@
 
 <style>
 	.inPost {
-		width: 1000px;
 		margin-left: auto;
 		margin-right: auto;
 		margin-top: 1px;
