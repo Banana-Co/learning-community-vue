@@ -15,16 +15,12 @@
 
 		<el-row>
 			<el-col :span="4">
-
-				
 				<el-row>
 					<navi @sort-change="handleSortChange">
 					</navi>
 				</el-row>
-
-
-
 			</el-col>
+			
 			<el-col :span="16">
 				<outpost v-for="post in posts" :key="post.id" :id="post.id"  :con='post'></outpost>
 				<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage"
