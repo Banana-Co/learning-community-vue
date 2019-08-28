@@ -5,7 +5,7 @@
 		<el-row>
 			<el-col :span="4">
 				<el-button @click="replyDialogVisible=true"> 发表回复 </el-button>
-				<reply-dialog :post-id="this.$route.params.id" :visible.sync="replyDialogVisible" :author="name" :avatarUrl="avatarUrl" :floor="postDetail.replyNum"></reply-dialog>
+				<reply-dialog :postId="this.$route.params.id" :visible.sync="replyDialogVisible" :author="name" :avatarUrl="avatarUrl" :floor='0'></reply-dialog>
 				<navi @sort-change="handleSortChange">
 				</navi>
 			</el-col>
@@ -63,7 +63,7 @@
 				this.$axios
 					.get(`findPostById=${this.$route.params.id}`)
 					.then(res => {
-						console.log(res.data)
+						//console.log(res.data)
 						this.postDetail = res.data;
 					})
 					.catch(function(error) {
@@ -82,7 +82,7 @@
 				this.$axios
 					.get(`findCommentByFatherId=${this.$route.params.id}`)
 					.then(res => {
-						console.log(res.data)
+						//console.log(res.data)
 						this.replies = res.data;
 					})
 					.catch(function(error) {
@@ -100,9 +100,9 @@
 		},
 		created() {
 			this.getPostDetail();
-			this.getReply();
-			let uname = getCookie('username');
-			this.name = uname;
+			this.getReply()
+			let uname = getCookie('username')
+			this.name = uname
 			if (this.name != '') {
 				this.$axios.get(`/getUser/${this.name}`).then((response) => {
 					this.time = response.data.createdDate
