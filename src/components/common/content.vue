@@ -10,8 +10,8 @@
 				</navi>
 			</el-col>
 			<el-col :span="16">
-				<in-post :content="postDetail.content"  :con="postDetail"></in-post>
-				<in-post v-for="reply in replies" :key="reply.createdDate"  :con="reply"></in-post>
+				<in-post :con="postDetail" :name='name' :avatarUrl='avatarUrl'></in-post>
+				<in-post v-for="reply in replies" :key="reply.createdDate"  :con="reply" :name='name' :avatarUrl='avatarUrl'></in-post>
 			</el-col>
 		</el-row>
 
@@ -49,7 +49,7 @@
 				this.$axios
 					.get(`findPostById=${this.$route.params.id}`)
 					.then(res => {
-						console.log(res.data)
+						//console.log(res.data)
 						this.postDetail = res.data;
 					})
 					.catch(function(error) {
@@ -63,7 +63,7 @@
 				this.$axios
 					.get(`findCommentByFatherId=${this.$route.params.id}`)
 					.then(res => {
-						console.log(res.data)
+						//console.log(res.data)
 						this.replies = res.data;
 					})
 					.catch(function(error) {

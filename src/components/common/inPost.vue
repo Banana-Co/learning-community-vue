@@ -7,7 +7,7 @@
 						<el-avatar :src="this.con.avatarUrl" :size="60"></el-avatar>
 					</el-row>
 					<el-row>{{this.con.author}}</el-row>
-					
+
 				</el-col>
 				<el-col :span="20">
 					<div class='floor'><span>#{{this.con.no}}</span></div>
@@ -16,6 +16,7 @@
 						<span>{{this.con.createdDate}}</span>
 						<el-button size="mini">举报</el-button>
 						<el-button size="mini" @click="replyDialogVisible=true">回复</el-button>
+						<reply-dialog :postId="this.$route.params.id" :visible.sync="replyDialogVisible" :author="name" :avatarUrl="avatarUrl"></reply-dialog>
 						<el-button size="mini" @click="like">点赞:{{this.con.likeNum}}</el-button>
 					</div>
 				</el-col>
@@ -26,11 +27,16 @@
 
 <script>
 	var t = new Date();
+	import ReplyDialog from "../message/ReplyDialog";
 	export default {
 		name: "InPost",
+		components: {
+			ReplyDialog,
+		},
 		data() {
 			return {
 				time: t,
+				replyDialogVisible: false,
 			}
 		},
 		methods: { //   时间格式化
@@ -49,9 +55,8 @@
 				return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
 			},
 			like() {
-				this.$axios.post('addLike', {
-						comment: this.con
-					}).then((response) => {
+				console.log(this.con)
+				this.$axios.post('addLike', this.con).then((response) => {
 						console.log(response)
 					})
 					.catch(function(error) {
@@ -62,6 +67,8 @@
 		props: [
 			'id',
 			'con',
+			'name',
+			'avatarUrl',
 		]
 	}
 </script>
