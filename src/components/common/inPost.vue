@@ -14,7 +14,7 @@
 					<div class="reply" v-if="isReply"><span>回复#{{this.con.fatherNo}}</span></div>
 					<el-row>
 						<div class="inner">
-							<mavon-editor v-model="this.con.content" :subfield="false" :defaultOpen="defaultData" :toolbarsFlag="false"
+							<mavon-editor v-model="con.content" :subfield="false" :defaultOpen="defaultData" :toolbarsFlag="false"
 							 :boxShadow="false" />
 						</div>
 					</el-row>
@@ -62,6 +62,7 @@
 			if (this.con.fatherNo != 0 && this.con.fatherNo != -1) {
 				this.isReply = true;
 			}
+			console.log(this.con.content);
 		},
 		computed: {
 			formattedDate() {
