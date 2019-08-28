@@ -33,7 +33,6 @@
 	    name: "InPost",
 		data() {
 			return {
-				time: t,
 				replyDialogVisible: false,
 				isReply:false,
 				father:{

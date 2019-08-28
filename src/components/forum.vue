@@ -15,15 +15,10 @@
 
 		<el-row>
 			<el-col :span="4">
-
-				
 				<el-row>
-					<navi @sort-change="handleSortChange">
+					<navi :sortbys="sortbys" @sort-change="handleSortChange">
 					</navi>
 				</el-row>
-
-
-
 			</el-col>
 			<el-col :span="16">
 				<outpost v-for="post in posts" :key="post.id" :id="post.id"  :con='post'></outpost>
@@ -43,7 +38,7 @@
 						<el-input placeholder="搜索" prefix-icon="el-icon-search" v-model="input" clearable>
 						</el-input>
 					</el-col>
-				
+
 				</el-row>
 			</el-col>
 		</el-row>
@@ -83,12 +78,6 @@
 				this.getPostPage()
 				console.log(`当前页: ${val}`);
 			},
-			handleSortChange(val) {
-				this.sortedby = val.sortedby;
-				this.order = val.order;
-				this.currentPage = 1;
-				this.getPostPage();
-			},
 			ToLogin() {
 				this.$router.replace({
 					path: '/login'
@@ -126,6 +115,27 @@
 					this.postDialogVisible = true;
 				}
 			},
+        handleSortChange(val) {
+			    switch(val) {
+              case 0:
+                 this.sortedby = "latestReplyDate";
+                 this.order = "desc";
+                 break;
+              case 1:
+                  this.sortedby = "latestReplyDate";
+                  this.order = "asc";
+                  break;
+              case 2:
+                  this.sortedby = "createdDate";
+                  this.order = "desc";
+                  break;
+              case 3:
+                  this.sortedby = "createdDate";
+                  this.order = "asc";
+                  break;
+          }
+          this.getPostPage()
+        }
 		},
 		data() {
 			return {
@@ -141,6 +151,7 @@
 				isLogin: false,
 				notLogin: true,
 				input: '',
+          sortbys: ['最新回复', '最早回复', '最新发布', '最早发布']
 			};
 		},
 		created() {
