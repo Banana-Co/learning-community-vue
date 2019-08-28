@@ -33,9 +33,6 @@
 				time: t,
 			}
 		},
-		created() {
-			console.log(this.con.id + ':' + this.con.content)
-		},
 		methods: { //   时间格式化
 			dateFormat: function(time) {
 				var date = new Date(time);
@@ -52,12 +49,10 @@
 				return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
 			},
 			like() {
-				this.$axios.post('like', {
-						id: this.id
-					}).then(res => {
-						this.posts = res.data.content;
-						//console.log(this.posts);
-						this.totalPostNum = res.data.totalElements;
+				this.$axios.post('addLike', {
+						comment: this.con
+					}).then((response) => {
+						console.log(response)
 					})
 					.catch(function(error) {
 						console.log(error);

@@ -75,6 +75,7 @@
 						replyNum:0,
 						likeNum:0,
 						avatarUrl:this.avatarUrl,
+						no:0,
                     })
                     .then(res => {
                         if (res.status == 200) {

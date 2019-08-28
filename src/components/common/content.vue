@@ -5,7 +5,7 @@
 		<el-row>
 			<el-col :span="4">
 				<el-button @click="replyDialogVisible=true"> 发表回复 </el-button>
-				<reply-dialog :post-id="this.$route.params.id" :visible.sync="replyDialogVisible" :author="name" :avatarUrl="avatarUrl" :floor="postDetail.replyNum"></reply-dialog>
+				<reply-dialog :postId="this.$route.params.id" :visible.sync="replyDialogVisible" :author="name" :avatarUrl="avatarUrl" ></reply-dialog>
 				<navi @sort-change="handleSortChange">
 				</navi>
 			</el-col>
@@ -42,7 +42,6 @@
 				replyDialogVisible: false,
 				name: '',
 				avatarUrl: '',
-				replyNum:'',
 			}
 		},
 		methods: {

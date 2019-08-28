@@ -65,7 +65,6 @@
 						content: this.form.content,
 						author: this.author,
 						avatarUrl: this.avatarUrl,
-						floor:this.floor,
 					})
 					.then(res => {
 						if (res.status == 200) {
@@ -89,9 +88,9 @@
 					.catch(_ => {});
 			}
 		},
-		props: ['visible', 'post-id',
+		props: ['visible', 'postId',
 			'author',
-			'avatarUrl', 'floor',
+			'avatarUrl', 
 		]
 	}
 </script>
