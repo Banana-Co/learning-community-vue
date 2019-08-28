@@ -15,31 +15,37 @@
 
 		<el-row>
 			<el-col :span="4">
-				<el-button @click="showPost">发布帖子 </el-button>
-				<post-dialog :visible.sync="postDialogVisible" :author="name" :avatarUrl='avatarUrl'></post-dialog>
-			</el-col>
-			<el-col :span="16">
-				<!-- <el-button @click="ToLogin" v-show="notLogin">登录</el-button> -->
-			</el-col>
-		</el-row>
-		<el-row>
-			<el-col :span="4">
-				<navi @sort-change="handleSortChange">
-				</navi>
+
+				
+				<el-row>
+					<navi @sort-change="handleSortChange">
+					</navi>
+				</el-row>
+
+
+
 			</el-col>
 			<el-col :span="16">
 				<outpost v-for="post in posts" :key="post.id" :id="post.id" :title="post.title" :author="post.author" :replyNum="post.replyNum"
 				 :createdDate="post.createdDate" :avatarUrl="post.avatarUrl"></outpost>
-			</el-col>
-		</el-row>
-		<el-row>
-			<el-col :span="4">
-			</el-col>
-			<el-col :span="16">
 				<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage"
 				 :page-size="10" layout="prev, pager, next, jumper" :total="totalPostNum" :hide-on-single-page="true">
 				</el-pagination>
-
+			</el-col>
+			<el-col :span="4">
+				<el-row>
+					<el-button @click="showPost" type="primary">发布帖子 </el-button>
+					<post-dialog :visible.sync="postDialogVisible" :author="name" :avatarUrl='avatarUrl'></post-dialog>
+				</el-row>
+				<el-row>
+					<el-col :span="7">
+					</el-col>
+					<el-col :span="10" :offset='7'>
+						<el-input placeholder="搜索" prefix-icon="el-icon-search" v-model="input" clearable>
+						</el-input>
+					</el-col>
+				
+				</el-row>
 			</el-col>
 		</el-row>
 	</div>
@@ -117,7 +123,7 @@
 							)
 						}
 					});
-				}else{
+				} else {
 					this.postDialogVisible = true;
 				}
 			},
@@ -135,6 +141,7 @@
 				avatarUrl: "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
 				isLogin: false,
 				notLogin: true,
+				input: '',
 			};
 		},
 		created() {

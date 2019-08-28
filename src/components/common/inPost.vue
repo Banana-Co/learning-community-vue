@@ -1,19 +1,23 @@
 <template>
-	<div class="inPost">
+	<div>
+		<el-card  class="inPost">
 		<el-row>
 			<el-col :span="4">
-				<el-avatar icon="el-icon-user-solid"></el-avatar></br>name
+				<el-row><el-avatar  :src="this.con.avatarUrl"  :size="60"></el-avatar></el-row>
+				<el-row>{{this.con.author}}</el-row>
 			</el-col>
 			<el-col :span="20">
-					<div class="inner"><span>{{this.content}}</span></div>
+					<div class="inner"><span>{{this.con.content}}</span></div>
 					<div class="but">
+						<span>{{this.con.floor}}楼</span>
+						<span>{{this.con.createdDate}}</span>
 						<span>举报</span>
-						<span>楼层</span>
-						<span>{{dateFormat(this.createdDate)}}</span>
 						<span>回复</span>
+						<span>点赞:{{this.con.likeNum}}</span>
 					</div>
 			</el-col>
 		</el-row>
+		</el-card>
 	</div>
 </template>
 
@@ -43,15 +47,14 @@
 			},
 		},
       props: [
-          'content',
-          'createdDate'
+          'id',
+		  'con',
       ]
 	}
 </script>
 
 <style>
 	.inPost {
-		width: 1000px;
 		margin-left: auto;
 		margin-right: auto;
 		margin-top: 1px;
@@ -65,9 +68,9 @@
 
 	.but {
 		line-height: 20px;
-		font-size: 12px;
+		font-size: 1px;
 		text-align: right;
 		vertical-align: bottom;
-		/* position:absolute;right:0px;bottom:0px; */
+		position:absolute;right:0px;bottom:0px;
 	}
 </style>

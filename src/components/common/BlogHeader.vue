@@ -3,11 +3,14 @@
 		<el-row>
 
 			<el-col :span="4">
-				<el-button type="text"><img src="@/assets/logo2.png" alt="" @click="ToForum" height="40px"></el-button>
+				<el-button type="text" @click="ToForum">
+					<!-- <img src="@/assets/logo2.png" alt="" @click="ToForum" height="40px"> -->
+					<h1>论坛LOGO</h1>
+				</el-button>
 			</el-col>
 			<el-col :span="6" :offset="14">
 				<el-button type="text" @click="ToIndex">
-					<el-avatar :src="imageUrl" :size="60"></el-avatar>
+					<el-avatar :src="avatarUrl" :size="60"></el-avatar>
 				</el-button>
 			</el-col>
 		</el-row>
@@ -19,7 +22,9 @@
 					<span slot="title">刷题</span></el-menu-item>
 				<el-menu-item index="3"><i class="el-icon-document"></i>
 					<span slot="title">校园周边</span></el-menu-item>
+					
 			</el-menu>
+			  
 		</el-row>
 	</div>
 </template>
@@ -44,7 +49,7 @@
 				input: '',
 				select: '',
 				activeIndex: '1',
-				imageUrl: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+				avatarUrl: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
 				name: '',
 			}
 		},
