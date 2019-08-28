@@ -9,7 +9,7 @@
 					<div class="but">
 						<span>举报</span>
 						<span>楼层</span>
-						<span>{{dateFormat(time)}}</span>
+						<span>{{dateFormat(this.createdDate)}}</span>
 						<span>回复</span>
 					</div>
 			</el-col>
@@ -43,7 +43,8 @@
 			},
 		},
       props: [
-          'content'
+          'content',
+          'createdDate'
       ]
 	}
 </script>
@@ -64,7 +65,7 @@
 
 	.but {
 		line-height: 20px;
-		font-size: 1px;
+		font-size: 12px;
 		text-align: right;
 		vertical-align: bottom;
 		/* position:absolute;right:0px;bottom:0px; */

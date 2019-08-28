@@ -32,6 +32,8 @@
 				    this.$emit('sort-change', {sortedby: 'createdDate', order: 'desc'});
 				else if (key == 2)
 				    this.$emit('sort-change', {sortedby: 'createdDate', order: 'asc'});
+        else if (key == 3)
+            this.$emit('sort-change', {sortedby: 'latestReplyDate', order: 'desc'});
 			}
 		}
 	}

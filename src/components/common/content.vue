@@ -2,12 +2,19 @@
   <div>
     <span>{{this.postDetail.title}}</span>
     <el-divider></el-divider>
-    <in-post :content="postDetail.content" :author="postDetail.author"></in-post>
+    <el-row>
+      <el-col :span="4">
+        <navi></navi>
+      </el-col>
+      <el-col :span="16">
+<!--        <in-post :content="postDetail.content" :author="postDetail.author"></in-post>-->
+        <in-post v-for="reply in replies" :key="reply.createdDate" :content="reply.content" :author="reply.author" :createdDate="reply.createdDate"></in-post>
+      </el-col>
+    </el-row>
   <el-row>
     <el-button @click="replyDialogVisible=true"> 发表回复 </el-button>
     <reply-dialog :post-id="this.$route.params.id" :visible.sync="replyDialogVisible"></reply-dialog>
   </el-row>
-    <in-post v-for="reply in replies" :key="reply.createdDate" :content="reply.content" :author="reply.author"></in-post>
   </div>
 </template>
 
@@ -15,11 +22,13 @@
 	import InPost from "@/components/common/inPost.vue";
   import OutPost from "./outPost";
   import ReplyDialog from "../message/ReplyDialog";
+  import navi from "@/components/common/navi.vue"
 	export default {
       components: {
           OutPost,
           InPost,
-          ReplyDialog
+          ReplyDialog,
+          navi
       },
       data() {
         return {
