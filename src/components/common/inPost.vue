@@ -11,7 +11,7 @@
 				</el-col>
 				<el-col :span="20">
 					<div class='floor'><span>#{{this.con.no}}</span></div>
-					<div class="reply" v-if="isReply"><span>回复@{{this.father.name}}</span></div>
+					<div class="reply" v-if="isReply"><span>回复@{{this.con.fatherNo}}</span></div>
 					<div class="inner"><span>{{this.con.content}}</span></div>
 					<div class="but">
 						<span>{{formattedDate}}</span>
@@ -29,12 +29,14 @@
 
 <script>
 	import {dateFormat} from "../../assets/js/time.js";
-
+import ReplyDialog from "../message/ReplyDialog";
   export default {
 	    name: "InPost",
+		components: {
+			ReplyDialog,
+		},
 		data() {
 			return {
-				time: t,
 				replyDialogVisible: false,
 				isReply:false,
 				father:{
@@ -55,7 +57,7 @@
       },
 		methods: { //   时间格式化
 			like(){
-				this.$axios.post('like',{id:this.id}).then(res => {
+				this.$axios.post('addLike',{id:this.id}).then(res => {
 						this.posts = res.data.content;
 						//console.log(this.posts);
 						this.totalPostNum = res.data.totalElements;
