@@ -3,20 +3,20 @@
 		<el-card shadow="hover" class="outPost" @click.native="ToContent">
 			<el-col :span="1">
 				<div class="avatar">
-					<el-avatar :src="avatarUrl" :size="60"></el-avatar>
+					<el-avatar :src="this.con.avatarUrl" :size="60"></el-avatar>
 				</div>
 			</el-col>
 			<el-col :span="11">
-				<div>{{this.title}}</div>
+				<div>{{this.con.title}}</div>
 			</el-col>
 			<el-col :span="4">
-				<div>作者: {{this.author}}</div>
+				<div>作者: {{this.con.author}}</div>
 			</el-col>
 			<el-col :span="4">
-				<div>回复数: {{this.replyNum}}</div>
+				<div>回复数: {{this.con.replyNum}}</div>
 			</el-col>
 			<el-col :span="4">
-				<div>发布时间: {{this.createdDate}}</div>
+				<div>发布时间: {{this.con.createdDate}}</div>
 			</el-col>
 
 		</el-card>
@@ -36,11 +36,7 @@
 		},
 		props: [
 			'id',
-			'title',
-			'author',
-			'replyNum',
-			'createdDate',
-			'avatarUrl',
+			'con',
 		]
 	}
 </script>

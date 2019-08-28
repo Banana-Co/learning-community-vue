@@ -26,8 +26,7 @@
 
 			</el-col>
 			<el-col :span="16">
-				<outpost v-for="post in posts" :key="post.id" :id="post.id" :title="post.title" :author="post.author" :replyNum="post.replyNum"
-				 :createdDate="post.createdDate" :avatarUrl="post.avatarUrl"></outpost>
+				<outpost v-for="post in posts" :key="post.id" :id="post.id"  :con='post'></outpost>
 				<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage"
 				 :page-size="10" layout="prev, pager, next, jumper" :total="totalPostNum" :hide-on-single-page="true">
 				</el-pagination>

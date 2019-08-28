@@ -13,7 +13,7 @@
 						<span>{{this.con.createdDate}}</span>
 						<span>举报</span>
 						<span>回复</span>
-						<span>点赞:{{this.con.likeNum}}</span>
+						<span @click="like">点赞:{{this.con.likeNum}}</span>
 					</div>
 			</el-col>
 		</el-row>
@@ -30,6 +30,9 @@
 				time: t,
 			}
 		},
+		created() {
+			console.log(this.con.id+':'+this.con.content)
+		},
 		methods: { //   时间格式化
 			dateFormat: function(time) {
 				var date = new Date(time);
@@ -45,6 +48,16 @@
 				// 拼接
 				return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
 			},
+			like(){
+				this.$axios.post('like',{id:this.id}).then(res => {
+						this.posts = res.data.content;
+						//console.log(this.posts);
+						this.totalPostNum = res.data.totalElements;
+					})
+					.catch(function(error) {
+						console.log(error);
+					})
+			}
 		},
       props: [
           'id',
