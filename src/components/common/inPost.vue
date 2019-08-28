@@ -9,8 +9,8 @@
 			<el-col :span="20">
 					<div class="inner"><span>{{this.con.content}}</span></div>
 					<div class="but">
-						<span>{{this.con.floor}}楼</span>
-						<span>{{this.con.createdDate}}</span>
+						<span>{{this.con.no}}楼</span>
+						<span>{{formattedDate}}</span>
 						<span>举报</span>
 						<span>回复</span>
 						<span @click="like">点赞:{{this.con.likeNum}}</span>
@@ -22,32 +22,23 @@
 </template>
 
 <script>
-	var t = new Date();
-	export default {
+	import {dateFormat} from "../../assets/js/time.js";
+
+  export default {
 	    name: "InPost",
 		data() {
 			return {
-				time: t,
 			}
 		},
 		created() {
 			console.log(this.con.id+':'+this.con.content)
 		},
+      computed : {
+	        formattedDate: function() {
+	            return dateFormat(this.con.createdDate)
+          }
+      },
 		methods: { //   时间格式化
-			dateFormat: function(time) {
-				var date = new Date(time);
-				var year = date.getFullYear();
-				/* 在日期格式中，月份是从0开始的，因此要加0
-				 * 使用三元表达式在小于10的前面加0，以达到格式统一  如 09:11:05
-				 * */
-				var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-				var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-				var hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-				var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-				var seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-				// 拼接
-				return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
-			},
 			like(){
 				this.$axios.post('like',{id:this.id}).then(res => {
 						this.posts = res.data.content;
@@ -81,7 +72,7 @@
 
 	.but {
 		line-height: 20px;
-		font-size: 1px;
+		font-size: 12px;
 		text-align: right;
 		vertical-align: bottom;
 		position:absolute;right:0px;bottom:0px;
