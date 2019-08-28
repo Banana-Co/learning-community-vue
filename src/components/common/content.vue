@@ -10,7 +10,7 @@
 				</navi>
 			</el-col>
 			<el-col :span="16">
-				<in-post v-for="reply in replies" :key="reply.createdDate"  :con="reply" :name='name' :avatarUrl='avatarUrl'></in-post>
+				<in-post v-for="reply in replyPage" :key="reply.createdDate"  :con="reply" :name='name' :avatarUrl='avatarUrl'></in-post>
         <el-pagination @current-change="handleCurrentChange" :current-page.sync="currentPage"
                        :page-size="10" layout="prev, pager, next, jumper" :total="postDetail.replyNum" :hide-on-single-page="true">
         </el-pagination>
