@@ -35,7 +35,7 @@
 			}
 		},
 		created() {
-			console.log(this.floor);
+			//console.log(this.floor);
 		},
 		watch: {
 			formDialogVisible(val) {
@@ -68,6 +68,7 @@
 						content: this.form.content,
 						author: this.author,
 						avatarUrl: this.avatarUrl,
+						fatherNo:this.floor,
 					})
 					.then(res => {
 						if (res.status == 200) {

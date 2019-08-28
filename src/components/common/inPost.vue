@@ -11,6 +11,7 @@
 				</el-col>
 				<el-col :span="20">
 					<div class='floor'><span>#{{this.con.no}}</span></div>
+					<div class="reply" v-if="isReply"><span>回复@{{this.father.name}}</span></div>
 					<div class="inner"><span>{{this.con.content}}</span></div>
 					<div class="but">
 						<span>{{this.con.createdDate}}</span>
@@ -37,6 +38,16 @@
 			return {
 				time: t,
 				replyDialogVisible: false,
+				isReply:false,
+				father:{
+					name:'',
+					content:'',
+				},
+			}
+		},
+		created() {
+			if(this.con.fatherNo!=0&&this.con.fatherNo!=-1){
+				this.isReply=true;
 			}
 		},
 		methods: { //   时间格式化
@@ -84,6 +95,9 @@
 		text-align: left;
 		padding: 20px 20px 0 0;
 
+	}
+	.reply{
+		text-align: left;
 	}
 
 	.but {

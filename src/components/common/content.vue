@@ -10,7 +10,6 @@
 				</navi>
 			</el-col>
 			<el-col :span="16">
-				<in-post :con="postDetail" :name='name' :avatarUrl='avatarUrl'></in-post>
 				<in-post v-for="reply in replies" :key="reply.createdDate"  :con="reply" :name='name' :avatarUrl='avatarUrl'></in-post>
 			</el-col>
 		</el-row>
