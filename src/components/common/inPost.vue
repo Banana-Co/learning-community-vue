@@ -56,8 +56,8 @@
 					content: '',
 				},
 				defaultData: "preview",
-				isLiked:false,
-				icon:'el-icon-star-off',
+				isLiked: false,
+				icon: 'el-icon-star-off',
 			}
 		},
 		created() {
@@ -73,14 +73,21 @@
 		},
 		methods: { //   时间格式化
 			like() {
-				this.$axios.post('addLike', this.con).then(res => {
-						if(this.isLiked==false){
-							this.icon='el-icon-star-on';
-							this.isLiked=true;
+				this.$axios.get('addLike', {
+						params: {
+							fatherId: this.con.fatherId,
+							no: this.con.no,
+							username: this.name,
+						}
+
+					}).then(res => {
+						if (this.isLiked == false) {
+							this.icon = 'el-icon-star-on';
+							this.isLiked = true;
 							this.con.likeNum++;
-						}else{
-							this.icon='el-icon-star-off';
-							this.isLiked=false;
+						} else {
+							this.icon = 'el-icon-star-off';
+							this.isLiked = false;
 							this.con.likeNum--;
 						}
 						this.posts = res.data.content;
