@@ -56,7 +56,7 @@ import ReplyDialog from "../message/ReplyDialog";
       },
 		methods: { //   时间格式化
 			like(){
-				this.$axios.post('addLike',this.id).then(res => {
+				this.$axios.post('addLike',this.con).then(res => {
 						this.posts = res.data.content;
 						//console.log(this.posts);
 						this.totalPostNum = res.data.totalElements;
