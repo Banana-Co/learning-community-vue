@@ -64,11 +64,31 @@
 			if (this.con.fatherNo != 0 && this.con.fatherNo != -1) {
 				this.isReply = true;
 			}
-			//console.log(this.con.content);
+			this.$axios.get('haveLiked', {
+					params: {
+						fatherId: this.con.fatherId,
+						no: this.con.no,
+						username: this.name,
+					}
+				}).then(response => {
+					console.log(response.data.code);
+					if (response.data.code == 203) {
+						this.icon = 'el-icon-star-off';
+						this.isLiked=false;
+					} else if (response.data.code == 202) {
+						this.icon = 'el-icon-star-on';
+						this.isLiked=true;
+					} else {
+						console.log(response);
+					}
+				})
+				.catch(function(error) {
+					console.log(error);
+				})
 		},
 		computed: {
 			formattedDate() {
-				return dateFormat(this.con.createdDate)
+				return dateFormat(this.con.createdDate);
 			}
 		},
 		methods: { //   时间格式化
@@ -79,24 +99,24 @@
 							no: this.con.no,
 							username: this.name,
 						}
-
+				
 					}).then(res => {
-						if (this.isLiked == false) {
-							this.icon = 'el-icon-star-on';
-							this.isLiked = true;
-							this.con.likeNum++;
-						} else {
-							this.icon = 'el-icon-star-off';
-							this.isLiked = false;
+						if(this.isLiked==true){
 							this.con.likeNum--;
+							this.icon='el-icon-star-off';
+							this.isLiked=false;
+						}else{
+							this.con.likeNum++;
+							this.icon='el-icon-star-on';
+							this.isLiked=true;
 						}
-						this.posts = res.data.content;
-						this.totalPostNum = res.data.totalElements;
+						console.log(res);
 					})
 					.catch(function(error) {
 						console.log(error);
 					})
-			}
+
+			},
 		},
 		props: [
 			'id',
