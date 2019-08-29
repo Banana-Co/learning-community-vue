@@ -3,26 +3,36 @@
 		<div class="grid-content"><br /><br /><br /><br /><br /><br /><br /></div>
 		<center>
 			<el-card class="register-card">
-				
-				<el-row><p v-show="showTishi" class="tishiText">{{tishi}}</p></el-row>
-				<el-row><el-input type="text" v-model="loginInfoVo.username" placeholder="请输入用户名"></el-input></el-row>
-				<el-row><el-input type="password" v-model="loginInfoVo.password" placeholder="请输入6~20位密码"></el-input></el-row>
+
+				<el-row>
+					<p v-show="showTishi" class="tishiText">{{tishi}}</p>
+				</el-row>
+				<el-row>
+					<el-input type="text" v-model="loginInfoVo.username" placeholder="请输入用户名"></el-input>
+				</el-row>
+				<el-row>
+					<el-input type="password" v-model="loginInfoVo.password" placeholder="请输入6~20位密码"></el-input>
+				</el-row>
+				<el-row >
+						<el-input type="text" v-model="loginInfoVo.emailAddress" placeholder="请输入邮箱"></el-input>
+				</el-row>
 				<el-row :gutter="10">
 					<el-col :span="16">
-						<el-input type="text" v-model="loginInfoVo.emailAddress" placeholder="请输入邮箱"></el-input>
+					<el-input type="text" v-model="loginInfoVo.code" placeholder="请输入验证码"> </el-input>
 					</el-col>
-					<el-col :span="8" >
+					<el-col :span="8">
 						<el-button type="primary" @click='sendPin' name='codeButton'>获取验证码</el-button>
 					</el-col>
 				</el-row>
 				<el-row>
-				<el-input type="text" v-model="loginInfoVo.code" placeholder="请输入验证码"> </el-input>
+					<el-button type="primary" v-on:click="register">注册</el-button>
 				</el-row>
-				<el-row><el-button type="primary" v-on:click="register">注册</el-button></el-row>
-				<el-row><div>
-					<span v-on:click="ToLogin">已有账号？马上登录</span><br />
-				</div></el-row>
-				
+				<el-row>
+					<div>
+						<span v-on:click="ToLogin">已有账号？马上登录</span><br />
+					</div>
+				</el-row>
+
 			</el-card>
 		</center>
 
@@ -65,11 +75,21 @@
 					path: '/login'
 				})
 			},
-			sendPin(){
-				this.$axios.get('sendPin',this.loginInfoVo.emailAddress)
-				.then((response) => {
-					console.log(response)
-				}).catch(function(error) {
+			sendPin() {
+				this.$axios.post('sendPin', this.loginInfoVo.emailAddress)
+					.then((response) => {
+						console.log(response.data.code)
+						if(response.data.code==305){
+							this.tishi = "邮箱不合法"
+							this.showTishi = true
+						}else if(response.data.code==306){
+							this.tishi = "邮箱已被注册"
+							this.showTishi = true
+						}else if(response.data.code==200){
+							this.tishi = response.data.message
+							this.showTishi = true
+						}
+					}).catch(function(error) {
 						console.log(error);
 					})
 			},
@@ -109,12 +129,13 @@
 		text-align: center;
 	}
 
-	
-	
+
+
 	.register-card {
 		width: 400px;
 	}
-	input{
+
+	input {
 		display: block;
 		width: 250px;
 		height: 40px;
@@ -125,6 +146,7 @@
 		padding: 10px;
 		box-sizing: border-box;
 	}
+
 	.tishiText {
 		color: red;
 	}
