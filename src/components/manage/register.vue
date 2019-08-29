@@ -2,10 +2,20 @@
 	<div class="wrap">
 		<div class="grid-content"><br /><br /><br /><br /><br /><br /><br /></div>
 		<center>
-			<el-card class="login-card">
+			<el-card class="register-card">
 				<p v-show="showTishi" class="tishiText">{{tishi}}</p>
 				<el-input type="text" v-model="loginInfoVo.username" placeholder="请输入用户名"></el-input>
 				<el-input type="password" v-model="loginInfoVo.password" placeholder="请输入6~20位密码"></el-input>
+				<el-row :gutter="10">
+					<el-col :span="16">
+						<el-input type="text" v-model="loginInfoVo.emailAddress" placeholder="请输入邮箱"></el-input>
+					</el-col>
+					<el-col :span="8" >
+						<el-button type="primary" @click='sendPin'>获取验证码</el-button>
+					</el-col>
+				</el-row>
+
+				<el-input type="text" v-model="loginInfoVo.code" placeholder="请输入验证码"> </el-input>
 				<br />
 				<el-button type="primary" v-on:click="register">注册</el-button><br />
 				<div>
@@ -52,6 +62,14 @@
 				this.$router.replace({
 					path: '/login'
 				})
+			},
+			sendPin(){
+				this.$axios.get('sendPin',this.loginInfoVo.emailAddress)
+				.then((response) => {
+					console.log(response)
+				}).catch(function(error) {
+						console.log(error);
+					})
 			},
 			register() {
 				this.$axios
@@ -102,8 +120,8 @@
 		box-sizing: border-box;
 	}
 
-	.login-card {
-		width: 320px;
+	.register-card {
+		width: 400px;
 	}
 
 	.tishiText {
