@@ -1,39 +1,76 @@
 <template>
-	<center>
-		<el-card class="box-card">
-			<div slot="header" class="clearfix">
-				<center><span>你好!</span></center>
-			</div>
-			<div>
+	<div>
+		<el-col :span="2">
+		</el-col>
+		<el-col :span="7" :offset='2'>
+			<el-card class="self-card">
+				<div slot="header" class="clearfix">
+					<center><span>你好!</span></center>
+				</div>
+				<div>
 
-				<el-tooltip class="item" effect="dark" content="点击修改头像" placement="top">
-					<el-upload class="avatar-uploader" action="http://localhost:8000/uploadFile" :show-file-list="false" :on-success="handleAvatarSuccess"
-					 :before-upload="beforeAvatarUpload">
-						<img v-if="imageUrl" :src="imageUrl" class="avatar">
-					</el-upload>
-				</el-tooltip>
-			</div>
-			<div>
-				<span><br />用户名:<br />{{name}}</span><br /><br />
-				<span>注册日期:<br />{{time}}</span>
-			</div>
+					<el-tooltip class="item" effect="dark" content="点击修改头像" placement="top">
+						<el-upload class="avatar-uploader" action="http://localhost:8000/uploadFile" :show-file-list="false" :on-success="handleAvatarSuccess"
+						 :before-upload="beforeAvatarUpload">
+							<img v-if="imageUrl" :src="imageUrl" class="avatar">
+						</el-upload>
+					</el-tooltip>
+				</div>
+				<div>
+					<span><br />用户名:<br />{{name}}</span><br /><br />
+					<span>注册日期:<br />{{time}}</span>
+				</div>
 
-			<br /><br /><br />
-			<div>
-				<el-button plain @click="ToChange">更改密码</el-button>
-				<el-button plain @click="ToMyPost">我的帖子</el-button>
-				<el-button plain @click="quit">注销</el-button>
-				<!-- <el-button plain><el-upload class="avatar-uploader" action="http://localhost:8000/uploadFile" :show-file-list="false" :on-success="handleAvatarSuccess"
-				 :before-upload="beforeAvatarUpload">修改头像</el-upload></el-button> -->
-			</div>
-			<div>
-				<center>
-					<el-button type=text @click="$router.back(-1)">返回</el-button>
-				</center>
-			</div>
+				<br /><br /><br />
+				<div>
+					<el-button plain @click="ToChange">更改密码</el-button>
+					<el-button plain @click="ToMyPost">我的帖子</el-button>
+					<el-button plain @click="quit">注销</el-button>
+					<!-- <el-button plain><el-upload class="avatar-uploader" action="http://localhost:8000/uploadFile" :show-file-list="false" :on-success="handleAvatarSuccess"
+					 :before-upload="beforeAvatarUpload">修改头像</el-upload></el-button> -->
+				</div>
+				<div>
+					<center>
+						<el-button type=text @click="$router.back(-1)">返回</el-button>
+					</center>
+				</div>
 
-		</el-card>
-	</center>
+			</el-card>
+		</el-col>
+
+		<el-col :span="15">
+			<el-row>
+				<el-card class="box-card">
+					<div slot="header" class="clearfix">
+						<center><span>通知</span></center>
+					</div>
+					<div>
+						<el-table :data="tableData" style="width: 100%">
+							<el-table-column prop="date" label="日期" width="180">
+							</el-table-column>
+							<el-table-column prop="name" label="姓名" width="180">
+							</el-table-column>
+							<el-table-column prop="address" label="地址">
+							</el-table-column>
+						</el-table>
+					</div>
+				</el-card>
+			</el-row>
+
+			<el-row>
+				<el-card class="box-card">
+					<div slot="header" class="clearfix">
+						<center><span>我的帖子</span></center>
+					</div>
+					<div>
+
+					</div>
+				</el-card>
+			</el-row>
+		</el-col>
+
+
+	</div>
 </template>
 
 <script>
@@ -54,9 +91,26 @@
 				imageUrl: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
 				file: '',
 				url: '',
+				tableData: [{
+					date: '2016-05-02',
+					name: '王小虎',
+					address: '上海市普陀区金沙江路 1518 弄'
+				}, {
+					date: '2016-05-04',
+					name: '王小虎',
+					address: '上海市普陀区金沙江路 1517 弄'
+				}, {
+					date: '2016-05-01',
+					name: '王小虎',
+					address: '上海市普陀区金沙江路 1519 弄'
+				}, {
+					date: '2016-05-03',
+					name: '王小虎',
+					address: '上海市普陀区金沙江路 1516 弄'
+				}],
 			}
 		},
-		mounted() {
+		created() {
 			/*页面挂载获取保存的cookie值，渲染到页面上*/
 			let uname = getCookie('username')
 			this.name = uname
@@ -65,6 +119,7 @@
 				this.$router.replace('/')
 			}
 			this.$axios.get(`/getUser/${this.name}`).then((response) => {
+				console.log(response)
 				this.time = response.data.createdDate
 				if (response.data.avatarUrl != '') {
 					this.imageUrl = response.data.avatarUrl
@@ -181,8 +236,13 @@
 		clear: both
 	}
 
-	.box-card {
+	.self-card {
 		width: 360px;
+		height: 500px;
+	}
+
+	.box-card {
+		width: 900px;
 	}
 
 	.wrap {

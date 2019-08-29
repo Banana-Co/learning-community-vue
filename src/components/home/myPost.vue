@@ -2,16 +2,16 @@
 	<div>
 
 		<el-row>
-			<el-col :span="4">
-        <navi :sortbys="sortbys" @sort-change="handleSortChange"></navi>
+			<el-col :span="4" v-if="inner">
+				<navi :sortbys="sortbys" @sort-change="handleSortChange"></navi>
 			</el-col>
 			<el-col :span="16">
 				<outpost v-for="post in posts" :key="post.id" :id="post.id" :con='post'></outpost>
-        <el-pagination @current-change="handleCurrentChange" :current-page.sync="currentPage"
-          :page-size="10" layout="prev, pager, next, jumper" :total="totalPostNum" :hide-on-single-page="true">
-        </el-pagination>
+				<el-pagination @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-size="10" layout="prev, pager, next, jumper"
+				 :total="totalPostNum" :hide-on-single-page="true">
+				</el-pagination>
 			</el-col>
-			<el-col :span="4">
+			<el-col :span="4" v-if="inner">
 				<el-col :span="7">
 				</el-col>
 				<el-col :span="10" :offset='7'>
@@ -52,44 +52,44 @@
 				console.log(`当前页: ${val}`);
 			},
 			handleSortChange(val) {
-          switch(val) {
-              case '最新回复':
-                  this.sortedby = "latestReplyDate";
-                  this.order = "desc";
-                  break;
-              case '最早回复':
-                  this.sortedby = "latestReplyDate";
-                  this.order = "asc";
-                  break;
-              case '最新发布':
-                  this.sortedby = "createdDate";
-                  this.order = "desc";
-                  break;
-              case '最早发布':
-                  this.sortedby = "createdDate";
-                  this.order = "asc";
-                  break;
-              case '最多回复':
-                  this.sortedby = "replyNum";
-                  this.order = "desc"
-                  break;
-          }
-          this.getPostPage()
-      },
+				switch (val) {
+					case '最新回复':
+						this.sortedby = "latestReplyDate";
+						this.order = "desc";
+						break;
+					case '最早回复':
+						this.sortedby = "latestReplyDate";
+						this.order = "asc";
+						break;
+					case '最新发布':
+						this.sortedby = "createdDate";
+						this.order = "desc";
+						break;
+					case '最早发布':
+						this.sortedby = "createdDate";
+						this.order = "asc";
+						break;
+					case '最多回复':
+						this.sortedby = "replyNum";
+						this.order = "desc"
+						break;
+				}
+				this.getPostPage()
+			},
 			ToLogin() {
 				this.$router.replace({
 					path: '/login'
 				})
 			},
 			getPostPage() {
-					this.$axios.get('findPostByAuthorAndPage', {
-					    params: {
-					        author: this.name,
-					        page: this.currentPage,
-                  sortedby: this.sortedby,
-                  order: this.order
-              }
-          }).then((res) => {
+				this.$axios.get('findPostByAuthorAndPage', {
+						params: {
+							author: this.name,
+							page: this.currentPage,
+							sortedby: this.sortedby,
+							order: this.order
+						}
+					}).then((res) => {
 						this.posts = res.data.content;
 						//console.log(this.posts);
 						this.totalPostNum = res.data.totalElements;
@@ -109,16 +109,14 @@
 				order: "desc",
 				name: '',
 				avatarUrl: "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-				isLogin: false,
-				notLogin: true,
 				input: '',
-          sortbys: ['最新回复', '最早回复', '最新发布', '最早发布', '最多回复']
+				sortbys: ['最新回复', '最早回复', '最新发布', '最早发布', '最多回复'],
 			};
 		},
 		created() {
 			let uname = getCookie('username')
 			this.name = uname
-			this.getPostPage();
+			this.getPostPage()
 			if (this.name != '') {
 				this.$axios.get(`/getUser/${this.name}`).then((response) => {
 					this.time = response.data.createdDate
@@ -126,13 +124,6 @@
 						this.avatarUrl = response.data.avatarUrl
 					}
 				})
-				this.isLogin = true;
-				this.notLogin = false;
-				console.log('登陆状态：' + this.isLogin);
-			} else {
-				this.isLogin = false;
-				this.notLogin = true;
-				console.log('登陆状态：' + this.isLogin);
 			}
 		},
 	};
