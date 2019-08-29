@@ -40,26 +40,7 @@
 
 		<el-col :span="15">
 			<el-row>
-				<el-card class="box-card">
-					<div>
-						<el-table :data="this.notiData" style="width: 100%" max-height="250" ref="filterTable" :row-class-name="tableRowClassName">
-							<el-table-column prop="username" label="通知" width="120">
-							</el-table-column>
-							<el-table-column prop="notifiDate" label="时间" width="120" :formatter="formatter">
-							</el-table-column>
-							<el-table-column prop="message" label="类型" :filter-method="filterType" :filters="[{ text: '点赞', value: 1 }, { text: '评论', value: 2 }]"
-							 filter-placement="bottom-end">
-							</el-table-column>
-							<el-table-column fixed="right" label="操作" width="120">
-								<template slot-scope="scope">
-									<el-button @click.native.prevent="deleteRow(scope.$index, notiData)" type="text" size="small">
-										已读
-									</el-button>
-								</template>
-							</el-table-column>
-						</el-table>
-					</div>
-				</el-card>
+				<notification :notiData='notiData' :name='name'></notification>
 			</el-row>
 
 			<el-row>
@@ -87,7 +68,11 @@
 	import {
 		dateFormat
 	} from "../../assets/js/time.js";
+	import notification from "@/components/home/notification.vue";
 	export default {
+		components: {
+			notification,
+		},
 		data() {
 			return {
 				name: '',
@@ -99,6 +84,7 @@
 				file: '',
 				url: '',
 				notiData: [],
+				read:'',
 			}
 		},
 		created() {
@@ -120,46 +106,6 @@
 			})
 		},
 		methods: {
-			tableRowClassName({
-				row,
-				rowIndex
-			}) {
-				if (row.read === 0) {
-					return 'unRead-row';
-				} else if (row.read === 1) {
-					return '';
-				}
-				return '';
-			},
-			formatter(row, column) {
-				return dateFormat(row.notifiDate);
-			},
-			clearFilter() {
-				this.$refs.filterTable.clearFilter();
-			},
-			deleteRow(index, rows) {
-				//console.log(index);
-				//rows.splice(index, 1);
-				this.$axios.get('readNotifi', {
-						params: {
-							username: this.name,
-							notiNo: index,
-						}
-					}).then(response => {
-						//console.log(response.data.code);
-						if (response.data.code == 200) {
-							console.log('success');
-						} else {
-							console.log(response);
-						}
-					})
-					.catch(function(error) {
-						console.log(error);
-					})
-			},
-			filterType(value, row) {
-				return row.type === value;
-			},
 			ToMessage() {
 				this.$router.push(
 					'/messageFlow'
@@ -224,13 +170,6 @@
 
 
 <style>
-	.el-table .unRead-row {
-		background: oldlace;
-	}
-
-	.el-table .success-row {
-		background: #f0f9eb;
-	}
 
 	.avatar-uploader .el-upload {
 		border: 1px dashed #d9d9d9;
