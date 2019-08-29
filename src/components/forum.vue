@@ -22,7 +22,25 @@
 			</el-col>
 
 			<el-col :span="16">
-				<outpost v-for="post in posts" :key="post.id" :id="post.id"  :con='post'></outpost>
+				<div>
+					<el-row >
+						<el-col :span="4">
+						</el-col>
+						<el-col :span="10" :offset='4'>
+							<div><span>标题</span></div>
+						</el-col>
+						<el-col :span="4">
+							<div><span>作者</span></div>
+						</el-col>
+						<el-col :span="2">
+							<div><span>回复数</span></div>
+						</el-col>
+						<el-col :span="4">
+							<div> <span v-show='isPublish'>发布时间</span> <span v-show='isReply'>回复时间</span> </div>
+						</el-col>
+					</el-row>
+				</div>
+				<outpost v-for="post in posts" :key="post.id" :id="post.id" :con='post' :name='name' :isPublish='isPublish' :isReply='isReply'></outpost>
 				<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage"
 				 :page-size="10" layout="prev, pager, next, jumper" :total="totalPostNum" :hide-on-single-page="true">
 				</el-pagination>
@@ -116,27 +134,35 @@
 					this.postDialogVisible = true;
 				}
 			},
-        handleSortChange(val) {
-			    switch(val) {
-              case '最新回复':
-                 this.sortedby = "latestReplyDate";
-                 this.order = "desc";
-                 break;
-              case '最早回复':
-                  this.sortedby = "latestReplyDate";
-                  this.order = "asc";
-                  break;
-              case '最新发布':
-                  this.sortedby = "createdDate";
-                  this.order = "desc";
-                  break;
-              case '最早发布':
-                  this.sortedby = "createdDate";
-                  this.order = "asc";
-                  break;
-          }
-          this.getPostPage()
-        }
+			handleSortChange(val) {
+				switch (val) {
+					case '最新回复':
+						this.sortedby = "latestReplyDate";
+						this.order = "desc";
+						this.isPublish=false;
+						this.isReply=true;
+						break;
+					case '最早回复':
+						this.sortedby = "latestReplyDate";
+						this.order = "asc";
+						this.isPublish=false;
+						this.isReply=true;
+						break;
+					case '最新发布':
+						this.sortedby = "createdDate";
+						this.order = "desc";
+						this.isPublish=true;
+						this.isReply=false;
+						break;
+					case '最早发布':
+						this.sortedby = "createdDate";
+						this.order = "asc";
+						this.isPublish=true;
+						this.isReply=false;
+						break;
+				}
+				this.getPostPage()
+			}
 		},
 		data() {
 			return {
@@ -149,10 +175,10 @@
 				order: "desc",
 				name: '',
 				avatarUrl: "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-				isLogin: false,
-				notLogin: true,
 				input: '',
-          sortbys: ['最新回复', '最早回复', '最新发布', '最早发布']
+				sortbys: ['最新回复', '最早回复', '最新发布', '最早发布'],
+				isPublish:true,
+				isReply:false,
 			};
 		},
 		created() {
@@ -166,14 +192,7 @@
 						this.avatarUrl = response.data.avatarUrl
 					}
 				})
-				this.isLogin = true;
-				this.notLogin = false;
-				console.log('登陆状态：' + this.isLogin);
-			} else {
-				this.isLogin = false;
-				this.notLogin = true;
-				console.log('登陆状态：' + this.isLogin);
-			}
+			} 
 		},
 	};
 </script>

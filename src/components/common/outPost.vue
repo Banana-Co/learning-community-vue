@@ -17,7 +17,7 @@
 					<div>{{this.con.replyNum}}</div>
 				</el-col>
 				<el-col :span="4">
-					<div>{{formattedDate}}</div>
+					<div><span v-show='isPublish'>{{formattedcreatedDate}}</span> <span v-show='isReply'>{{formattedlatestReplyDate}}</span></div>
 				</el-col>
 			</el-row>
 		</el-card>
@@ -33,19 +33,39 @@
 	export default {
 		methods: {
 			ToContent() {
-				this.$router.push(
-					`/content/${this.id}`
-				)
+				if (this.name == '') {
+					this.$alert('请先登录', '提示', {
+						confirmButtonText: '确定',
+						callback: action => {
+							this.$router.push(
+								'/login'
+							)
+						}
+					});
+				} else {
+					this.$router.push(
+						`/content/${this.id}`
+					)
+				}
 			},
 		},
+		created() {
+			console.log(this.con);
+		},
 		computed: {
-			formattedDate() {
-				return dateFormat(this.con.createdDate)
+			formattedcreatedDate() {
+				return dateFormat(this.con.createdDate);
+			},
+			formattedlatestReplyDate() {
+				return dateFormat(this.con.latestReplyDate);
 			}
 		},
 		props: [
 			'id',
 			'con',
+			'name',
+			'isPublish',
+			'isReply',
 		]
 	}
 </script>
