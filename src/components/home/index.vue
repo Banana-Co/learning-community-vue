@@ -18,7 +18,7 @@
 				</div>
 				<div>
 					<span><br />用户名:<br />{{name}}</span><br /><br />
-					<span>注册日期:<br />{{time}}</span>
+					<span>注册日期:<br />{{formattedDate}}</span>
 				</div>
 
 				<br /><br /><br />
@@ -85,6 +85,11 @@
 				url: '',
 				notiData: [],
 				read:'',
+			}
+		},
+		computed: {
+			formattedDate() {
+				return dateFormat(this.time);
 			}
 		},
 		created() {
