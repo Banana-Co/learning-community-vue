@@ -41,16 +41,18 @@
 		<el-col :span="15">
 			<el-row>
 				<el-card class="box-card">
-					<div slot="header" class="clearfix">
-						<center><span>通知</span></center>
-					</div>
 					<div>
-						<el-table :data="tableData" style="width: 100%">
-							<el-table-column prop="date" label="日期" width="180">
+						<el-table :data="this.notiData" style="width: 100%" max-height="250">
+							<el-table-column prop="username" label="通知" width="">
 							</el-table-column>
-							<el-table-column prop="name" label="姓名" width="180">
+							<el-table-column prop="message">
 							</el-table-column>
-							<el-table-column prop="address" label="地址">
+							<el-table-column fixed="right" label="操作" width="120">
+								<template slot-scope="scope">
+									<el-button @click.native.prevent="deleteRow(scope.$index, tableData)" type="text" size="small">
+										移除
+									</el-button>
+								</template>
 							</el-table-column>
 						</el-table>
 					</div>
@@ -91,23 +93,7 @@
 				imageUrl: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
 				file: '',
 				url: '',
-				tableData: [{
-					date: '2016-05-02',
-					name: '王小虎',
-					address: '上海市普陀区金沙江路 1518 弄'
-				}, {
-					date: '2016-05-04',
-					name: '王小虎',
-					address: '上海市普陀区金沙江路 1517 弄'
-				}, {
-					date: '2016-05-01',
-					name: '王小虎',
-					address: '上海市普陀区金沙江路 1519 弄'
-				}, {
-					date: '2016-05-03',
-					name: '王小虎',
-					address: '上海市普陀区金沙江路 1516 弄'
-				}],
+				notiData: [],
 			}
 		},
 		created() {
@@ -119,11 +105,13 @@
 				this.$router.replace('/')
 			}
 			this.$axios.get(`/getUser/${this.name}`).then((response) => {
-				console.log(response)
+				this.notiData = response.data.notifications
+				console.log(this.notiData)
 				this.time = response.data.createdDate
 				if (response.data.avatarUrl != '') {
 					this.imageUrl = response.data.avatarUrl
 				}
+
 			})
 		},
 		methods: {
@@ -242,7 +230,7 @@
 	}
 
 	.box-card {
-		width: 900px;
+		width: 800px;
 	}
 
 	.wrap {

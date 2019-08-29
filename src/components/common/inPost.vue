@@ -71,7 +71,7 @@
 						username: this.name,
 					}
 				}).then(response => {
-					console.log(response.data.code);
+					//console.log(response.data.code);
 					if (response.data.code == 203) {
 						this.icon = 'el-icon-star-off';
 						this.isLiked=false;
