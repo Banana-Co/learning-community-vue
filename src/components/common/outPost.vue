@@ -50,7 +50,7 @@
 			},
 		},
 		created() {
-			console.log(this.con);
+			//console.log(this.con);
 		},
 		computed: {
 			formattedcreatedDate() {
