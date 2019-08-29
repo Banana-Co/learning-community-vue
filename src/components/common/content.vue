@@ -71,15 +71,15 @@
 			},
 			handleSortChange(val) {
 			    switch (val) {
-              case 0:
+              case '最早发布':
                   this.sortedby = 'no';
                   this.order = 'asc';
                   break;
-              case 1:
+              case '最晚发布':
                   this.sortedby = 'no';
                   this.order = 'desc';
                   break;
-              case 2:
+              case '最多点赞':
                   this.sortedby = 'likeNum';
                   this.order = 'desc';
                   break;

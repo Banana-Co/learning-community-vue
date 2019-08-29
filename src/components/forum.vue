@@ -20,7 +20,7 @@
 					</navi>
 				</el-row>
 			</el-col>
-			
+
 			<el-col :span="16">
 				<outpost v-for="post in posts" :key="post.id" :id="post.id"  :con='post'></outpost>
 				<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage"
@@ -118,19 +118,19 @@
 			},
         handleSortChange(val) {
 			    switch(val) {
-              case 0:
+              case '最新回复':
                  this.sortedby = "latestReplyDate";
                  this.order = "desc";
                  break;
-              case 1:
+              case '最早回复':
                   this.sortedby = "latestReplyDate";
                   this.order = "asc";
                   break;
-              case 2:
+              case '最新发布':
                   this.sortedby = "createdDate";
                   this.order = "desc";
                   break;
-              case 3:
+              case '最早发布':
                   this.sortedby = "createdDate";
                   this.order = "asc";
                   break;

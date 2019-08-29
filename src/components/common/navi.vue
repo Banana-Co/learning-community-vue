@@ -14,7 +14,7 @@
 <!--				<i class="el-icon-setting"></i>-->
 <!--				<span slot="title">最新回复</span>-->
 <!--			</el-menu-item>-->
-        <el-menu-item v-for="(sortby, index) in sortbys" :index="index">
+        <el-menu-item v-for="sortby in sortbys" :key="sortby" :index="sortby">
           <i class="el-icon-setting"></i>
           <span slot="title"> {{sortby}} </span>
         </el-menu-item>
