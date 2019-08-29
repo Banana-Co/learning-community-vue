@@ -2,7 +2,8 @@
     <el-row>
       <el-col :span="4"></el-col>
       <el-col :span="16" :offset="4">
-        <h1 v-if="noPostFound"> 不好意思哈，找不到你要的帖子 </h1>
+        <el-alert v-if="noPostFound" type="info" :closable="false" title="不好意思，找不到你要的帖子"></el-alert>
+        <el-alert v-if="!noPostFound" type="success" :closable="false" :title="'共找到关于' + keyword + '的帖子' + totalPostNum + '条'"></el-alert>
         <out-post v-for="post in postPage" :key="post.id" :id="post.id" :con='post' :name='name' :isPublish='isPublish' :isReply='isReply'></out-post>
         <el-pagination @current-change="handleCurrentChange" :current-page.sync="currentPage"
                        :page-size="10" layout="prev, pager, next, jumper" :total="totalPostNum" :hide-on-single-page="true">
@@ -27,6 +28,7 @@
         },
         data() {
             return {
+                keyword: this.$route.params.keyword,
                 posts: [],
                 sortedby: 'latestReplyDate',
                 order: 'desc',
@@ -38,7 +40,7 @@
         methods: {
             getPost() {
                 this.$axios
-                    .get(`findPostByKeyword=${(this.$route).params.keyword}`)
+                    .get(`findPostByKeyword=${this.keyword}`)
                     .then(res => {
                         this.posts = res.data
                         this.totalPostNum = this.posts.length
@@ -57,5 +59,8 @@
 </script>
 
 <style>
-
+  .el-alert {
+    margin-top: 10px;
+    margin-bottom: 10px
+  }
 </style>
