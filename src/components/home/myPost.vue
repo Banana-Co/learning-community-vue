@@ -3,14 +3,13 @@
 
 		<el-row>
 			<el-col :span="4">
-
-
-
-
-
+        <navi :sortbys="sortbys" @sort-change="handleSortChange"></navi>
 			</el-col>
-			<el-col :span="16" :offset='4'>
+			<el-col :span="16">
 				<outpost v-for="post in posts" :key="post.id" :id="post.id" :con='post'></outpost>
+        <el-pagination @current-change="handleCurrentChange" :current-page.sync="currentPage"
+          :page-size="10" layout="prev, pager, next, jumper" :total="totalPostNum" :hide-on-single-page="true">
+        </el-pagination>
 			</el-col>
 			<el-col :span="4">
 				<el-col :span="7">
@@ -53,19 +52,45 @@
 				console.log(`当前页: ${val}`);
 			},
 			handleSortChange(val) {
-				this.sortedby = val.sortedby;
-				this.order = val.order;
-				this.currentPage = 1;
-				this.getPostPage();
-			},
+          switch(val) {
+              case '最新回复':
+                  this.sortedby = "latestReplyDate";
+                  this.order = "desc";
+                  break;
+              case '最早回复':
+                  this.sortedby = "latestReplyDate";
+                  this.order = "asc";
+                  break;
+              case '最新发布':
+                  this.sortedby = "createdDate";
+                  this.order = "desc";
+                  break;
+              case '最早发布':
+                  this.sortedby = "createdDate";
+                  this.order = "asc";
+                  break;
+              case '最多回复':
+                  this.sortedby = "replyNum";
+                  this.order = "desc"
+                  break;
+          }
+          this.getPostPage()
+      },
 			ToLogin() {
 				this.$router.replace({
 					path: '/login'
 				})
 			},
 			getPostPage() {
-					this.$axios.get(`MyPost=${this.name}`).then((res) => {
-						this.posts = res.data;
+					this.$axios.get('findPostByAuthorAndPage', {
+					    params: {
+					        author: this.name,
+					        page: this.currentPage,
+                  sortedby: this.sortedby,
+                  order: this.order
+              }
+          }).then((res) => {
+						this.posts = res.data.content;
 						//console.log(this.posts);
 						this.totalPostNum = res.data.totalElements;
 					})
@@ -87,6 +112,7 @@
 				isLogin: false,
 				notLogin: true,
 				input: '',
+          sortbys: ['最新回复', '最早回复', '最新发布', '最早发布', '最多回复']
 			};
 		},
 		created() {
