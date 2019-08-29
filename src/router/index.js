@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from '../store/store'
+import SearchResult from "../components/common/SearchResult";
 //import MessageFlow from '@/components/message/MessageFlow'
 //import MessageDetail from '@/components/message/MessageDetail'
 //import MessageBrief from '@/components/message/MessageBrief'
@@ -102,6 +103,11 @@ const routes = [{
 			isLogin: true
 		},
 	},
+  {
+    path: '/search/:keyword',
+    name: 'SearchResult',
+    component: SearchResult
+  }
 ];
 const router = new Router({
 	routes
