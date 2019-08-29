@@ -2,7 +2,7 @@
 	<div>
 
 		<el-row>
-			<el-col :span="4" v-if="inner">
+			<el-col :span="4">
 				<navi :sortbys="sortbys" @sort-change="handleSortChange"></navi>
 			</el-col>
 			<el-col :span="16">
@@ -11,7 +11,7 @@
 				 :total="totalPostNum" :hide-on-single-page="true">
 				</el-pagination>
 			</el-col>
-			<el-col :span="4" v-if="inner">
+			<el-col :span="4">
 				<el-col :span="7">
 				</el-col>
 				<el-col :span="10" :offset='7'>
