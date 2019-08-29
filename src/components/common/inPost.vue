@@ -110,7 +110,7 @@
 							this.icon='el-icon-star-on';
 							this.isLiked=true;
 						}
-						console.log(res);
+						//console.log(res);
 					})
 					.catch(function(error) {
 						console.log(error);

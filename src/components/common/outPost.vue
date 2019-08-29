@@ -33,9 +33,20 @@
 	export default {
 		methods: {
 			ToContent() {
-				this.$router.push(
-					`/content/${this.id}`
-				)
+				if (this.name == '') {
+					this.$alert('请先登录', '提示', {
+						confirmButtonText: '确定',
+						callback: action => {
+							this.$router.push(
+								'/login'
+							)
+						}
+					});
+				} else {
+					this.$router.push(
+						`/content/${this.id}`
+					)
+				}
 			},
 		},
 		computed: {
@@ -46,6 +57,7 @@
 		props: [
 			'id',
 			'con',
+			'name',
 		]
 	}
 </script>

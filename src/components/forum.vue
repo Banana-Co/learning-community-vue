@@ -22,7 +22,7 @@
 			</el-col>
 
 			<el-col :span="16">
-				<outpost v-for="post in posts" :key="post.id" :id="post.id"  :con='post'></outpost>
+				<outpost v-for="post in posts" :key="post.id" :id="post.id" :con='post' :name='name'></outpost>
 				<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage"
 				 :page-size="10" layout="prev, pager, next, jumper" :total="totalPostNum" :hide-on-single-page="true">
 				</el-pagination>
@@ -116,27 +116,27 @@
 					this.postDialogVisible = true;
 				}
 			},
-        handleSortChange(val) {
-			    switch(val) {
-              case '最新回复':
-                 this.sortedby = "latestReplyDate";
-                 this.order = "desc";
-                 break;
-              case '最早回复':
-                  this.sortedby = "latestReplyDate";
-                  this.order = "asc";
-                  break;
-              case '最新发布':
-                  this.sortedby = "createdDate";
-                  this.order = "desc";
-                  break;
-              case '最早发布':
-                  this.sortedby = "createdDate";
-                  this.order = "asc";
-                  break;
-          }
-          this.getPostPage()
-        }
+			handleSortChange(val) {
+				switch (val) {
+					case '最新回复':
+						this.sortedby = "latestReplyDate";
+						this.order = "desc";
+						break;
+					case '最早回复':
+						this.sortedby = "latestReplyDate";
+						this.order = "asc";
+						break;
+					case '最新发布':
+						this.sortedby = "createdDate";
+						this.order = "desc";
+						break;
+					case '最早发布':
+						this.sortedby = "createdDate";
+						this.order = "asc";
+						break;
+				}
+				this.getPostPage()
+			}
 		},
 		data() {
 			return {
@@ -152,7 +152,7 @@
 				isLogin: false,
 				notLogin: true,
 				input: '',
-          sortbys: ['最新回复', '最早回复', '最新发布', '最早发布']
+				sortbys: ['最新回复', '最早回复', '最新发布', '最早发布']
 			};
 		},
 		created() {
