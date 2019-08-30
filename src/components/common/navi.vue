@@ -31,7 +31,6 @@
 		},
 		methods: {
 			handleSelect(key, keyPath) {
-				console.log(key, keyPath);
 				this.$emit('sort-change', key)
 			}
 		},

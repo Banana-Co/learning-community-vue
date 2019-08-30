@@ -12,7 +12,9 @@
 				</navi>
 			</el-col>
 			<el-col :span="16">
+				<transition-group name="slide-fade">
 				<in-post v-for="reply in replyPage" :key="reply.createdDate"  :con="reply" :name='name' :avatarUrlm='avatarUrl'></in-post>
+				</transition-group>
         <el-pagination @current-change="handleCurrentChange" :current-page.sync="currentPage"
                        :page-size="10" layout="prev, pager, next, jumper" :total="postDetail.replyNum" :hide-on-single-page="true">
         </el-pagination>
@@ -135,5 +137,21 @@
   }
   .postTitle{
 	  font-size: 26px;
+  }
+  
+  .slide-fade-enter-active {
+  	transition: all .25s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  
+  .slide-fade-leave-active {
+  	transition: all .10s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  
+  .slide-fade-enter,
+  .slide-fade-leave-to
+  /* .slide-fade-leave-active for below version 2.1.8 */
+  	{
+  	transform: translateX(10px);
+  	opacity: 0;
   }
 </style>

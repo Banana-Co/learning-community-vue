@@ -1,4 +1,6 @@
 <template>
+	
+
 	<div>
 		<!-- <div>
 			<el-carousel height="300px" type="card">
@@ -25,7 +27,7 @@
 
 			<el-col :span="16">
 				<div>
-					<el-row >
+					<el-row>
 						<el-col :span="4">
 						</el-col>
 						<el-col :span="10" :offset='4'>
@@ -42,7 +44,12 @@
 						</el-col>
 					</el-row>
 				</div>
-				<outpost v-for="post in posts" :key="post.id" :id="post.id" :con='post' :name='name' :isPublish='isPublish' :isReply='isReply'></outpost>
+				<div>
+					<transition-group class="post-transist" name="slide-fade">
+						<outpost v-for="post in posts" :key="post.id" :id="post.id" :con='post' :name='name' :isPublish='isPublish'
+						 :isReply='isReply' v-if="reFresh"></outpost>
+					</transition-group>
+				</div>
 				<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage"
 				 :page-size="10" layout="prev, pager, next, jumper" :total="totalPostNum" :hide-on-single-page="true">
 				</el-pagination>
@@ -94,14 +101,25 @@
 		// 	})
 		// },
 		watch: {
-			checkNavi(old, newd) {
+			checkNavi(newd, old) {
 				this.getPostPage()
 			},
+			checkSortNavi(newd, old) {
+				this.getPostPage()
+				this.reFresh= false
+                  this.$nextTick(()=>{
+                    
+                    this.reFresh = true
+                })
+			}
 		},
 		computed: {
 			checkNavi() {
 				return this.$route.params.id;
 			},
+			checkSortNavi(){
+				return this.sortId;
+			}
 		},
 		methods: {
 			handleSizeChange(val) {
@@ -117,14 +135,14 @@
 				})
 			},
 			getPostPage() {
-				this.activeIndex=this.$route.params.id
+				this.activeIndex = this.$route.params.id
 				this.$axios
 					.get('getThreadPostByPage', {
 						params: {
 							page: this.currentPage,
 							sortedby: this.sortedby,
 							order: this.order,
-							threadId:this.activeIndex,
+							threadId: this.activeIndex,
 						}
 					})
 					.then(res => {
@@ -155,29 +173,32 @@
 					case '最新回复':
 						this.sortedby = "latestReplyDate";
 						this.order = "desc";
-						this.isPublish=false;
-						this.isReply=true;
+						this.isPublish = false;
+						this.isReply = true;
+						this.sortId = 1;
 						break;
 					case '最早回复':
 						this.sortedby = "latestReplyDate";
 						this.order = "asc";
-						this.isPublish=false;
-						this.isReply=true;
+						this.isPublish = false;
+						this.isReply = true;
+						this.sortId = 2;
 						break;
 					case '最新发布':
 						this.sortedby = "createdDate";
 						this.order = "desc";
-						this.isPublish=true;
-						this.isReply=false;
+						this.isPublish = true;
+						this.isReply = false;
+						this.sortId = 3;
 						break;
 					case '最早发布':
 						this.sortedby = "createdDate";
 						this.order = "asc";
-						this.isPublish=true;
-						this.isReply=false;
+						this.isPublish = true;
+						this.isReply = false;
+						this.sortId = 4;
 						break;
 				}
-				this.getPostPage()
 			}
 		},
 		data() {
@@ -193,9 +214,11 @@
 				avatarUrl: "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
 				input: '',
 				sortbys: ['最新回复', '最早回复', '最新发布', '最早发布'],
-				isPublish:true,
-				isReply:false,
-				activeIndex:1,
+				isPublish: true,
+				isReply: false,
+				activeIndex: 1,
+				sortId: 3,
+				reFresh: true,
 			};
 		},
 		created() {
@@ -209,10 +232,33 @@
 						this.avatarUrl = response.data.avatarUrl
 					}
 				})
-			} 
+			}
 		},
 	};
 </script>
 
 <style>
+	.slide-fade-enter-active {
+		transition: all .25s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+	}
+
+	.slide-fade-leave-active {
+		transition: all .10s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+	}
+
+	.slide-fade-enter,
+	.slide-fade-leave-to
+	/* .slide-fade-leave-active for below version 2.1.8 */
+		{
+		transform: translateX(10px);
+		opacity: 0;
+	}
+	.postTransist{
+    position: relative;
+    overflow-y: hidden;
+
+    outpost{
+      position: absolute;
+    }
+  }
 </style>
