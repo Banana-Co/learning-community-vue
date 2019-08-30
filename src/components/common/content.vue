@@ -1,7 +1,9 @@
 <template>
 	<div>
-		<span>{{this.postDetail.title}}</span>
-		<el-divider></el-divider>
+		<el-row>
+		<el-button  @click="$router.back(-1)" icon="el-icon-back"></el-button>
+		<span class="postTitle">  {{this.postDetail.title}}</span>
+		</el-row>
 		<el-row>
 			<el-col :span="4">
 				<el-button @click="replyDialogVisible=true"> 发表回复 </el-button>
@@ -130,5 +132,8 @@
   .el-pagination {
     margin-top: 30px;
     margin-bottown: 100px
+  }
+  .postTitle{
+	  font-size: 26px;
   }
 </style>
