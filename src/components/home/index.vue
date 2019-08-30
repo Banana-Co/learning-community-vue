@@ -101,7 +101,9 @@
 				this.$router.replace('/')
 			}
 			this.$axios.get(`/getUser/${this.name}`).then((response) => {
-				this.notiData = response.data.notifications
+				if(response.data.notifications!=null){
+					this.notiData = response.data.notifications
+				}
 				console.log(this.notiData)
 				this.time = response.data.createdDate
 				if (response.data.avatarUrl != '') {
