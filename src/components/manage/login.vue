@@ -3,7 +3,6 @@
 		<div class="grid-content"><br /><br /><br /><br /><br /><br /><br /></div>
 		<center>
 			<el-card class="login-card">
-				<p v-show="showTishi" class="tishiText">{{tishi}}</p>
 				<el-input type="text" v-model="loginInfoVo.username" placeholder="请输入用户名"></el-input>
 				<el-input type="password" v-model="loginInfoVo.password" placeholder="请输入密码"></el-input>
 				<br />
@@ -21,7 +20,11 @@
 		setCookie,
 		getCookie
 	} from '../../assets/js/cookie.js'
-	import {mapState,mapActions,mapGetters} from 'vuex';
+	import {
+		mapState,
+		mapActions,
+		mapGetters
+	} from 'vuex';
 	export default {
 		data() {
 			return {
@@ -30,8 +33,6 @@
 					password: ''
 				},
 				responseResult: [],
-				showTishi: false,
-				tishi: '',
 			}
 		},
 		mounted() {
@@ -73,18 +74,25 @@
 							// localStorage.setItem('Flag', 'isLogin')
 							// localStorage.setItem('username', userName)
 							this.$store.dispatch('login')
+							this.$notify({
+								title: '成功',
+								message: '登录成功',
+								type: 'success'
+							});
 							this.$router.replace('/forum')
 						} else if (successResponse.data.code === 300) {
-							this.tishi = "该用户不存在"
-							this.showTishi = true
+							this.$notify.error({
+								title: '错误',
+								message: '该用户不存在'
+							});
 						} else if (successResponse.data.code === 400) {
-							this.tishi = "密码输入错误"
-							this.showTishi = true
+							this.$notify.error({
+								title: '错误',
+								message: '密码输入错误'
+							});
 						}
 					})
 					.catch(failResponse => {})
-
-
 			}
 		}
 	}
