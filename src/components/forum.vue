@@ -12,7 +12,9 @@
 		<!-- <h3>计算:{{this.$store.getters.getStateCount}}</h3> -->
 		<!-- <button @click="addFun">+</button>
 		<button @click="minusFun">-</button> -->
-
+		<el-row>
+			<naviHeader></naviHeader>
+		</el-row>
 		<el-row>
 			<el-col :span="4">
 				<el-row>
@@ -67,6 +69,7 @@
 <script>
 	import outpost from "@/components/common/outPost.vue";
 	import navi from "@/components/common/navi.vue";
+	import naviHeader from "@/components/common/naviHeader.vue";
 	import PostDialog from "@/components/message/PostDialog.vue"
 	import {
 		mapState,
@@ -83,6 +86,7 @@
 			outpost,
 			navi,
 			PostDialog,
+			naviHeader,
 		},
 		// computed: {
 		// 	...mapState({

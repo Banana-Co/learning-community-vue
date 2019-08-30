@@ -8,6 +8,7 @@ import SearchResult from "../components/common/SearchResult";
 //懒加载
 const login = () => import('@/components/manage/login.vue')
 const index = () => import('@/components/home/index.vue')
+const outIndex = () => import('@/components/home/outIndex.vue')
 const register = () => import('@/components/manage/register.vue')
 const main = () => import('@/components/main/Main.vue')
 const changePassword = () => import('@/components/manage/changePassword.vue')
@@ -18,11 +19,19 @@ Vue.use(Router)
 
 const routes = [{
 		path: '/',
-		redirect: '/forum',
+		redirect: '/outIndex',
 		meta: {
 			isLogin: false
 		},
 		//redirect: '/forum'
+	},
+	{
+		path: '/outIndex',
+		name: 'outIndex',
+		component: outIndex,
+		meta: {
+			isLogin: false
+		},
 	},
 	{
 		path: '/myPost',
