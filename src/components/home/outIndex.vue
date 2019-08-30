@@ -11,8 +11,14 @@
 			<el-col :span="6">
 				<threadBlock title="刷题" url=""></threadBlock>
 			</el-col>
-			<el-col :span="6"></el-col>
-
+			<el-col :span="6">
+				<el-card class='threadBlock'>
+					当前热门
+					
+					
+				</el-card>
+			</el-col>
+				
 
 		</el-row>
 		</center>
