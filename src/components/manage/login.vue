@@ -3,8 +3,12 @@
 		<div class="grid-content"><br /><br /><br /><br /><br /><br /><br /></div>
 		<center>
 			<el-card class="login-card">
+				<el-row>
 				<el-input type="text" v-model="loginInfoVo.username" placeholder="请输入用户名"></el-input>
+				</el-row>
+				<el-row>
 				<el-input type="password" v-model="loginInfoVo.password" placeholder="请输入密码"></el-input>
+				</el-row>
 				<br />
 				<el-button type="primary" v-on:click="login">登录</el-button><br />
 				<div>
@@ -101,12 +105,27 @@
 <style>
 	.wrap {
 		text-align: center;
+		
 	}
 
 	.login-card {
 		width: 320px;
-	}
+		height: 250px;
 
+	}
+	
+    input {
+     	display: block;
+     	width: 250px;
+     	height: 40px;
+     	line-height: 40px;
+     	margin-top: 10px;
+     	outline: none;
+     	border: 1px solid #888;
+     	padding: 10px;
+     	box-sizing: border-box;
+     }
+	 
 	.tishiText {
 		color: red;
 	}
