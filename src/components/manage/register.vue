@@ -4,9 +4,7 @@
 		<center>
 			<el-card class="register-card">
 
-				<el-row>
-					<span><p v-show="showTishi" class="tishiText" >{{tishi}}</p><p v-show="inputed" class="tishiText" >{{this.auth_time}}秒之后重新发送验证码</p></span>
-				</el-row>
+
 				<el-row>
 					<el-input type="text" v-model="loginInfoVo.username" placeholder="请输入用户名"></el-input>
 				</el-row>
@@ -21,7 +19,8 @@
 						<el-input type="text" v-model="loginInfoVo.code" placeholder="请输入验证码"> </el-input>
 					</el-col>
 					<el-col :span="8">
-						<el-button type="primary" @click='sendPin' name='codeButton' :disabled="inputed">获取验证码</el-button>
+						<el-button type="primary" @click='sendPin' name='codeButton' :disabled="inputed"><span v-if="inputed">{{this.auth_time}}</span>
+							<span v-else>获取验证码</span> </el-button>
 					</el-col>
 				</el-row>
 				<el-row>
@@ -54,8 +53,6 @@
 					code: '',
 				},
 				responseResult: [],
-				showTishi: false,
-				tishi: '',
 				code: '',
 				emailAddress: '',
 				inputed: false,
@@ -89,18 +86,25 @@
 					})
 					.then((response) => {
 						if (response.data.code == 305) {
-							this.tishi = "邮箱不合法"
-							this.showTishi = true
+							this.$notify.error({
+								title: '错误',
+								message: '邮箱不合法'
+							});
 						} else if (response.data.code == 306) {
-							this.tishi = "邮箱已被注册"
-							this.showTishi = true
+							this.$notify.error({
+								title: '错误',
+								message: '邮箱已被注册'
+							});
 						} else if (response.data.code == 200) {
-							
+
 							this.code = response.data.message
 							this.emailAddress = this.loginInfoVo.emailAddress
 							this.inputed = true
-							this.showTishi = false
-							console.log(this.emailAddress)
+							this.$notify({
+								title: '成功',
+								message: '验证码已发送',
+								type: 'success'
+							});
 							this.auth_time = 60;
 							var auth_timetimer = setInterval(() => {
 								this.auth_time--;
@@ -117,12 +121,21 @@
 			},
 			register() {
 				if (this.code != this.loginInfoVo.code) {
-					this.tishi = "验证码不正确"
-					this.showTishi = true
-				}else if(this.inputed==false){
-					this.tishi = "请获取验证码"
-					this.showTishi = true
-				}else {
+					this.$notify.error({
+						title: '错误',
+						message: '验证码有误或已过期'
+					});
+				} else if (this.loginInfoVo.emailAddress == '') {
+					this.$notify.error({
+						title: '错误',
+						message: '请输入邮箱'
+					});
+				} else if (this.inputed == false) {
+					this.$notify.error({
+						title: '提示',
+						message: '请重新获取验证码'
+					});
+				} else {
 					this.$axios
 						.post('register', {
 							username: this.loginInfoVo.username,
@@ -137,16 +150,27 @@
 								// localStorage.setItem('Flag', 'isLogin')
 								// localStorage.setItem('username', userName)
 								this.$store.dispatch('login')
+								this.$notify({
+									title: '成功',
+									message: '登录成功',
+									type: 'success'
+								});
 								this.$router.push('/forum')
 							} else if (successResponse.data.code === 201) {
-								this.tishi = "该用户已存在"
-								this.showTishi = true
+								this.$notify.error({
+									title: '错误',
+									message: '该用户已存在'
+								});
 							} else if (successResponse.data.code === 400) {
-								this.tishi = "输入不合法"
-								this.showTishi = true
+								this.$notify.error({
+									title: '错误',
+									message: '输入不合法'
+								});
 							} else if (successResponse.data.code === 402) {
-								this.tishi = "输入不合法"
-								this.showTishi = true
+								this.$notify.error({
+									title: '错误',
+									message: '输入不合法'
+								});
 							}
 						})
 						.catch(failResponse => {})
