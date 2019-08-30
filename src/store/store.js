@@ -19,42 +19,42 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: {
-    isLogin: false,
-		username:'',
-		avatarNum:0,
-  },
-  getters: {
-		getStateLogin(state){
+	state: {
+		isLogin: false,
+		username: '',
+		avatarNum: 0,
+	},
+	getters: {
+		getStateLogin(state) {
 			return state.isLogin;
 		},
-		getStateUsername(state){
+		getStateUsername(state) {
 			return state.username;
 		},
-		getStateavatarNum(state){
+		getStateavatarNum(state) {
 			return state.avatarNum;
 		},
-  },
-  mutations: {
-    login(state){
-			state.isLogin=true
+	},
+	mutations: {
+		login(state) {
+			state.isLogin = true
 		},
-		quit(state){
-			state.isLogin=false
+		quit(state) {
+			state.isLogin = false
 		},
-		changeAvatar(state){
-			state.avatarNum=state.avatarNum+1
+		changeAvatar(state) {
+			state.avatarNum = state.avatarNum + 1
 		},
-  },
-  actions: {
-    login(context){
-    	context.commit('login')
-    },
-    quit(context){
-    	context.commit('quit')
-    },
-		changeAvatar(context){
+	},
+	actions: {
+		login(context) {
+			context.commit('login')
+		},
+		quit(context) {
+			context.commit('quit')
+		},
+		changeAvatar(context) {
 			context.commit('changeAvatar')
 		},
-  }
+	}
 })

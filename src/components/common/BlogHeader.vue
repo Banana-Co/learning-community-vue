@@ -108,13 +108,7 @@
 			},
 			ToForum() {
 				this.$router.push({
-					path: '/forum'
-				})
-			},
-			handleSelect(key, keyPath) {
-				console.log(key, keyPath);
-				this.$router.push({
-					path: '/forum'
+					path: '/outIndex'
 				})
 			},
 			handleSearch() {

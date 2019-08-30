@@ -76,6 +76,7 @@
 						likeNum: 0,
 						avatarUrl: this.avatarUrl,
 						no: 0,
+						threadId:this.threadId,
 					})
 					.then(res => {
 						if (res.status == 200) {
@@ -129,6 +130,7 @@
 		props: ['visible',
 			'author',
 			'avatarUrl',
+			'threadId',
 		]
 	}
 </script>

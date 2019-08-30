@@ -153,7 +153,7 @@
 									message: '登录成功',
 									type: 'success'
 								});
-								this.$router.push('/forum')
+								this.$router.push('/outIndex')
 							} else if (successResponse.data.code === 201) {
 								this.$notify.error({
 									title: '错误',

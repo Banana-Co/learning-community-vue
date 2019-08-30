@@ -19,18 +19,19 @@
 <script>
 	export default {
 		data() {
-			return {
-				activeIndex: '1',
-			}
+			return {}
 		},
 		methods: {
 			handleSelect(key, keyPath) {
-				console.log(key, keyPath);
-				this.$router.push({
-					path: '/forum'
-				})
+				this.$router.push(
+					`/forum/${key}`
+				)
+				//location.reload()
 			},
-		}
+		},
+		props: [
+			'activeIndex',
+		],
 	}
 </script>
 

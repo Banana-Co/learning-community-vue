@@ -50,7 +50,7 @@ const routes = [{
 		},
 	},
 	{
-		path: '/forum',
+		path: '/forum/:id',
 		name: 'forum',
 		component: forum,
 		meta: {

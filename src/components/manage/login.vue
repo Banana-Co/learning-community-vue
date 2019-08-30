@@ -83,7 +83,7 @@
 								message: '登录成功',
 								type: 'success'
 							});
-							this.$router.replace('/forum')
+							this.$router.replace('/outIndex')
 						} else if (successResponse.data.code === 300) {
 							this.$notify.error({
 								title: '错误',

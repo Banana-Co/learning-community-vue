@@ -13,7 +13,7 @@
 		<!-- <button @click="addFun">+</button>
 		<button @click="minusFun">-</button> -->
 		<el-row>
-			<naviHeader></naviHeader>
+			<naviHeader :activeIndex='activeIndex'></naviHeader>
 		</el-row>
 		<el-row>
 			<el-col :span="4">
@@ -50,7 +50,7 @@
 			<el-col :span="4">
 				<el-row>
 					<el-button @click="showPost" type="primary">发布帖子 </el-button>
-					<post-dialog :visible.sync="postDialogVisible" :author="name" :avatarUrl='avatarUrl'></post-dialog>
+					<post-dialog :visible.sync="postDialogVisible" :author="name" :avatarUrl='avatarUrl' :threadId='activeIndex'></post-dialog>
 				</el-row>
 				<el-row>
 					<el-col :span="7">
@@ -93,6 +93,16 @@
 		// 		count1: state => state.count
 		// 	})
 		// },
+		watch: {
+			checkNavi(old, newd) {
+				this.getPostPage()
+			},
+		},
+		computed: {
+			checkNavi() {
+				return this.$route.params.id;
+			},
+		},
 		methods: {
 			handleSizeChange(val) {
 				console.log(`每页 ${val} 条`);
@@ -107,12 +117,14 @@
 				})
 			},
 			getPostPage() {
+				this.activeIndex=this.$route.params.id
 				this.$axios
-					.get('getPostByPage', {
+					.get('getThreadPostByPage', {
 						params: {
 							page: this.currentPage,
 							sortedby: this.sortedby,
-							order: this.order
+							order: this.order,
+							threadId:this.activeIndex,
 						}
 					})
 					.then(res => {
@@ -183,6 +195,7 @@
 				sortbys: ['最新回复', '最早回复', '最新发布', '最早发布'],
 				isPublish:true,
 				isReply:false,
+				activeIndex:1,
 			};
 		},
 		created() {
