@@ -3,8 +3,6 @@
 		<div class="grid-content"><br /><br /><br /><br /><br /><br /><br /></div>
 		<center>
 			<el-card class="register-card">
-
-
 				<el-row>
 					<el-input type="text" v-model="loginInfoVo.username" placeholder="请输入用户名"></el-input>
 				</el-row>

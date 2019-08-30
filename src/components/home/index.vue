@@ -1,5 +1,7 @@
 <template>
 	<div>
+		
+			
 		<el-col :span="2">
 		</el-col>
 		<el-col :span="7" :offset='2'>
@@ -53,6 +55,7 @@
 				</el-card>
 			</el-row>
 		</el-col>
+		
 
 
 	</div>
@@ -224,12 +227,15 @@
 	}
 
 	.self-card {
-		width: 360px;
+		width: 350px;
 		height: 500px;
+		margin-left: 60px;
+		margin-top: 30px;
 	}
 
 	.box-card {
 		width: 800px;
+		margin-top: 30px;
 	}
 
 	.wrap {
