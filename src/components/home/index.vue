@@ -136,12 +136,14 @@
 				delCookie('username')
 				// localStorage.removeItem('Flag')
 				// localStorage.removeItem('username')
+				this.$store.dispatch('quit')
 				this.$router.replace('/login')
 			},
 			handleAvatarSuccess(res, file) {
 				if (res.code === 200) {
 					this.url = res.message
 					this.imageUrl = this.url
+					this.$store.dispatch('changeAvatar')
 					this.$axios.post('/uploadAvatar', {
 						username: this.name,
 						avatarUrl: this.url,

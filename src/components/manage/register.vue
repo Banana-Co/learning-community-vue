@@ -136,6 +136,7 @@
 								// this.$store.dispatch('setUser', true)
 								// localStorage.setItem('Flag', 'isLogin')
 								// localStorage.setItem('username', userName)
+								this.$store.dispatch('login')
 								this.$router.push('/forum')
 							} else if (successResponse.data.code === 201) {
 								this.tishi = "该用户已存在"

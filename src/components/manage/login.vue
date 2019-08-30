@@ -72,6 +72,7 @@
 							// this.$store.dispatch('setUser', true)
 							// localStorage.setItem('Flag', 'isLogin')
 							// localStorage.setItem('username', userName)
+							this.$store.dispatch('login')
 							this.$router.replace('/forum')
 						} else if (successResponse.data.code === 300) {
 							this.tishi = "该用户不存在"

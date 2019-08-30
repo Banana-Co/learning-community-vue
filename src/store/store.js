@@ -20,19 +20,41 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isLogin: false
+    isLogin: false,
+		username:'',
+		avatarNum:0,
   },
   getters: {
-    isLogin: state => state.isLogin
+		getStateLogin(state){
+			return state.isLogin;
+		},
+		getStateUsername(state){
+			return state.username;
+		},
+		getStateavatarNum(state){
+			return state.avatarNum;
+		},
   },
   mutations: {
-    userStatus (state, flag) {
-      state.isLogin = flag
-    }
+    login(state){
+			state.isLogin=true
+		},
+		quit(state){
+			state.isLogin=false
+		},
+		changeAvatar(state){
+			state.avatarNum=state.avatarNum+1
+		},
   },
   actions: {
-    setUser ({commit}, flag) {
-      commit('userStatus', flag)
-    }
+    login(context){
+    	context.commit('login')
+    },
+    quit(context){
+    	context.commit('quit')
+    },
+		changeAvatar(context){
+			context.commit('changeAvatar')
+		},
   }
 })
