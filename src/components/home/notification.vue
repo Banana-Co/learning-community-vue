@@ -2,13 +2,13 @@
 	<div>
 		<el-card class="box-card">
 			<div>
-				<el-table :data="this.notiData" style="width: 100%" max-height="250" ref="filterTable" :row-class-name="tableRowClassName"
+				<el-table :data="this.notiData" style="width: 100%" height="250" ref="filterTable" :row-class-name="tableRowClassName"
 				 :default-sort="{prop: 'read', order: 'ascending'}">
 					<el-table-column prop="username" label="通知" width="100" sortable>
 					</el-table-column>
-					<el-table-column prop="notifiDate" label="时间" width="200" :formatter="formatter" sortable>
+					<el-table-column prop="notifiDate" label="时间" width="200" :formatter="formatterDate" sortable>
 					</el-table-column>
-					<el-table-column prop="message">
+					<el-table-column prop="message" :formatter="formatterMessage">
 					</el-table-column>
 					<el-table-column prop="read" label="类型" :filter-method="filterType" :filters="[{ text: '点赞', value: 1 }, { text: '评论', value: 2 }]"
 					 filter-placement="bottom-end">{{this.Read}}
@@ -51,7 +51,14 @@
 				}
 				return '';
 			},
-			formatter(row, column) {
+			formatterMessage(row, column) {
+				if(row.message.length>27){
+					let str = row.message.slice(0,27)+"...\"";
+					return str;
+				}
+				return row.message;
+			},
+			formatterDate(row, column) {
 				return dateFormat(row.notifiDate);
 			},
 			deleteRow(index, rows) {

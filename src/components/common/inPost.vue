@@ -4,7 +4,7 @@
 			<el-row>
 				<el-col :span="4">
 					<el-row>
-						<el-avatar :src="this.con.avatarUrl" :size="60"></el-avatar>
+						<el-avatar :src="this.avatarUrl" :size="60"></el-avatar>
 					</el-row>
 					<el-row>{{this.con.author}}</el-row>
 
@@ -27,7 +27,7 @@
 							<el-button size="mini" @click="like" :icon="icon">{{this.con.likeNum}}</el-button>
 						</div>
 					</el-row>
-					<reply-dialog :postId="this.$route.params.id" :visible.sync="replyDialogVisible" :author="name" :avatarUrl="avatarUrl"
+					<reply-dialog :postId="this.$route.params.id" :visible.sync="replyDialogVisible" :author="name" :avatarUrl="avatarUrlm"
 					 :floor='this.con.no'></reply-dialog>
 
 
@@ -58,12 +58,25 @@
 				defaultData: "preview",
 				isLiked: false,
 				icon: 'el-icon-star-off',
+				avatarUrl: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
 			}
 		},
 		created() {
 			if (this.con.fatherNo != 0 && this.con.fatherNo != -1) {
 				this.isReply = true;
 			}
+			this.$axios.get('getAvatarUrl', {
+				params: {
+					username: this.con.author,
+				}
+			}).then((response) => {
+				if (response.data.avatarUrl != '') {
+					this.avatarUrl = response.data
+				}
+
+			}).catch(function(error) {
+				console.log(error);
+			})
 			this.$axios.get('haveLiked', {
 					params: {
 						fatherId: this.con.fatherId,
@@ -74,10 +87,10 @@
 					//console.log(response.data.code);
 					if (response.data.code == 203) {
 						this.icon = 'el-icon-star-off';
-						this.isLiked=false;
+						this.isLiked = false;
 					} else if (response.data.code == 202) {
 						this.icon = 'el-icon-star-on';
-						this.isLiked=true;
+						this.isLiked = true;
 					} else {
 						console.log(response);
 					}
@@ -99,16 +112,16 @@
 							no: this.con.no,
 							username: this.name,
 						}
-				
+
 					}).then(res => {
-						if(this.isLiked==true){
+						if (this.isLiked == true) {
 							this.con.likeNum--;
-							this.icon='el-icon-star-off';
-							this.isLiked=false;
-						}else{
+							this.icon = 'el-icon-star-off';
+							this.isLiked = false;
+						} else {
 							this.con.likeNum++;
-							this.icon='el-icon-star-on';
-							this.isLiked=true;
+							this.icon = 'el-icon-star-on';
+							this.isLiked = true;
 						}
 						//console.log(res);
 					})
@@ -122,7 +135,7 @@
 			'id',
 			'con',
 			'name',
-			'avatarUrl',
+			'avatarUrlm',
 		]
 	}
 </script>

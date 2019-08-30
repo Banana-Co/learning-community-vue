@@ -4,7 +4,7 @@
 			<el-row :gutter="20">
 				<el-col :span="4">
 					<div class="avatar">
-						<el-avatar :src="this.con.avatarUrl" :size="60"></el-avatar>
+						<el-avatar :src="this.avatarUrl" :size="60"></el-avatar>
 					</div>
 				</el-col>
 				<el-col :span="10">
@@ -31,6 +31,11 @@
 		dateFormat
 	} from "../../assets/js/time.js";
 	export default {
+		data() {
+			return {
+				avatarUrl: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+			}
+		},
 		methods: {
 			ToContent() {
 				if (this.name == '') {
@@ -50,7 +55,20 @@
 			},
 		},
 		created() {
-			//console.log(this.con);
+			if (this.con.author != '') {
+				this.$axios.get('getAvatarUrl', {
+					params: {
+						username: this.con.author,
+					}
+				}).then((response) => {
+					if (response.data.avatarUrl != '') {
+						this.avatarUrl = response.data
+					}
+
+				}).catch(function(error) {
+					console.log(error);
+				})
+			}
 		},
 		computed: {
 			formattedcreatedDate() {
