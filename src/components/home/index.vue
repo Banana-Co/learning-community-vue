@@ -5,7 +5,13 @@
 		<el-col :span="7" :offset='2'>
 			<el-card class="self-card">
 				<div slot="header" class="clearfix">
-					<center><span>你好!</span></center>
+					<el-col :span="2">
+						<el-button type="text" @click="$router.back(-1)" icon="el-icon-back"></el-button>
+					</el-col>
+					<el-col :span="20"><span class="wel">你好!</span></el-col>
+
+
+
 				</div>
 				<div>
 
@@ -26,14 +32,15 @@
 					<el-button plain @click="ToChange">更改密码</el-button>
 					<el-button plain @click="ToMyPost">我的帖子</el-button>
 					<el-button plain @click="quit">注销</el-button>
+
 					<!-- <el-button plain><el-upload class="avatar-uploader" action="http://localhost:8000/uploadFile" :show-file-list="false" :on-success="handleAvatarSuccess"
 					 :before-upload="beforeAvatarUpload">修改头像</el-upload></el-button> -->
 				</div>
-				<div>
+				<!-- <div>
 					<center>
 						<el-button type=text @click="$router.back(-1)">返回</el-button>
 					</center>
-				</div>
+				</div> -->
 
 			</el-card>
 		</el-col>
@@ -84,7 +91,7 @@
 				file: '',
 				url: '',
 				notiData: [],
-				read:'',
+				read: '',
 			}
 		},
 		computed: {
@@ -101,7 +108,7 @@
 				this.$router.replace('/')
 			}
 			this.$axios.get(`/getUser/${this.name}`).then((response) => {
-				if(response.data.notifications!=null){
+				if (response.data.notifications != null) {
 					this.notiData = response.data.notifications
 				}
 				console.log(this.notiData)
@@ -179,7 +186,6 @@
 
 
 <style>
-
 	.avatar-uploader .el-upload {
 		border: 1px dashed #d9d9d9;
 		border-radius: 6px;
@@ -227,7 +233,7 @@
 
 	.self-card {
 		width: 360px;
-		height: 500px;
+		height: 550px;
 	}
 
 	.box-card {
@@ -238,6 +244,9 @@
 		text-align: center;
 	}
 
+	.wel{
+		font-size: 30px;
+	}
 
 
 

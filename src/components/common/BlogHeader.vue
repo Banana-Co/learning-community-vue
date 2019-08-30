@@ -25,18 +25,6 @@
 				
 			</el-col>
 		</el-row>
-		<el-row>
-			<el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-				<el-menu-item index="1"><i class="el-icon-document"></i>
-					<span slot="title">课程推荐</span></el-menu-item>
-				<el-menu-item index="2"><i class="el-icon-document"></i>
-					<span slot="title">刷题</span></el-menu-item>
-				<el-menu-item index="3"><i class="el-icon-document"></i>
-					<span slot="title">校园周边</span></el-menu-item>
-
-			</el-menu>
-
-		</el-row>
 	</div>
 </template>
 
@@ -44,10 +32,6 @@
 	.header {
 		margin-left: 120px;
 		margin-right: 120px;
-	}
-
-	.Badge {
-		
 	}
 </style>
 
