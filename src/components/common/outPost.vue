@@ -69,6 +69,9 @@
 					console.log(error);
 				})
 			}
+			if(this.con.title.length>30){
+				this.con.title=this.con.title.slice(0,30)+"...";
+			}
 		},
 		computed: {
 			formattedcreatedDate() {
