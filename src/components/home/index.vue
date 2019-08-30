@@ -43,7 +43,7 @@
 				<notification :notiData='notiData' :name='name'></notification>
 			</el-row>
 
-			<el-row>
+			<!-- <el-row>
 				<el-card class="box-card">
 					<div slot="header" class="clearfix">
 						<center><span>我的帖子</span></center>
@@ -51,7 +51,7 @@
 					<div>
 					</div>
 				</el-card>
-			</el-row>
+			</el-row> -->
 		</el-col>
 
 

@@ -2,7 +2,7 @@
 	<div>
 		<el-card class="box-card">
 			<div>
-				<el-table :data="this.notiData" style="width: 100%" height="250" ref="filterTable" :row-class-name="tableRowClassName"
+				<el-table :data="this.notiData" style="width: 100%" height="300" ref="filterTable" :row-class-name="tableRowClassName"
 				 :default-sort="{prop: 'read', order: 'ascending'}" @row-click="handleRowClick">
 					<el-table-column prop="username" label="通知" width="100">
 					</el-table-column>
@@ -16,10 +16,10 @@
 					</el-table-column>
 					<el-table-column fixed="right" width="120">
 						<template slot="header" slot-scope="scope">
-							<el-button size="mini" @click="deleteRow(scope.$index, scope.row)">全部已读</el-button>
+							<el-button size="mini" @click="readAllRow">全部已读</el-button>
 						</template>
 						<template slot-scope="scope">
-							<el-button size="mini" @click.stop="deleteRow(scope.$index, scope.row)">标为已读</el-button>
+							<el-button size="mini" @click.stop="readRow(scope.$index, scope.row)">标为已读</el-button>
 						</template>
 					</el-table-column>
 				</el-table>
@@ -41,8 +41,10 @@
 		props: ['notiData', 'name'],
 		methods: {
 			handleRowClick(row) {
-				console.log(row)
-				//location.reload()
+				console.log(row.fatherId)
+				this.$router.push(
+					`/content/${row.fatherId}`
+				)
 			},
 			tableRowClassName({
 				row,
@@ -65,7 +67,25 @@
 			formatterDate(row, column) {
 				return dateFormat(row.notifiDate);
 			},
-			deleteRow(index, row) {
+			readAllRow() {
+				//console.log(this.name)
+				this.$axios.get('readAllNotification', {
+						params: {
+							username: this.name,
+						}
+					}).then(response => {
+						if (response.data.code == 200) {
+							location.reload()
+						} else {
+							console.log(response);
+						}
+					})
+					.catch(function(error) {
+						console.log(error);
+					})
+			
+			},
+			readRow(index, row) {
 				this.$axios.get('readNotifi', {
 						params: {
 							username: this.name,
