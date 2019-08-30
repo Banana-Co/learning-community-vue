@@ -4,7 +4,8 @@
 			<el-col :span="4">
 				<el-button type="text" @click="ToForum">
 					<!-- <img src="@/assets/logo2.png" alt="" @click="ToForum" height="40px"> -->
-					<h1>论坛LOGO</h1><!-- 
+					<h1>论坛LOGO</h1>
+					<!-- 
 					<h5>{{checkAvatar}}</h5>
 					<h5>{{this.$store.state.avatarNum}}</h5> -->
 				</el-button>
@@ -15,9 +16,13 @@
 				</el-input>
 			</el-col>
 			<el-col :span="6" :offset="1">
-				<el-button type="text" @click="ToIndex">
-					<el-avatar :src="avatarUrl" :size="60"></el-avatar>
-				</el-button>
+				
+					<el-button type="text" @click="ToIndex">
+						<el-badge :value="notiNum" class="Badge" :max="99" :hidden='hidBadge'>
+						<el-avatar :src="avatarUrl" :size="60"></el-avatar>
+						</el-badge>
+					</el-button>
+				
 			</el-col>
 		</el-row>
 		<el-row>
@@ -40,6 +45,10 @@
 		margin-left: 120px;
 		margin-right: 120px;
 	}
+
+	.Badge {
+		
+	}
 </style>
 
 <script>
@@ -57,6 +66,8 @@
 				activeIndex: '1',
 				avatarUrl: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
 				name: '',
+				notiNum:0,
+				hidBadge:true,
 			}
 		},
 		watch: {
@@ -71,7 +82,7 @@
 			checkLogin() {
 				return this.$store.state.isLogin;
 			},
-			checkAvatar(){
+			checkAvatar() {
 				return this.$store.state.avatarNum;
 			}
 		},
@@ -79,18 +90,24 @@
 			this.renderIt()
 		},
 		methods: {
-			renderIt(){
+			renderIt() {
 				let uname = getCookie('username')
 				this.name = uname
 				if (this.name != '') {
 					this.$axios.get(`/getUser/${this.name}`).then((response) => {
 						this.time = response.data.createdDate
+						this.notiNum=response.data.unreadNotification
+						if(this.notiNum==0){
+							this.hidBadge=true
+						}else{
+							this.hidBadge=false
+						}
 						if (response.data.avatarUrl != '') {
 							this.avatarUrl = response.data.avatarUrl
 						}
 					})
-				}else{
-					this.avatarUrl='https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
+				} else {
+					this.avatarUrl = 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
 				}
 			},
 			ToIndex() {
