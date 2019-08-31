@@ -3,7 +3,7 @@
 		<el-row>
 			<el-col :span="7" :offset='2'>
 				<el-card class="self-card">
-					<div>
+					<div align="center">
 <!--						<el-tooltip class="item" effect="dark" content="点击修改头像" placement="top">-->
 <!--							<el-upload class="avatar-uploader" action="http://localhost:8000/uploadFile" :show-file-list="false" :on-success="handleAvatarSuccess"-->
 <!--							 :before-upload="beforeAvatarUpload">-->
@@ -11,6 +11,7 @@
 <!--							</el-upload>-->
 <!--						</el-tooltip>-->
 					</div>
+          <br/>
 					<div ><br/>
 						<span>用户名 : {{this.user.username}}</span><br /><br />
 						<span>声望 : {{this.user.prestige}}</span><br /><br />
