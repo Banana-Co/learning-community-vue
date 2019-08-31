@@ -1,8 +1,6 @@
 <template>
 	<div>
 		<el-row>
-			<el-col :span="2">
-			</el-col>
 			<el-col :span="7" :offset='2'>
 				<el-card class="self-card">
 					<div slot="header" class="clearfix">
@@ -17,13 +15,11 @@
 							</el-upload>
 						</el-tooltip>
 					</div>
-					<div>
-						<span><br />用户名:<br />{{this.user.username}}</span><br /><br />
-						<span>声望: {{this.user.prestige}}</span><br /><br />
-						<span>邮箱: {{this.user.emailAddress}}</span><br /><br />
-						<span>注册日期: {{formattedDate}}</span>
-						
-						
+					<div ><br/>
+						<span>用户名 : {{this.user.username}}</span><br /><br />
+						<span>声望 : {{this.user.prestige}}</span><br /><br />
+						<span>注册邮箱 : {{this.user.emailAddress}}</span><br /><br />
+						<span>注册日期 : {{formattedDate}}</span>
 					</div>
 
 					<br /><br />

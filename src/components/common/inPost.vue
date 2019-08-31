@@ -32,8 +32,6 @@
 					</el-row>
 					<reply-dialog :postId="this.$route.params.id" :visible.sync="replyDialogVisible" :author="name" :avatarUrl="avatarUrlm"
 					 :floor='this.con.no'></reply-dialog>
-
-
 				</el-col>
 			</el-row>
 		</el-card>

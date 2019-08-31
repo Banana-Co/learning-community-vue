@@ -1,7 +1,8 @@
 <template>
   <div>
-    <el-card shadow="hover">
+    <el-card shadow="hover" class="threadBlock">
     <el-row>当前热门 🔥</el-row>
+	<el-divider class = hotpostDivider></el-divider>
     <el-table
     :data="post"
     :show-header="false"
@@ -10,7 +11,7 @@
     <el-table-column
       prop="title"
       label="标题"
-      width="290">
+      width="260">
     </el-table-column>
     </el-table>
     </el-card>
@@ -57,11 +58,16 @@
 </script>
 
 <style scoped>
-  .el-row {
-    margin-bottom: 20px;
-  &:last-child {
-     margin-bottom: 0;
-   }
+  .threadBlock {
+	margin-top:10px;
+  	width: 300px;
+  	height: 400px;
+  	padding: 0px;
+  }
+  .hotpostDivider{
+	  height: 3px;
+	  margin-bottom: 10px;
+	  margin-top: 10px
   }
 
 </style>
