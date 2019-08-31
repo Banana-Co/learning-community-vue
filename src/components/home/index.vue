@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<el-row>
-			<el-col :span="7" :offset='2'>
+		<el-row type="flex" align="top">
+			<el-col :span="6" :offset='3'>
 				<el-card class="self-card">
 					<div slot="header" class="clearfix">
 						<center><span>你好!</span></center>
@@ -40,7 +40,7 @@
 				</el-card>
 			</el-col>
 
-			<el-col :span="15">
+			<el-col :span="12" :offset='1'>
 				<el-row>
 					<notification :notiData='this.user.notifications' :name='this.user.username'></notification>
 				</el-row>
@@ -259,9 +259,12 @@
 	}
 
 	.self-card {
-		width: 400px;
+		margin-top: 0px;
+		width: 406px;
 		height: 570px;
 	}
+	
+	
 
 	
 
