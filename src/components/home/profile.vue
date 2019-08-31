@@ -2,7 +2,7 @@
 	<div>
 		<el-row>
 			<el-col :span="7" :offset='2'>
-				<el-card class="self-card">
+				<el-card class="pro-card">
 					<div align="center">
 <!--						<el-tooltip class="item" effect="dark" content="点击修改头像" placement="top">-->
 <!--							<el-upload class="avatar-uploader" action="http://localhost:8000/uploadFile" :show-file-list="false" :on-success="handleAvatarSuccess"-->
@@ -157,9 +157,9 @@
 		clear: both
 	}
 
-	.self-card {
+	.pro-card {
 		width: 400px;
-		height: 570px;
+		height: 400px;
 	}
 
 

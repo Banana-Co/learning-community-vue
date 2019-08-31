@@ -10,7 +10,7 @@
 			<div class="myPostList">
 				<el-table :data="this.post" style="width: 100%" height="250" :default-sort="{prop: 'createdDate', order: 'descending'}"
 				 @row-click="handleRowClick">
-					<el-table-column prop="title" label="标题" width="250">
+					<el-table-column prop="title" label="个人帖子" width="250">
 					</el-table-column>
 					<el-table-column prop="createdDate" label="时间"  :formatter="formatter">
 					</el-table-column>
