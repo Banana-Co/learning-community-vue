@@ -1,17 +1,15 @@
 <template>
 	<div>
-		<el-dialog title="发布题目" :visible.sync="formDialogVisible" :before-close="handleClose">
+		<el-dialog title="推荐课程" :visible.sync="formDialogVisible" :before-close="handleClose">
 			<el-row>
-				<el-button @click="handleshow1">题面工具栏</el-button><el-button @click="handleshow2">题解工具栏</el-button>
-				
-			</el-row>
-
-			<el-row>
-				<mavon-editor v-model="form.title" placeholder="请输入题面" defaultOpen="edit" :boxShadow="false" :toolbarsFlag="showbar1">
-				</mavon-editor>
+				<el-input v-model="form.title" placeholder="请输入推荐课程名" autocomplete="off"></el-input>
 			</el-row>
 			<el-row>
-				<mavon-editor v-model="form.content" placeholder="请输入解题思路" defaultOpen="edit" :boxShadow="false" :toolbarsFlag="showbar2">
+				<mavon-editor 
+					v-model="form.content" 
+					placeholder="请输入推荐理由" 
+					defaultOpen="edit" 
+					:boxShadow="false">
 				</mavon-editor>
 			</el-row>
 			<div slot="footer" class="dialog-footer">
@@ -38,13 +36,10 @@
 			return {
 				form: {
 					title: '',
-					content: '',
-					content2: '',
+					content: ''
 				},
 				formLabelWidth: '120px',
-				formDialogVisible: this.visible,
-				showbar1: false,
-				showbar2: false,
+				formDialogVisible: this.visible
 			}
 		},
 		watch: {
@@ -56,12 +51,6 @@
 			}
 		},
 		methods: {
-			handleshow1() {
-				this.showbar1 = !this.showbar1
-			},
-			handleshow2() {
-				this.showbar2 = !this.showbar2
-			},
 			closeDialog() {
 				this.formDialogVisible = false;
 			},
@@ -87,7 +76,7 @@
 						likeNum: 0,
 						avatarUrl: this.avatarUrl,
 						no: 0,
-						threadId: this.threadId,
+						threadId:this.threadId,
 					})
 					.then(res => {
 						if (res.status == 200) {
@@ -111,32 +100,8 @@
 					})
 					.catch(_ => {});
 			},
-
-			// mavonImgAdd(pos, file) {
-			// 	// 上传图片
-			// 	var formData = new FormData()
-			// 	formData.append('image', file)
-			// 	this.$axios({
-			// 		url: "http://localhost:8000/uploadFile", //请求地址
-			// 		method: 'post',
-			// 		data: formData,
-			// 		headers: {
-			// 			'Content-Type': 'multipart/form-data'
-			// 		}
-			// 	}).then((res) => {
-			// 		console.log(res)
-			// 		// 第二步.将返回的url替换到文本原位置![...](./0) -> ![...](url)
-			// 		/**
-			// 		 * $vm 指为mavonEditor实例，可以通过如下两种方式获取
-			// 		 * 1.  通过引入对象获取: `import {mavonEditor} from ...` 等方式引入后，`$vm`为`mavonEditor`
-			// 		 * 2. 通过$refs获取: html声明ref : `<mavon-editor ref=md ></mavon-editor>，`$vm`为 `this.$refs.md`
-			// 		 * 3. 由于vue运行访问的路径只能在static下，so，我就把图片保存到它这里了
-			// 		 */
-			// 		
-			// 	})
-			// },
-
-
+			
+			
 		},
 		props: ['visible',
 			'author',

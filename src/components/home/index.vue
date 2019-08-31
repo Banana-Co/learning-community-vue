@@ -39,7 +39,7 @@
 				</el-card>
 				<div class="notiAndPost">
 					<notification :notiData='this.user.notifications' :name='this.user.username'></notification>
-					<my-simple-post :post="posts"></my-simple-post>
+					<my-simple-post :post="posts" :other='other'></my-simple-post>
 				</div>
 			</el-row>
 		</div>
@@ -85,6 +85,7 @@
 				reports: [],
 				users: [],
 				adm: false,
+				other:false
 			}
 		},
 		computed: {

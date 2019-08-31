@@ -61,6 +61,7 @@
 					<el-button @click="showPost" type="primary" :disabled="mute">发布帖子 </el-button>
 					<post-dialog :visible.sync="postDialogVisible" :author="name" :avatarUrl='avatarUrl' :threadId='activeIndex'></post-dialog>
 					<questionDialog :visible.sync="questionDialogVisible" :author="name" :avatarUrl='avatarUrl' :threadId='activeIndex'></questionDialog>
+					<classDialog :visible.sync="classDialogVisible" :author="name" :avatarUrl='avatarUrl' :threadId='activeIndex'></classDialog>
 				</el-row>
 			</el-col>
 		</el-row>
@@ -73,6 +74,7 @@
 	import naviHeader from "@/components/common/naviHeader.vue";
 	import PostDialog from "@/components/message/PostDialog.vue";
 	import questionDialog from "@/components/message/questionDialog.vue"
+	import classDialog from "@/components/message/classDialog.vue"
 	import {
 		mapState,
 		mapActions,
@@ -90,6 +92,7 @@
 			PostDialog,
 			naviHeader,
 			questionDialog,
+			classDialog,
 		},
 		// computed: {
 		// 	...mapState({
@@ -182,7 +185,10 @@
 				} else {
 					if (this.activeIndex == 3) {
 						this.questionDialogVisible = true;
-					} else {
+					} else if(this.activeIndex == 1){
+						this.classDialogVisible= true;
+					}
+					else {
 						this.postDialogVisible = true;
 					}
 
@@ -230,6 +236,7 @@
 				items: [require("@/assets/access.jpg"), require("@/assets/access1.jpg"), require("@/assets/default-8.png")],
 				postDialogVisible: false,
 				questionDialogVisible: false,
+				classDialogVisible:false,
 				posts: [],
 				totalPostNum: 1,
 				sortedby: "createdDate",

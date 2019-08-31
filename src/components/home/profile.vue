@@ -38,7 +38,7 @@
 
 			<el-col :span="15">
 				<el-row>
-					<my-simple-post :post="posts"></my-simple-post>
+					<my-simple-post :post="posts" :other='other'></my-simple-post>
 				</el-row>
 			</el-col>
 		</el-row>
@@ -67,6 +67,7 @@
 				posts: [],
 				user: '',
 				reports: [],
+				other:true,
 			}
 		},
 		computed: {
