@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<el-card class="report-card">
-			<div>
+			<div class="reportList">
 				<el-table :data="this.report" style="width: 100%" height="300" :default-sort="{prop: 'createdDate', order: 'descending'}"
 				 @row-click="handleRowClick">
 					<el-table-column prop="usernameReported" label="被举报人" width="150">
@@ -79,7 +79,13 @@
 
 <style>
 	.report-card{
+		margin-top: 40px;
 		width: 740px;
 		height: 340px;
+	}
+	.reportList {
+		margin-left: 200px;
+		margin-top: -10px;
+		margin-left: 0px;
 	}
 </style>

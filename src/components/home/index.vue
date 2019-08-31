@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<el-row type="flex" align="top">
-			<el-col :span="6" :offset='3'>
+		<div class="selfNotiAndPost">
+			<el-row type="flex" align="top">
 				<el-card class="self-card">
 					<div slot="header" class="clearfix">
 						<center><span>你好!</span></center>
@@ -15,12 +15,12 @@
 							</el-upload>
 						</el-tooltip>
 					</div>
-					<div ><br/>
+					<div><br />
 						<span>用户名 : {{this.user.username}}</span><br /><br />
 						<span>声望 : {{this.user.prestige}}</span><br /><br />
 						<span>注册邮箱 : {{this.user.emailAddress}}</span><br /><br />
 						<span>注册日期 : {{formattedDate}}</span>
-						
+
 					</div>
 
 					<br /><br />
@@ -36,33 +36,20 @@
 						<el-button type=text @click="$router.back(-1)">返回</el-button>
 					</center>
 				</div> -->
-
 				</el-card>
-			</el-col>
-
-			<el-col :span="11" :offset='1'>
-				<el-row>
+				<div class="notiAndPost">
 					<notification :notiData='this.user.notifications' :name='this.user.username'></notification>
-				</el-row>
-
-				<el-row>
 					<my-simple-post :post="posts"></my-simple-post>
-				</el-row>
-			</el-col>
-		</el-row>
-		<br/>
+				</div>
+			</el-row>
+		</div>
 		
-		<el-row v-if="adm" type="flex" align="top">
-
-			<el-col :span="11" :offset='3'>
+		<div class="muteAndReport">
+			<el-row type="flex" align="top">
 				<report :report='reports'></report>
-			</el-col>
-
-			<el-col :span="6" :offset='1'>
 				<muteUser :user='users'></muteUser>
-			</el-col>
-		</el-row>
-
+			</el-row>
+		</div>
 	</div>
 </template>
 
@@ -97,7 +84,7 @@
 				user: '',
 				reports: [],
 				users: [],
-				adm:false,
+				adm: false,
 			}
 		},
 		computed: {
@@ -118,8 +105,8 @@
 				if (this.user.notiData == null) {
 					this.user.notiData = []
 				}
-				if(this.user.permission>=2){
-					this.adm=true
+				if (this.user.permission >= 2) {
+					this.adm = true
 				}
 			})
 			this.$axios.get('getAllReports').then((res) => {
@@ -260,10 +247,20 @@
 
 	.self-card {
 		margin-top: 0px;
-		width: 406px;
+		min-width: 380px;
 		height: 570px;
 	}
-	
+
+	.selfNotiAndPost {
+		width: 1210px;
+		height: 570px;
+		margin: 0 auto;
+	}
+
+	.notiAndPost {
+		margin-left: 40px;
+	}
+
 	.wrap {
 		text-align: center;
 	}
@@ -274,5 +271,10 @@
 
 	span:hover {
 		color: #41b883;
+	}
+	.muteAndReport{
+		width: 1210px;
+		height: 340px;
+		margin: 0 auto;
 	}
 </style>

@@ -1,7 +1,7 @@
 <template>
-	<div>
+	<div >
 		<el-card class="mute-card">
-			<div>
+			<div class="muteList">
 				<el-table :data="this.user" style="width: 100%" height="300" :default-sort="{prop: 'createdDate', order: 'descending'}"
 				 >
 					<el-table-column prop="username" label="禁言人" width="150">
@@ -56,7 +56,14 @@
 
 <style>
 	.mute-card{
+		margin-top: 40px;
+		margin-left: 1.25rem;
 		width: 450px;
 		height: 340px;
+	}
+	.muteList {
+		margin-left: 200px;
+		margin-top: -10px;
+		margin-left: 0px;
 	}
 </style>

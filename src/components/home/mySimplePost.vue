@@ -1,6 +1,6 @@
 <template>
-	<div class="myPostCard">
-		<el-card >
+	<div>
+		<el-card class="myPostCard">
 			<!--      <div slot="header" class="clearfix">
         <el-row type="flex" justify="middle">
           <el-col :span="4"> 我的帖子 </el-col>
@@ -10,7 +10,7 @@
 			<div class="myPostList">
 				<el-table :data="this.post" style="width: 100%" height="250" :default-sort="{prop: 'createdDate', order: 'descending'}"
 				 @row-click="handleRowClick">
-					<el-table-column prop="title" label="标题" width="250">
+					<el-table-column prop="title" label="我的帖子" width="250">
 					</el-table-column>
 					<el-table-column prop="createdDate" label="时间"  :formatter="formatter">
 					</el-table-column>
@@ -52,8 +52,7 @@
 <style>
 	.myPostCard {
 		margin-top: 20px;
-		width: 793px;
-		height: 270px;
+		width: 790px;
 	}
 	.myPostList{
 		margin-top: -10px;
