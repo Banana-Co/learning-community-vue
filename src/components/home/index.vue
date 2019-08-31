@@ -46,8 +46,8 @@
 			</el-row>
 
 			<el-row>
-        <my-simple-post :post="posts"></my-simple-post>
-      </el-row>
+				<my-simple-post :post="posts"></my-simple-post>
+			</el-row>
 		</el-col>
 
 
@@ -65,10 +65,10 @@
 		dateFormat
 	} from "../../assets/js/time.js";
 	import notification from "@/components/home/notification.vue";
-  import MySimplePost from "./mySimplePost";
+	import MySimplePost from "./mySimplePost";
 	export default {
 		components: {
-        MySimplePost,
+			MySimplePost,
 			notification,
 		},
 		data() {
@@ -76,9 +76,9 @@
 				file: '',
 				url: '',
 				notiData: [],
-          posts: [],
-				read:'',
-				user:'',
+				posts: [],
+				read: '',
+				user: '',
 			}
 		},
 		computed: {
@@ -95,13 +95,13 @@
 				this.$router.replace('/')
 			}
 			this.$axios.get(`/getUser/${this.name}`).then((response) => {
-				this.user=response.data
-				if(this.user.notiData==null){
-					this.user.notiData=[]
+				this.user = response.data
+				if (this.user.notiData == null) {
+					this.user.notiData = []
 				}
 				console.log(this.user)
 			})
-        this.getLatestPosts(this.name)
+			this.getLatestPosts(this.name)
 		},
 		methods: {
 			ToMessage() {
@@ -163,20 +163,21 @@
 				}
 				return isJPG && isLt2M;
 			},
-        getLatestPosts() {
-			    this.$axios
-              .get(`findLatestPostsByAuthor`,
-                  {params: {
-                      author: this.name
-                      }})
-              .then(res => {
-                  this.posts = res.data || [];
-              })
-              .catch(function(err) {
-                  console.log(err)
-              })
+			getLatestPosts() {
+				this.$axios
+					.get(`findLatestPostsByAuthor`, {
+						params: {
+							author: this.name
+						}
+					})
+					.then(res => {
+						this.posts = res.data || [];
+					})
+					.catch(function(err) {
+						console.log(err)
+					})
 
-        }
+			}
 		},
 	}
 </script>
@@ -184,8 +185,6 @@
 
 
 <style>
-
-
 	.avatar-uploader .el-upload {
 		border: 1px dashed #d9d9d9;
 		border-radius: 6px;
@@ -234,7 +233,7 @@
 
 	.self-card {
 		width: 360px;
-		height: 600px;
+		height: 650px;
 	}
 
 	.box-card {

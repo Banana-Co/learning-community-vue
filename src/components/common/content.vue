@@ -11,7 +11,7 @@
 		</el-row>
 		<el-row>
 			<el-col :span="4">
-				<el-button @click="replyDialogVisible=true"> 发表回复 </el-button>
+				<el-button @click="replyDialogVisible=true" :disabled="mute"> 发表回复 </el-button>
 				<reply-dialog :postId="this.$route.params.id" :visible.sync="replyDialogVisible" :author="name" :avatarUrl="avatarUrl"
 				 :floor='0'></reply-dialog>
 				<navi :sortbys="sortbys" @sort-change="handleSortChange">
@@ -64,6 +64,7 @@
 				sortbys: ['最早发布', '最晚发布', '最多点赞'],
 				showDelete: false,
 				permission: '',
+				mute:false,
 			}
 		},
 		computed: {
@@ -166,6 +167,9 @@
 					this.permission = response.data;
 					if (this.permission >= 2 || this.name == this.postDetail.author) {
 						this.showDelete = true;
+					}
+					if(this.permission==0){
+						this.mute=true
 					}
 				}).catch(function(error) {
 					console.log(error);
