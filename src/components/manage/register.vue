@@ -150,7 +150,7 @@
 								this.$store.dispatch('login')
 								this.$notify({
 									title: '成功',
-									message: '登录成功',
+									message: '注册成功！',
 									type: 'success'
 								});
 								this.$router.push('/outIndex')

@@ -127,15 +127,28 @@
 			}
 		},
 		methods: { //   时间格式化
-		report(){
-			
-		},
-		deleteComment(){
-			
-		},
-		forbid(){
-			
-		},
+			report() {
+				this.$axios.post('reportComment',  {
+							reportUsername: this.name,
+							usernameReported: this.con.author,
+							fatherId: this.con.fatherId,
+							no:this.con.no
+						})
+					.then((res) => {
+						this.$message({
+							type: 'success',
+							message: '举报成功!'
+						});
+					}).catch(function(error) {
+						console.log(error)
+					})
+			},
+			deleteComment() {
+
+			},
+			forbid() {
+
+			},
 			like() {
 				this.$axios.get('addLike', {
 						params: {
