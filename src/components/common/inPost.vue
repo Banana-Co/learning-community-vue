@@ -22,7 +22,9 @@
 					<el-row>
 						<div class="but">
 							<span>{{formattedDate}}</span>
-							<el-button size="mini">举报</el-button>
+							<el-button size="mini" v-if='showForbid' @click='forbid'>禁言</el-button>
+							<el-button size="mini" v-if='showDelete' @click='deleteComment'>删除</el-button>
+							<el-button size="mini" @click='report'>举报</el-button>
 							<el-button size="mini" @click="replyDialogVisible=true">回复</el-button>
 							<el-button size="mini" @click="like" :icon="icon">{{this.con.likeNum}}</el-button>
 						</div>
@@ -59,9 +61,29 @@
 				isLiked: false,
 				icon: 'el-icon-star-off',
 				avatarUrl: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+				showForbid: false,
+				showDelete: false,
+				permission: 1,
 			}
 		},
 		created() {
+			this.$axios.get('getPermission', {
+					params: {
+						username: this.name,
+					}
+				})
+				.then((response) => {
+					this.permission = response.data;
+					if (this.permission >= 2) {
+						this.showForbid = true
+						this.showDelete = true
+					}
+					if (this.name == this.con.author) {
+						this.showDelete = true
+					}
+				}).catch(function(error) {
+					console.log(error);
+				})
 			if (this.con.fatherNo != 0 && this.con.fatherNo != -1) {
 				this.isReply = true;
 			}
@@ -105,6 +127,28 @@
 			}
 		},
 		methods: { //   时间格式化
+			report() {
+				this.$axios.post('reportComment',  {
+							reportUsername: this.name,
+							usernameReported: this.con.author,
+							fatherId: this.con.fatherId,
+							no:this.con.no
+						})
+					.then((res) => {
+						this.$message({
+							type: 'success',
+							message: '举报成功!'
+						});
+					}).catch(function(error) {
+						console.log(error)
+					})
+			},
+			deleteComment() {
+
+			},
+			forbid() {
+
+			},
 			like() {
 				this.$axios.get('addLike', {
 						params: {
