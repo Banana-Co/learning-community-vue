@@ -4,7 +4,9 @@
 			<el-row>
 				<el-col :span="4">
 					<el-row>
+						<div class="inPostAvatar">
 						<el-avatar :src="this.author.avatarUrl" :size="60" @click.native="handleClickAvatar"></el-avatar>
+						</div>
 					</el-row>
 					<el-row><span>{{this.con.author}}</span></el-row>
 					<el-row><span>用户组:{{this.group}}</span></el-row>
@@ -255,6 +257,10 @@
 </script>
 
 <style>
+	.inPostAvatar{
+		margin-top : 30px
+	}
+	
 	.inPost {
 		margin-left: auto;
 		margin-right: auto;

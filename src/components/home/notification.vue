@@ -1,12 +1,13 @@
 <template>
 	<div>
-		<el-card class="box-card">
-			<div>
-				<el-table :data="this.notiData" style="width: 100%" height="300" ref="filterTable" :row-class-name="tableRowClassName"
-				 :default-sort="{prop: 'read', order: 'ascending'}" @row-click="handleRowClick">
-					<el-table-column prop="username" label="通知" width="100">
-					</el-table-column>
+		<el-card class="notificationCard">
+			<div class="notificationList">
+				<el-table :data="this.notiData" style="width: 100%" height="250" ref="filterTable" :row-class-name="tableRowClassName"
+				 :default-sort="{prop: 'notifiDate', order: 'descending'}" @row-click="handleRowClick">
+					
 					<el-table-column prop="notifiDate" label="时间" width="200" :formatter="formatterDate" sortable>
+					</el-table-column>
+					<el-table-column prop="username" label="通知" width="100">
 					</el-table-column>
 					<el-table-column prop="message" width="250" :formatter="formatterMessage" label="类型" :filter-method="filterType" :filters="[{ text: '点赞', value: 1 }, { text: '评论', value: 2 }]"
 					 filter-placement="bottom-end">
@@ -108,7 +109,12 @@
 	.el-table .success-row {
 		background: #f0f9eb;
 	}
-	.box-card {
-		width: 780px;
+	.notificationCard {
+		margin-top: 0px;
+		width: 812px;
+		height: 270px;
+	}
+	.notificationList{
+		margin-top: -10px;
 	}
 </style>
