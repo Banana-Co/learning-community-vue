@@ -160,7 +160,32 @@
 				this.disReport = true
 			},
 			deleteComment() {
-
+				this.$confirm('此操作将永久删除该评论, 是否继续?', '提示', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'warning'
+				}).then(() => {
+					this.$axios
+						.get('deleteComment', {
+							params: {
+								fatherId: this.con.fatherId,
+								no: this.con.no
+							}
+						})
+						.then(res => {
+							this.$message({
+								type: 'success',
+								message: '删除成功!'
+							});
+							location.reload()
+						})
+						.catch(failResponse => {})
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已取消删除'
+					});
+				})
 			},
 			forbid() {
 				this.$confirm('此操作将禁言该用户, 是否继续?', '提示', {
