@@ -12,13 +12,15 @@
 					<el-tooltip class="item" effect="dark" content="点击修改头像" placement="top">
 						<el-upload class="avatar-uploader" action="http://localhost:8000/uploadFile" :show-file-list="false" :on-success="handleAvatarSuccess"
 						 :before-upload="beforeAvatarUpload">
-							<img v-if="imageUrl" :src="imageUrl" class="avatar">
+							<img v-if="this.user.avatarUrl" :src="this.user.avatarUrl" class="avatar">
 						</el-upload>
 					</el-tooltip>
 				</div>
 				<div>
-					<span><br />用户名:<br />{{name}}</span><br /><br />
-					<span>注册日期:<br />{{formattedDate}}</span>
+					<span><br />用户名:<br />{{this.user.username}}</span><br /><br />
+					<span>注册日期:<br />{{formattedDate}}</span><br /><br />
+					<span>邮箱:<br />{{this.user.emailAddress}}</span><br /><br />
+					<span>声望:<br />{{this.user.prestige}}</span>
 				</div>
 
 				<br /><br /><br />
@@ -40,7 +42,7 @@
 
 		<el-col :span="15">
 			<el-row>
-				<notification :notiData='notiData' :name='name'></notification>
+				<notification :notiData='this.user.notifications' :name='this.user.username'></notification>
 			</el-row>
 
 			<!-- <el-row>
@@ -75,21 +77,16 @@
 		},
 		data() {
 			return {
-				name: '',
-				time: '',
-				VueUserNameVo: {
-					username: ''
-				},
-				imageUrl: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
 				file: '',
 				url: '',
 				notiData: [],
 				read:'',
+				user:'',
 			}
 		},
 		computed: {
 			formattedDate() {
-				return dateFormat(this.time);
+				return dateFormat(this.user.createdDate);
 			}
 		},
 		created() {
@@ -101,15 +98,11 @@
 				this.$router.replace('/')
 			}
 			this.$axios.get(`/getUser/${this.name}`).then((response) => {
-				if(response.data.notifications!=null){
-					this.notiData = response.data.notifications
+				this.user=response.data
+				if(this.user.notiData==null){
+					this.user.notiData=[]
 				}
-				console.log(this.notiData)
-				this.time = response.data.createdDate
-				if (response.data.avatarUrl != '') {
-					this.imageUrl = response.data.avatarUrl
-				}
-
+				console.log(this.user)
 			})
 		},
 		methods: {
@@ -144,7 +137,7 @@
 			handleAvatarSuccess(res, file) {
 				if (res.code === 200) {
 					this.url = res.message
-					this.imageUrl = this.url
+					this.user.avatarUrl = this.url
 					this.$store.dispatch('changeAvatar')
 					this.$axios.post('/uploadAvatar', {
 						username: this.name,
@@ -229,7 +222,7 @@
 
 	.self-card {
 		width: 360px;
-		height: 500px;
+		height: 600px;
 	}
 
 	.box-card {
