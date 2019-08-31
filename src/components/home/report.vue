@@ -48,14 +48,12 @@
 				this.$router.push(`/content/${row.fatherId}`)
 			},
 			accecptRow(index, row) {
-				console.log(row)
 				this.$axios.get('valuableReport', {
 						params: {
 							reportId: row.id,
 						}
 					}).then(response => {
-						console.log(response);
-						
+						location.reload()
 					})
 					.catch(function(error) {
 						console.log(error);
@@ -68,8 +66,7 @@
 							reportId: row.id,
 						}
 					}).then(response => {
-						console.log(response);
-						
+						location.reload()
 					})
 					.catch(function(error) {
 						console.log(error);

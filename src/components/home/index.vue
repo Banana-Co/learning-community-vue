@@ -19,15 +19,17 @@
 					</div>
 					<div>
 						<span><br />用户名:<br />{{this.user.username}}</span><br /><br />
-						<span>注册日期:<br />{{formattedDate}}</span><br /><br />
-						<span>邮箱:<br />{{this.user.emailAddress}}</span><br /><br />
-						<span>声望: {{this.user.prestige}}</span>
+						<span>声望: {{this.user.prestige}}</span><br /><br />
+						<span>邮箱: {{this.user.emailAddress}}</span><br /><br />
+						<span>注册日期: {{formattedDate}}</span>
+						
+						
 					</div>
 
-					<br /><br /><br />
+					<br /><br />
 					<div>
 						<el-button plain @click="ToChange">更改密码</el-button>
-						<el-button plain @click="ToMyPost">我的帖子</el-button>
+						<!-- <el-button plain @click="ToMyPost">我的帖子</el-button> -->
 						<el-button plain @click="quit">注销</el-button>
 						<!-- <el-button plain><el-upload class="avatar-uploader" action="http://localhost:8000/uploadFile" :show-file-list="false" :on-success="handleAvatarSuccess"
 					 :before-upload="beforeAvatarUpload">修改头像</el-upload></el-button> -->
@@ -51,8 +53,8 @@
 				</el-row>
 			</el-col>
 		</el-row>
-
-		<el-row>
+		<br />
+		<el-row v-if="adm">
 			<el-col :span="2">
 			</el-col>
 			<el-col :span="13" :offset='2'>
@@ -98,6 +100,7 @@
 				user: '',
 				reports: [],
 				users: [],
+				adm:false,
 			}
 		},
 		computed: {
@@ -117,6 +120,9 @@
 				this.user = response.data
 				if (this.user.notiData == null) {
 					this.user.notiData = []
+				}
+				if(this.user.permission>=2){
+					this.adm=true
 				}
 			})
 			this.$axios.get('getAllReports').then((res) => {
@@ -256,13 +262,11 @@
 	}
 
 	.self-card {
-		width: 360px;
-		height: 650px;
+		width: 400px;
+		height: 570px;
 	}
 
-	.box-card {
-		width: 800px;
-	}
+	
 
 	.wrap {
 		text-align: center;

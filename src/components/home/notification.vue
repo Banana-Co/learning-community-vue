@@ -108,4 +108,7 @@
 	.el-table .success-row {
 		background: #f0f9eb;
 	}
+	.box-card {
+		width: 780px;
+	}
 </style>

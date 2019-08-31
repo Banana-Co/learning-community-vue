@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<el-card class="box-card">
+		<el-card class="post-card">
 			<!--      <div slot="header" class="clearfix">
         <el-row type="flex" justify="middle">
           <el-col :span="4"> 我的帖子 </el-col>
@@ -8,7 +8,7 @@
         </el-row>
       </div> -->
 			<div>
-				<el-table :data="this.post" style="width: 100%" :default-sort="{prop: 'createdDate', order: 'descending'}"
+				<el-table :data="this.post" style="width: 100%" height="200" :default-sort="{prop: 'createdDate', order: 'descending'}"
 				 @row-click="handleRowClick">
 					<el-table-column prop="title" label="标题" width="400">
 					</el-table-column>
@@ -50,4 +50,7 @@
 </script>
 
 <style>
+	.post-card{
+		width: 780px;
+	}
 </style>

@@ -38,13 +38,12 @@
 		methods: {
 			accecptRow(index, row) {
 				console.log(row)
-				this.$axios.get('valuableReport', {
+				this.$axios.get('unmuteUser', {
 						params: {
-							reportId: row.id,
+							username: row.username,
 						}
 					}).then(response => {
 						console.log(response);
-						
 					})
 					.catch(function(error) {
 						console.log(error);
