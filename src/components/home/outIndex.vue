@@ -2,7 +2,7 @@
 	<div>
 		<center>
 		<el-row>
-			<el-col :span="5" offset="1">
+			<el-col :span="5" :offset="1">
 				<threadBlock id='1' title="课程推荐" url="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567164884629&di=f0664d1d183e7ea9d51b68842a832d90&imgtype=0&src=http%3A%2F%2Fwww.360sok.com%2FschoolImg%2Fimages%2F3381%2Fimages%2Fbozhi%2Fimages%2F201908071115194.png"></threadBlock>
 				</transition>
 			</el-col>
