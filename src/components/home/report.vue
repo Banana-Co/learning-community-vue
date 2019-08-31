@@ -1,6 +1,6 @@
 <template>
-	<div>
-		<el-card class="report-card">
+	<div class="report-card">
+		<el-card>
 			<div class="reportList">
 				<el-table :data="this.report" style="width: 100%" height="300" :default-sort="{prop: 'createdDate', order: 'descending'}"
 				 @row-click="handleRowClick">
@@ -8,7 +8,7 @@
 					</el-table-column>
 					<el-table-column prop="createdDate" label="时间" width="200" :formatter="formatter" sortable>
 					</el-table-column>
-					<el-table-column prop="reportUsername" label="举报人" width="150">
+					<el-table-column prop="reportUsername" label="举报人" width="140">
 					</el-table-column>
 					<el-table-column fixed="right" width="200" label="处理意见">
 						<template slot-scope="scope">

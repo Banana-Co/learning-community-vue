@@ -1,17 +1,14 @@
 <template>
 	<div>
 		<el-button type='text' @click='into'>
-		<transition name = "el-fade-in">
-		<el-card class='threadBlock' shadow='hover'>
-			
+		<el-card shadow='hover' class="threadBlock">
 			<el-row>
 				<el-image style="width: 250px; height: 250px" :src="url"></el-image>
 			</el-row>
 			<br /><br /><br />
-			<el-row><span>{{title}}</span></el-row>
+			<el-row><span><b>{{title}}</b></span></el-row>
 			
 		</el-card>
-		</transition>
 		</el-button>
 	</div>
 </template>
@@ -40,8 +37,11 @@
 
 <style>
 	.threadBlock {
-		margin-top: 0px;
+		width: 300px;
 		height: 400px;
-		padding: 0px;
+		margin-right: 40px;
+	}
+	.threadCard{
+		margin-top: -12.5px;
 	}
 </style>
