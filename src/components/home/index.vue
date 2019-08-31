@@ -31,11 +31,11 @@
 					<!-- <el-button plain><el-upload class="avatar-uploader" action="http://localhost:8000/uploadFile" :show-file-list="false" :on-success="handleAvatarSuccess"
 					 :before-upload="beforeAvatarUpload">修改头像</el-upload></el-button> -->
 				</div>
-				<div>
+				<!-- <div>
 					<center>
 						<el-button type=text @click="$router.back(-1)">返回</el-button>
 					</center>
-				</div>
+				</div> -->
 
 			</el-card>
 		</el-col>
@@ -66,10 +66,12 @@
 	} from "../../assets/js/time.js";
 	import notification from "@/components/home/notification.vue";
 	import MySimplePost from "./mySimplePost";
+	import report from "./report";
 	export default {
 		components: {
 			MySimplePost,
 			notification,
+			report,
 		},
 		data() {
 			return {
@@ -152,16 +154,16 @@
 			},
 			beforeAvatarUpload(file) {
 				const isJPG = file.type === 'image/jpeg';
-				//const isPNG = file.type === 'image/png';
+				const isPNG = file.type === 'image/png';
 				const isLt2M = file.size / 1024 / 1024 < 2;
 
-				if (!isJPG) {
-					this.$message.error('上传头像图片只能是 JPG格式!');
+				if (!isJPG && !isPNG) {
+					this.$message.error('上传头像图片只能是 JPG或PNG格式!');
 				}
 				if (!isLt2M) {
 					this.$message.error('上传头像图片大小不能超过 2MB!');
 				}
-				return isJPG && isLt2M;
+				return (isPNG || isJPG) && isLt2M;
 			},
 			getLatestPosts() {
 				this.$axios
