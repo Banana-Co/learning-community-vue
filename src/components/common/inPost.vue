@@ -98,7 +98,7 @@
 				.then((res) => {
 					this.author = res.data
 					if (this.author.permission == 0) {
-						this.group = '被禁言用户'
+						this.group = '小黑屋'
 						this.disForbid = true
 					} else if (this.author.permission == 1) {
 						this.group = '普通用户'

@@ -1,5 +1,5 @@
 <template>
-	
+
 
 	<div>
 		<!-- <div>
@@ -56,7 +56,7 @@
 			</el-col>
 			<el-col :span="4">
 				<el-row>
-					<el-button @click="showPost" type="primary">发布帖子 </el-button>
+					<el-button @click="showPost" type="primary" :disabled="mute">发布帖子 </el-button>
 					<post-dialog :visible.sync="postDialogVisible" :author="name" :avatarUrl='avatarUrl' :threadId='activeIndex'></post-dialog>
 				</el-row>
 				<el-row>
@@ -106,18 +106,18 @@
 			},
 			checkSortNavi(newd, old) {
 				this.getPostPage()
-				this.reFresh= false
-                  this.$nextTick(()=>{
-                    
-                    this.reFresh = true
-                })
+				this.reFresh = false
+				this.$nextTick(() => {
+
+					this.reFresh = true
+				})
 			}
 		},
 		computed: {
 			checkNavi() {
 				return this.$route.params.id;
 			},
-			checkSortNavi(){
+			checkSortNavi() {
 				return this.sortId;
 			}
 		},
@@ -219,6 +219,7 @@
 				activeIndex: 1,
 				sortId: 3,
 				reFresh: true,
+				mute: false,
 			};
 		},
 		created() {
@@ -227,9 +228,11 @@
 			this.name = uname
 			if (this.name != '') {
 				this.$axios.get(`/getUser/${this.name}`).then((response) => {
-					this.time = response.data.createdDate
 					if (response.data.avatarUrl != '') {
 						this.avatarUrl = response.data.avatarUrl
+					}
+					if (response.data.permission == 0) {
+						this.mute = true
 					}
 				})
 			}
@@ -248,17 +251,19 @@
 
 	.slide-fade-enter,
 	.slide-fade-leave-to
+
 	/* .slide-fade-leave-active for below version 2.1.8 */
 		{
 		transform: translateX(10px);
 		opacity: 0;
 	}
-	.postTransist{
-    position: relative;
-    overflow-y: hidden;
 
-    outpost{
-      position: absolute;
-    }
-  }
+	.postTransist {
+		position: relative;
+		overflow-y: hidden;
+
+		outpost {
+			position: absolute;
+		}
+	}
 </style>
