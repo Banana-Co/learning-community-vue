@@ -5,7 +5,7 @@
 				<el-button type="text" @click="ToForum">
 					<!-- <img src="@/assets/logo2.png" alt="" @click="ToForum" height="40px"> -->
 					<h1><img src="http://localhost:8000/file/5d6a21127ab0942bc87fc284" alt="" height="110px"></h1>
-					<!-- 
+					<!--
 					<h5>{{checkAvatar}}</h5>
 					<h5>{{this.$store.state.avatarNum}}</h5> -->
 				</el-button>
@@ -16,13 +16,13 @@
 				</el-input>
 			</el-col>
 			<el-col :span="6" :offset="1">
-				
+
 					<el-button type="text" @click="ToIndex">
 						<el-badge :value="notiNum" class="Badge" :max="99" :hidden='hidBadge'>
 						<el-avatar :src="avatarUrl" :size="60"></el-avatar>
 						</el-badge>
 					</el-button>
-				
+
 			</el-col>
 		</el-row>
 		<el-divider></el-divider>
@@ -31,8 +31,8 @@
 
 <style>
 	.header {
-		margin-left: 120px;
-		margin-right: 120px;
+		margin-left: 20px;
+		margin-right: 20px;
 	}
 </style>
 
