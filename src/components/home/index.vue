@@ -45,15 +45,9 @@
 				<notification :notiData='this.user.notifications' :name='this.user.username'></notification>
 			</el-row>
 
-			<!-- <el-row>
-				<el-card class="box-card">
-					<div slot="header" class="clearfix">
-						<center><span>我的帖子</span></center>
-					</div>
-					<div>
-					</div>
-				</el-card>
-			</el-row> -->
+			<el-row>
+        <my-simple-post :post="posts"></my-simple-post>
+      </el-row>
 		</el-col>
 
 
@@ -71,8 +65,10 @@
 		dateFormat
 	} from "../../assets/js/time.js";
 	import notification from "@/components/home/notification.vue";
+  import MySimplePost from "./mySimplePost";
 	export default {
 		components: {
+        MySimplePost,
 			notification,
 		},
 		data() {
@@ -80,6 +76,7 @@
 				file: '',
 				url: '',
 				notiData: [],
+          posts: [],
 				read:'',
 				user:'',
 			}
@@ -104,6 +101,7 @@
 				}
 				console.log(this.user)
 			})
+        this.getLatestPosts(this.name)
 		},
 		methods: {
 			ToMessage() {
@@ -164,7 +162,21 @@
 					this.$message.error('上传头像图片大小不能超过 2MB!');
 				}
 				return isJPG && isLt2M;
-			}
+			},
+        getLatestPosts() {
+			    this.$axios
+              .get(`findLatestPostsByAuthor`,
+                  {params: {
+                      author: this.name
+                      }})
+              .then(res => {
+                  this.posts = res.data || [];
+              })
+              .catch(function(err) {
+                  console.log(err)
+              })
+
+        }
 		},
 	}
 </script>
@@ -172,8 +184,8 @@
 
 
 <style>
-	
-	
+
+
 	.avatar-uploader .el-upload {
 		border: 1px dashed #d9d9d9;
 		border-radius: 6px;
