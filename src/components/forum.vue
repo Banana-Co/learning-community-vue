@@ -244,7 +244,7 @@
 			};
 		},
 		created() {
-			announce.push()
+			//announce.push()
 			this.getPostPage();
 			let uname = getCookie('username')
 			this.name = uname
