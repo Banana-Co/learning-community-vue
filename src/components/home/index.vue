@@ -111,7 +111,7 @@
 			this.name = uname
 			/*如果cookie不存在，则跳转到登录页*/
 			if (uname == "") {
-				this.$router.replace('/')
+				this.$router.replace('/login')
 			}
 			this.$axios.get(`/getUser/${this.name}`).then((response) => {
 				this.user = response.data

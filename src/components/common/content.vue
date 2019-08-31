@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<el-row type = "flex" align = "middle">
+		<el-row type="flex" align="middle">
 			<el-col :span="1" :offset='4'>
 				<el-button @click="$router.back(-1)" icon="el-icon-back"></el-button>
 			</el-col>
@@ -64,7 +64,7 @@
 				sortbys: ['最早发布', '最晚发布', '最多点赞'],
 				showDelete: false,
 				permission: '',
-				mute:false,
+				mute: false,
 			}
 		},
 		computed: {
@@ -84,7 +84,7 @@
 						.get('removePost', {
 							params: {
 								id: this.postDetail.id,
-								actionUsername:this.name,
+								actionUsername: this.name,
 							}
 						})
 						.then(res => {
@@ -153,15 +153,28 @@
 			getPagedAndSortedReply(replies, currentPage, sortedby, order) {
 				return replies.sort(sortByField(sortedby, order));
 			},
-        handleClickAvatar(author) {
-            this.$router.push({path: `/profile/${author}`})
-        }
+			handleClickAvatar(author) {
+				this.$router.push({
+					path: `/profile/${author}`
+				})
+			}
 		},
 		created() {
-			this.getPostDetail();
-			this.getReply();
 			let uname = getCookie('username');
 			this.name = uname;
+			if (this.name == '') {
+				this.$router.push(
+					'/login'
+				)
+				this.$notify({
+					title: '提示',
+					message: '请先登录',
+					type: 'warning'
+				});
+			}
+			this.getPostDetail();
+			this.getReply();
+
 			this.$axios.get('getPermission', {
 					params: {
 						username: this.name,
@@ -172,8 +185,8 @@
 					if (this.permission >= 2 || this.name == this.postDetail.author) {
 						this.showDelete = true;
 					}
-					if(this.permission==0){
-						this.mute=true
+					if (this.permission == 0) {
+						this.mute = true
 					}
 				}).catch(function(error) {
 					console.log(error);
@@ -218,9 +231,6 @@
 		transform: translateX(10px);
 		opacity: 0;
 	}
-	
-	.inpostCard{
-		
-	}
-	
+
+	.inpostCard {}
 </style>
