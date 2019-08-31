@@ -10,11 +10,11 @@
 			<div>
 				<el-table :data="this.post" style="width: 100%" height="200" :default-sort="{prop: 'createdDate', order: 'descending'}"
 				 @row-click="handleRowClick">
-					<el-table-column prop="title" label="标题" width="400">
+					<el-table-column prop="title" label="标题" width="200">
 					</el-table-column>
-					<el-table-column prop="createdDate" label="时间" width="250" :formatter="formatter">
+					<el-table-column prop="createdDate" label="时间"  :formatter="formatter">
 					</el-table-column>
-					<el-table-column prop="replyNum" label="回复数" width="100">
+					<el-table-column prop="replyNum" label="回复数" >
 					</el-table-column>
 				</el-table>
 			</div>
