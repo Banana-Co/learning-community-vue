@@ -46,7 +46,8 @@
 				</div>
 				<div>
 					<transition-group class="post-transist" name="slide-fade">
-
+						<outpost v-for="post in announces" :key="post.id" :id="post.id" :con='post' :name='name' :isPublish='isPublish'
+						 :isReply='isReply' v-if="reFresh"></outpost>
 						<outpost v-for="post in posts" :key="post.id" :id="post.id" :con='post' :name='name' :isPublish='isPublish'
 						 :isReply='isReply' v-if="reFresh"></outpost>
 					</transition-group>
@@ -140,6 +141,7 @@
 			},
 			getPostPage() {
 				this.activeIndex = this.$route.params.id
+				this.announceId = parseInt(this.activeIndex) + 3
 				this.$axios
 					.get('getThreadPostByPage', {
 						params: {
@@ -153,6 +155,24 @@
 						this.posts = res.data.content;
 						//console.log(this.posts);
 						this.totalPostNum = res.data.totalElements;
+					})
+					.catch(function(error) {
+						console.log(error);
+					})
+				this.$axios
+					.get('getThreadPostByPage', {
+						params: {
+							page: this.currentPage,
+							sortedby: this.sortedby,
+							order: this.order,
+							threadId: this.announceId,
+						}
+					})
+					.then(res => {
+						//console.log(res)
+						this.announces = res.data.content;
+						//console.log(this.announces);
+						this.totalPostNum = this.totalPostNum + res.data.totalElements;
 					})
 					.catch(function(error) {
 						console.log(error);
@@ -230,21 +250,21 @@
 				sortId: 3,
 				reFresh: true,
 				mute: false,
-				announce: [],
-				options: [{
-					value: '5d6a2546b1a29323a0caf9f9',
-					label: this.activeIndex
-				}, {
-					value: '5d6a251db1a29323a0caf9f8',
-					label: this.activeIndex
-				}, {
-					value: '5d6a24e6b1a29323a0caf9f7',
-					label: this.activeIndex
-				}],
+				announces: [],
+				announceId: 4,
+				// options: [{
+				// 	value: '5d6a2546b1a29323a0caf9f9',
+				// 	label: this.activeIndex
+				// }, {
+				// 	value: '5d6a251db1a29323a0caf9f8',
+				// 	label: this.activeIndex
+				// }, {
+				// 	value: '5d6a24e6b1a29323a0caf9f7',
+				// 	label: this.activeIndex
+				// }],
 			};
 		},
 		created() {
-			//announce.push()
 			this.getPostPage();
 			let uname = getCookie('username')
 			this.name = uname
