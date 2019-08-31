@@ -45,7 +45,34 @@
 				return dateFormat(row.createdDate)
 			},
 			handleRowClick(row) {
-				this.$router.push(`/content/${row.fatherId}`)
+				this.$axios.get('postValidation', {
+						params: {
+							id: row.fatherId,
+						}
+					}).then(response => {
+						if (response.data.code == 200) {
+							this.$router.push(`/content/${row.fatherId}`)
+						} else {
+							this.$notify.info({
+								title: '提示',
+								message: '该帖已被删除'
+							});
+							this.$axios.get('deleteReport', {
+									params: {
+										reportId: row.id,
+									}
+								}).then(response => {
+									//location.reload()
+								})
+								.catch(function(error) {
+									console.log(error);
+								})
+						}
+					})
+					.catch(function(error) {
+						console.log(error);
+					})
+				
 			},
 			accecptRow(index, row) {
 				this.$axios.get('valuableReport', {
