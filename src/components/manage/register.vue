@@ -153,7 +153,7 @@
 									message: '注册成功！',
 									type: 'success'
 								});
-								this.$router.push('/outIndex')
+								this.$router.replace('content/5d6a2a46b1a29323a0caf9fb')
 							} else if (successResponse.data.code === 201) {
 								this.$notify.error({
 									title: '错误',
