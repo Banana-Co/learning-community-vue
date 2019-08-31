@@ -8,18 +8,15 @@
 					</el-table-column>
 					<el-table-column prop="notifiDate" label="时间" width="200" :formatter="formatterDate" sortable>
 					</el-table-column>
-					<el-table-column prop="message" :formatter="formatterMessage" label="类型" :filter-method="filterType" :filters="[{ text: '点赞', value: 1 }, { text: '评论', value: 2 }]"
+					<el-table-column prop="message" width="250" :formatter="formatterMessage" label="类型" :filter-method="filterType" :filters="[{ text: '点赞', value: 1 }, { text: '评论', value: 2 }]"
 					 filter-placement="bottom-end">
 					</el-table-column>
 					<el-table-column prop="read" label="显示" :filter-method="filterRead" :filters="[{ text: '未读', value: 0 }, { text: '已读', value: 1 }]"
 					 filter-placement="bottom-end">{{this.Read}}
 					</el-table-column>
-					<el-table-column fixed="right" width="120">
+					<el-table-column fixed="right">
 						<template slot="header" slot-scope="scope">
 							<el-button size="mini" @click="readAllRow">全部已读</el-button>
-						</template>
-						<template slot-scope="scope">
-							<el-button size="mini" @click.stop="readRow(scope.$index, scope.row)">标为已读</el-button>
 						</template>
 					</el-table-column>
 				</el-table>
@@ -41,7 +38,15 @@
 		props: ['notiData', 'name'],
 		methods: {
 			handleRowClick(row) {
-				console.log(row.fatherId)
+				this.$axios.get('readNotifi', {
+						params: {
+							username: this.name,
+							notiNo: row.notifiNo,
+						}
+					})
+					.catch(function(error) {
+						console.log(error);
+					})
 				this.$router.push(
 					`/content/${row.fatherId}`
 				)
@@ -72,24 +77,6 @@
 				this.$axios.get('readAllNotification', {
 						params: {
 							username: this.name,
-						}
-					}).then(response => {
-						if (response.data.code == 200) {
-							location.reload()
-						} else {
-							console.log(response);
-						}
-					})
-					.catch(function(error) {
-						console.log(error);
-					})
-			
-			},
-			readRow(index, row) {
-				this.$axios.get('readNotifi', {
-						params: {
-							username: this.name,
-							notiNo: row.notifiNo,
 						}
 					}).then(response => {
 						if (response.data.code == 200) {

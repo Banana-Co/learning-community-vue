@@ -55,12 +55,13 @@
 		<el-row>
 			<el-col :span="2">
 			</el-col>
-			<el-col :span="7" :offset='2'>
+			<el-col :span="13" :offset='2'>
 				<report :report='reports'></report>
-				</el-col>
-			
-			<el-col :span="15">
-				</el-col>
+			</el-col>
+
+			<el-col :span="7">
+				<muteUser :user='users'></muteUser>
+			</el-col>
 		</el-row>
 
 	</div>
@@ -79,11 +80,13 @@
 	import notification from "@/components/home/notification.vue";
 	import MySimplePost from "./mySimplePost";
 	import report from "./report";
+	import muteUser from "./muteUser";
 	export default {
 		components: {
 			MySimplePost,
 			notification,
 			report,
+			muteUser,
 		},
 		data() {
 			return {
@@ -93,7 +96,8 @@
 				posts: [],
 				read: '',
 				user: '',
-				reports:[],
+				reports: [],
+				users: [],
 			}
 		},
 		computed: {
@@ -117,7 +121,9 @@
 			})
 			this.$axios.get('getAllReports').then((res) => {
 				this.reports = res.data || []
-				
+			})
+			this.$axios.get('allMutedUser').then((res1) => {
+				this.users = res1.data || []
 			})
 			this.getLatestPosts(this.name)
 		},
