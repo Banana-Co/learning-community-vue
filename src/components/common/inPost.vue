@@ -4,7 +4,7 @@
 			<el-row>
 				<el-col :span="4">
 					<el-row>
-						<el-avatar :src="this.author.avatarUrl" :size="60"></el-avatar>
+						<el-avatar :src="this.author.avatarUrl" :size="60" @click.native="handleClickAvatar"></el-avatar>
 					</el-row>
 					<el-row><span>{{this.con.author}}</span></el-row>
 					<el-row><span>用户组:{{this.group}}</span></el-row>
@@ -32,8 +32,6 @@
 					</el-row>
 					<reply-dialog :postId="this.$route.params.id" :visible.sync="replyDialogVisible" :author="name" :avatarUrl="avatarUrlm"
 					 :floor='this.con.no'></reply-dialog>
-
-
 				</el-col>
 			</el-row>
 		</el-card>
@@ -242,8 +240,10 @@
 					.catch(function(error) {
 						console.log(error);
 					})
-
 			},
+        handleClickAvatar() {
+			    this.$emit('click-avatar', this.con.author)
+        }
 		},
 		props: [
 			'id',

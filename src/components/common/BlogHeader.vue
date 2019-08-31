@@ -1,7 +1,7 @@
 <template>
 	<div id="header" class="header">
 		<el-row type="flex" align="middle">
-			<el-col :span="4">
+			<el-col :span="5">
 				<el-button type="text" @click="ToForum">
 					<!-- <img src="@/assets/logo2.png" alt="" @click="ToForum" height="40px"> -->
 					<h1><img src="http://localhost:8000/file/5d6a2fcd7ab0943df4ef9ca6" alt="" height="70px"></h1>
@@ -10,12 +10,12 @@
 					<h5>{{this.$store.state.avatarNum}}</h5> -->
 				</el-button>
 			</el-col>
-			<el-col :span="7" :offset="6">
+			<el-col :span="7">
 				<el-input placeholder="搜索" v-model="input" @keyup.enter.native="handleSearch" clearable>
 					<i slot="prefix" class="el-input__icon el-icon-search"></i>
 				</el-input>
 			</el-col>
-			<el-col :span="6" :offset="1">
+			<el-col :span="2" :offset="9">
 
 					<el-button type="text" @click="ToIndex">
 						<el-badge :value="notiNum" class="Badge" :max="99" :hidden='hidBadge'>
@@ -25,14 +25,23 @@
 
 			</el-col>
 		</el-row>
-		<el-divider></el-divider>
+		<el-divider class = "blogHeaderDivider"></el-divider>
 	</div>
 </template>
 
 <style>
 	.header {
-		margin-left: 20px;
-		margin-right: 20px;
+		
+		margin-left: 55px;
+		margin-right: 55px;
+	}
+	.blogHeaderDivider {
+    display: block;
+    height: 2px;
+	width : 95.5%;
+    margin-bottom: 50px;
+	margin-left: 40px;
+	margin-right: 40px;
 	}
 </style>
 
