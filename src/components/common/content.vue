@@ -84,6 +84,7 @@
 						.get('removePost', {
 							params: {
 								id: this.postDetail.id,
+								actionUsername:this.name,
 							}
 						})
 						.then(res => {

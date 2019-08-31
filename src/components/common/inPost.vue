@@ -169,7 +169,8 @@
 						.get('deleteComment', {
 							params: {
 								fatherId: this.con.fatherId,
-								no: this.con.no
+								no: this.con.no,
+								actionUsername:this.con.no
 							}
 						})
 						.then(res => {
