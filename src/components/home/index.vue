@@ -28,7 +28,7 @@
 
 					<br /><br />
 					<div>
-						<el-button plain @click="ToChange">更改密码</el-button>
+						<el-button plain @click="ToChange">修改密码</el-button>
 						<!-- <el-button plain @click="ToMyPost">我的帖子</el-button> -->
 						<el-button plain @click="quit">注销</el-button>
 						<!-- <el-button plain><el-upload class="avatar-uploader" action="http://localhost:8000/uploadFile" :show-file-list="false" :on-success="handleAvatarSuccess"

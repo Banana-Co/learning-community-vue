@@ -2,7 +2,6 @@
 	
 	<div class="wrap">
 		<center><el-card class="box-card ">
-			<p v-show="showTishi" class="tishiText">{{tishi}}</p>
 			<h3>用户名: {{name}}</h3>
 			<div><el-input type="password" v-model="loginInfoVo.password0" placeholder="请输入旧密码"></el-input></div><br/>
 			<div><el-input type="password" v-model="loginInfoVo.password1" placeholder="请输入新密码"></el-input></div><br/>
@@ -31,8 +30,6 @@
 					password2: '',
 				},
 				responseResult: [],
-				showTishi: false,
-				tishi: '',
 				name: '',
 			}
 		},
@@ -45,8 +42,10 @@
 		methods: {
 			change() {
 				if (this.loginInfoVo.password1 != this.loginInfoVo.password2) {
-					this.tishi = "两次输入密码不同"
-					this.showTishi = true
+					this.$notify.error({
+						title: '错误',
+						message: '两次输入密码不同'
+					});
 				} else {
 					this.$axios
 						.post('/changepswd', {
@@ -57,13 +56,22 @@
 						.then(successResponse => {
 							this.responseResult = JSON.stringify(successResponse.data)
 							if (successResponse.data.code === 200) {
+								this.$notify({
+									title: '成功',
+									message: '修改成功！',
+									type: 'success'
+								});
 								this.$router.push('/index')
 							}else if (successResponse.data.code === 400) {
-								this.tishi = "密码错误"
-								this.showTishi = true
+								this.$notify.error({
+									title: '错误',
+									message: '密码错误'
+								});
 							}else if (successResponse.data.code === 402) {
-								this.tishi = "输入不合法"
-								this.showTishi = true
+								this.$notify.error({
+									title: '错误',
+									message: '输入不合法'
+								});
 							}
 						})
 						.catch(failResponse => {})
