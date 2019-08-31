@@ -4,10 +4,11 @@
 			<el-row>
 				<el-col :span="4">
 					<el-row>
-						<el-avatar :src="this.avatarUrl" :size="60"></el-avatar>
+						<el-avatar :src="this.author.avatarUrl" :size="60"></el-avatar>
 					</el-row>
-					<el-row>{{this.con.author}}</el-row>
-
+					<el-row><span>{{this.con.author}}</span></el-row>
+					<el-row><span>用户组:{{this.group}}</span></el-row>
+					<el-row><span>声望:{{this.author.prestige}}</span></el-row>
 				</el-col>
 				<el-col :span="20">
 					<div class='floor'><span>#{{this.con.no}}</span></div>
@@ -22,10 +23,10 @@
 					<el-row>
 						<div class="but">
 							<span>{{formattedDate}}</span>
-							<el-button size="mini" v-if='showForbid' @click='forbid'>禁言</el-button>
+							<el-button size="mini" v-if='showForbid' @click='forbid' :disabled="disForbid">禁言</el-button>
 							<el-button size="mini" v-if='showDelete' @click='deleteComment'>删除</el-button>
-							<el-button size="mini" @click='report'>举报</el-button>
-							<el-button size="mini" @click="replyDialogVisible=true">回复</el-button>
+							<el-button size="mini" v-if='showReport' @click='report' :disabled="disReport">举报</el-button>
+							<el-button size="mini" @click="replyDialogVisible=true" :disabled="mute">回复</el-button>
 							<el-button size="mini" @click="like" :icon="icon">{{this.con.likeNum}}</el-button>
 						</div>
 					</el-row>
@@ -60,10 +61,15 @@
 				defaultData: "preview",
 				isLiked: false,
 				icon: 'el-icon-star-off',
-				avatarUrl: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
 				showForbid: false,
 				showDelete: false,
+				showReport: true,
 				permission: 1,
+				group: '',
+				author: '',
+				disForbid: false,
+				disReport: false,
+				mute: false,
 			}
 		},
 		created() {
@@ -77,28 +83,37 @@
 					if (this.permission >= 2) {
 						this.showForbid = true
 						this.showDelete = true
+					} else if (this.permission === 0) {
+						this.mute = true
 					}
 					if (this.name == this.con.author) {
 						this.showDelete = true
+						this.showForbid = false
+						this.showReport = false
 					}
 				}).catch(function(error) {
 					console.log(error);
 				})
+			this.$axios.get(`/getUser/${this.con.author}`)
+				.then((res) => {
+					this.author = res.data
+					if (this.author.permission == 0) {
+						this.group = '小黑屋'
+						this.disForbid = true
+					} else if (this.author.permission == 1) {
+						this.group = '普通用户'
+					} else if (this.author.permission == 2) {
+						this.group = '管理员'
+					} else {
+						this.group = '其它'
+					}
+				}).catch(function(error) {
+					console.log(error);
+				})
+
 			if (this.con.fatherNo != 0 && this.con.fatherNo != -1) {
 				this.isReply = true;
 			}
-			this.$axios.get('getAvatarUrl', {
-				params: {
-					username: this.con.author,
-				}
-			}).then((response) => {
-				if (response.data.avatarUrl != '') {
-					this.avatarUrl = response.data
-				}
-
-			}).catch(function(error) {
-				console.log(error);
-			})
 			this.$axios.get('haveLiked', {
 					params: {
 						fatherId: this.con.fatherId,
@@ -142,9 +157,35 @@
 					}).catch(function(error) {
 						console.log(error)
 					})
+				this.disReport = true
 			},
 			deleteComment() {
-
+				this.$confirm('此操作将永久删除该评论, 是否继续?', '提示', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'warning'
+				}).then(() => {
+					this.$axios
+						.get('deleteComment', {
+							params: {
+								fatherId: this.con.fatherId,
+								no: this.con.no
+							}
+						})
+						.then(res => {
+							this.$message({
+								type: 'success',
+								message: '删除成功!'
+							});
+							location.reload()
+						})
+						.catch(failResponse => {})
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已取消删除'
+					});
+				})
 			},
 			forbid() {
 				this.$confirm('此操作将禁言该用户, 是否继续?', '提示', {
@@ -157,13 +198,12 @@
 								username: this.con.author,
 							}
 						}).then(res => {
-							if(res.data.code==200){
+							if (res.data.code == 200) {
 								this.$message({
 									type: 'success',
 									message: '禁言成功!'
 								})
-							}
-							else{
+							} else {
 								this.$message({
 									type: 'info',
 									message: '该用户已被禁言'
