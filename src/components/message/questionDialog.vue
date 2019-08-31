@@ -11,7 +11,7 @@
 				</mavon-editor>
 			</el-row>
 			<el-row>
-				<mavon-editor v-model="form.content" placeholder="请输入题解" defaultOpen="edit" :boxShadow="false" :toolbarsFlag="showbar2">
+				<mavon-editor v-model="form.content" placeholder="请输入解题思路" defaultOpen="edit" :boxShadow="false" :toolbarsFlag="showbar2">
 				</mavon-editor>
 			</el-row>
 			<div slot="footer" class="dialog-footer">
