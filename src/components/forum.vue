@@ -48,7 +48,7 @@
 					<transition-group class="post-transist" name="slide-fade">
 
 						<outpost v-for="post in posts" :key="post.id" :id="post.id" :con='post' :name='name' :isPublish='isPublish'
-						 :isReply='isReply' v-if="reFresh"></outpost>
+						 :isReply='isReply' v-if="reFresh" @click-avatar="handleClickAvatar"></outpost>
 					</transition-group>
 				</div>
 				<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage"
@@ -208,7 +208,10 @@
 						this.sortId = 4;
 						break;
 				}
-			}
+			},
+        handleClickAvatar(val) {
+			    this.$router.push(`/profile/${val}`)
+        }
 		},
 		data() {
 			return {
