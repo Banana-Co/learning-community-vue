@@ -3,7 +3,7 @@
 		<el-row type="flex" align="middle">
 			<el-col :span="5">
 				<el-button type="text" @click="ToForum">
-					<h1><img src="@/assets/logo3.png" alt="" height="70px"></h1>
+					<h1><img src="@/assets/logo3.png" alt="" height="70px" title="前往论坛主页"></h1>
 				</el-button>
 			</el-col>
 			<el-col :span="7">
@@ -13,7 +13,7 @@
 			</el-col>
 			<el-col :span="2" :offset="9">
 
-					<el-button type="text" @click="ToIndex">
+					<el-button type="text" @click="ToIndex" title="前往个人主页">
 						<el-badge :value="notiNum" class="Badge" :max="99" :hidden='hidBadge'>
 						<el-avatar :src="avatarUrl" :size="60"></el-avatar>
 						</el-badge>
@@ -27,7 +27,7 @@
 
 <style>
 	.header {
-		
+
 		margin-left: 55px;
 		margin-right: 55px;
 	}
