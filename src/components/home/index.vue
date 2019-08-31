@@ -9,7 +9,7 @@
 					<div>
 
 						<el-tooltip class="item" effect="dark" content="点击修改头像" placement="top">
-							<el-upload class="avatar-uploader" action="http://localhost:8000/uploadFile" :show-file-list="false" :on-success="handleAvatarSuccess"
+							<el-upload class="avatar-uploader" action="http://114.116.176.3:8000/uploadFile" :show-file-list="false" :on-success="handleAvatarSuccess"
 							 :before-upload="beforeAvatarUpload">
 								<img v-if="this.user.avatarUrl" :src="this.user.avatarUrl" class="avatar">
 							</el-upload>

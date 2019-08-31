@@ -233,7 +233,7 @@
 		data() {
 			return {
 				currentPage: 1,
-				items: [require("@/assets/access.jpg"), require("@/assets/access1.jpg"), require("@/assets/default-8.png")],
+				// items: [require("@/assets/access.jpg"), require("@/assets/access1.jpg"), require("@/assets/default-8.png")],
 				postDialogVisible: false,
 				questionDialogVisible: false,
 				classDialogVisible:false,
@@ -253,16 +253,6 @@
 				mute: false,
 				announces: [],
 				announceId: 4,
-				// options: [{
-				// 	value: '5d6a2546b1a29323a0caf9f9',
-				// 	label: this.activeIndex
-				// }, {
-				// 	value: '5d6a251db1a29323a0caf9f8',
-				// 	label: this.activeIndex
-				// }, {
-				// 	value: '5d6a24e6b1a29323a0caf9f7',
-				// 	label: this.activeIndex
-				// }],
 			};
 		},
 		created() {
