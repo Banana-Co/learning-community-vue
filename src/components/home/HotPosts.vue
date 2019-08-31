@@ -12,8 +12,7 @@
       label="标题"
       width="290">
     </el-table-column>
-  </el-table>
-    </.el-row>
+    </el-table>
     </el-card>
   </div>
 </template>
