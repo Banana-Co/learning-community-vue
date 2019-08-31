@@ -3,14 +3,10 @@
 		<div class="grid-content"><br /><br /><br /><br /><br /><br /><br /></div>
 		<center>
 			<el-card class="login-card">
-				<el-row>
 				<el-input type="text" v-model="loginInfoVo.username" placeholder="请输入用户名"></el-input>
-				</el-row>
-				<el-row>
 				<el-input type="password" v-model="loginInfoVo.password" placeholder="请输入密码"></el-input>
-				</el-row>
-				<br />
-				<el-button type="primary" v-on:click="login">登录</el-button><br />
+				
+				<el-button type="primary" v-on:click="login" class="bottomControl">登录</el-button><br />
 				<div>
 					<span v-on:click="ToRegister">没有账号？马上注册</span><br />
 				</div>
@@ -112,6 +108,10 @@
 		width: 320px;
 		height: 250px;
 
+	}
+	
+	.bottomControl{
+		margin-top: 10px;
 	}
 	
     input {
