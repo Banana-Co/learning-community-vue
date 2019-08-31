@@ -21,7 +21,7 @@
 			<el-col :span="16">
 				<transition-group name="slide-fade">
 					<in-post v-for="reply in replyPage" :key="reply.createdDate" :con="reply" :name='name' :avatarUrlm='avatarUrl'
-					 :permission='permission'></in-post>
+					 :permission='permission' @click-avatar="handleClickAvatar"></in-post>
 				</transition-group>
 				<el-pagination @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-size="10" layout="prev, pager, next, jumper"
 				 :total="postDetail.replyNum" :hide-on-single-page="true">
@@ -159,7 +159,10 @@
 			},
 			getPagedAndSortedReply(replies, currentPage, sortedby, order) {
 				return replies.sort(sortByField(sortedby, order));
-			}
+			},
+        handleClickAvatar(author) {
+            this.$router.push({path: `/profile/${author}`})
+        }
 		},
 		created() {
 			// if(this.$store.state.threadId==1){

@@ -15,6 +15,7 @@ const changePassword = () => import('@/components/manage/changePassword.vue')
 const forum = () => import('@/components/forum.vue')
 const content = () => import('@/components/common/content.vue')
 const myPost = () => import('@/components/home/myPost.vue')
+const profile = () => import('@/components/home/profile.vue')
 Vue.use(Router)
 
 const routes = [{
@@ -80,6 +81,14 @@ const routes = [{
 			isLogin: true
 		},
 	},
+  {
+    path: '/profile/:username',
+    name: 'profile',
+    component: profile,
+    meta: {
+      isLogin: true
+    },
+  },
 	{
 		path: '/login',
 		name: 'login',
