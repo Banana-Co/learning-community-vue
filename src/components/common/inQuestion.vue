@@ -15,6 +15,10 @@
 					<div class="reply" v-if="isReply"><span>回复#{{this.con.fatherNo}}</span></div>
 					<el-row>
 						<div class="inner">
+							<mavon-editor v-model="title" :subfield="false" :defaultOpen="defaultData" :toolbarsFlag="false"
+							 :boxShadow="false" />
+						</div>
+						<div class="inner">
 							<mavon-editor v-model="con.content" :subfield="false" :defaultOpen="defaultData" :toolbarsFlag="false"
 							 :boxShadow="false" />
 						</div>
@@ -32,6 +36,8 @@
 					</el-row>
 					<reply-dialog :postId="this.$route.params.id" :visible.sync="replyDialogVisible" :author="name" :avatarUrl="avatarUrlm"
 					 :floor='this.con.no'></reply-dialog>
+
+
 				</el-col>
 			</el-row>
 		</el-card>
@@ -205,7 +211,7 @@
 							} else {
 								this.$message({
 									type: 'info',
-									message: res.data.message
+									message: '该用户已被禁言'
 								});
 							}
 						})
@@ -248,6 +254,7 @@
 			'con',
 			'name',
 			'avatarUrlm',
+			'title',
 		]
 	}
 </script>

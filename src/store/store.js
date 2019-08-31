@@ -1,18 +1,3 @@
-// import Vue from 'vue'
-// import Vuex from 'vuex'
-// import user from './modules/user'
-// 
-// Vue.use(Vuex)
-// 
-// //const debug = process.env.NODE_ENV !== 'production'
-// 
-// export default new Vuex.Store({
-//     modules: {
-//         user
-//     },
-//     //strict: debug,
-//     //plugins:  []
-// })
 import Vue from 'vue'
 import Vuex from 'vuex'
 
@@ -23,6 +8,7 @@ export default new Vuex.Store({
 		isLogin: false,
 		username: '',
 		avatarNum: 0,
+		threadId:1,
 	},
 	getters: {
 		getStateLogin(state) {
@@ -33,6 +19,9 @@ export default new Vuex.Store({
 		},
 		getStateavatarNum(state) {
 			return state.avatarNum;
+		},
+		getStatethreadId(state) {
+			return state.threadId;
 		},
 	},
 	mutations: {
@@ -45,6 +34,9 @@ export default new Vuex.Store({
 		changeAvatar(state) {
 			state.avatarNum = state.avatarNum + 1
 		},
+		changethreadId(state,n) {
+			state.threadId = n
+		},
 	},
 	actions: {
 		login(context) {
@@ -55,6 +47,9 @@ export default new Vuex.Store({
 		},
 		changeAvatar(context) {
 			context.commit('changeAvatar')
+		},
+		changethreadId(context,n) {
+			context.commit('changethreadId',n)
 		},
 	}
 })
