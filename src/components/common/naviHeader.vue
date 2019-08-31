@@ -23,6 +23,7 @@
 		},
 		methods: {
 			handleSelect(key, keyPath) {
+				this.$store.dispatch('changethreadId',key)
 				this.$router.push(
 					`/forum/${key}`
 				)

@@ -58,6 +58,7 @@
 				<el-row>
 					<el-button @click="showPost" type="primary" :disabled="mute">发布帖子 </el-button>
 					<post-dialog :visible.sync="postDialogVisible" :author="name" :avatarUrl='avatarUrl' :threadId='activeIndex'></post-dialog>
+					<questionDialog :visible.sync="questionDialogVisible" :author="name" :avatarUrl='avatarUrl' :threadId='activeIndex'></questionDialog>
 				</el-row>
 				<el-row>
 					<el-col :span="7">
@@ -77,7 +78,8 @@
 	import outpost from "@/components/common/outPost.vue";
 	import navi from "@/components/common/navi.vue";
 	import naviHeader from "@/components/common/naviHeader.vue";
-	import PostDialog from "@/components/message/PostDialog.vue"
+	import PostDialog from "@/components/message/PostDialog.vue";
+	import questionDialog from "@/components/message/questionDialog.vue"
 	import {
 		mapState,
 		mapActions,
@@ -94,6 +96,7 @@
 			navi,
 			PostDialog,
 			naviHeader,
+			questionDialog,
 		},
 		// computed: {
 		// 	...mapState({
@@ -165,7 +168,12 @@
 						}
 					});
 				} else {
-					this.postDialogVisible = true;
+					if(this.activeIndex==3){
+						this.questionDialogVisible = true;
+					}else{
+						this.postDialogVisible = true;
+					}
+					
 				}
 			},
 			handleSortChange(val) {
@@ -206,6 +214,7 @@
 				currentPage: 1,
 				items: [require("@/assets/access.jpg"), require("@/assets/access1.jpg"), require("@/assets/default-8.png")],
 				postDialogVisible: false,
+				questionDialogVisible:false,
 				posts: [],
 				totalPostNum: 1,
 				sortedby: "createdDate",

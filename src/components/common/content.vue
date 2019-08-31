@@ -4,10 +4,11 @@
 			<el-col :span="4" :offset='3'>
 				<el-button @click="$router.back(-1)" icon="el-icon-back"></el-button>
 			</el-col>
+			<!-- <el-col :span="10"><span class="postTitle" v-if="show3">&nbsp;</span><span class="postTitle" v-else> {{this.postDetail.title}}</span></el-col> -->
 			<el-col :span="10"><span class="postTitle"> {{this.postDetail.title}}</span></el-col>
 			<el-col :span="5">
 				<el-button @click="deletePost" icon="el-icon-delete" v-if='showDelete'></el-button>
-			</el-col>
+			</el-col >
 		</el-row>
 		<el-row>
 			<el-col :span="4">
@@ -33,6 +34,7 @@
 
 <script>
 	import InPost from "@/components/common/inPost.vue";
+	import InQuestion from "@/components/common/inQuestion.vue";
 	import OutPost from "./outPost";
 	import navi from "@/components/common/navi.vue";
 	import ReplyDialog from "../message/ReplyDialog";
@@ -50,6 +52,7 @@
 			InPost,
 			ReplyDialog,
 			navi,
+			InQuestion,
 		},
 		data() {
 			return {
@@ -65,6 +68,10 @@
 				showDelete: false,
 				permission: '',
 				mute:false,
+				// showTitle:true,
+				// show1:true,
+				// show2:false,
+				// show3:false,
 			}
 		},
 		computed: {
@@ -155,6 +162,19 @@
 			}
 		},
 		created() {
+			// if(this.$store.state.threadId==1){
+			// 	this.show1=true
+			// 	this.show2=false
+			// 	this.show3=false
+			// }else if(this.$store.state.threadId==2){
+			// 	this.show1=false
+			// 	this.show2=true
+			// 	this.show3=false
+			// }else if(this.$store.state.threadId==3){
+			// 	this.show1=false
+			// 	this.show2=false
+			// 	this.show3=true
+			// }
 			this.getPostDetail();
 			this.getReply();
 			let uname = getCookie('username');
