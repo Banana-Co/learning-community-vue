@@ -46,7 +46,6 @@
 				</div>
 				<div>
 					<transition-group class="post-transist" name="slide-fade">
-
 						<outpost v-for="post in posts" :key="post.id" :id="post.id" :con='post' :name='name' :isPublish='isPublish'
 						 :isReply='isReply' v-if="reFresh"></outpost>
 					</transition-group>
@@ -59,7 +58,6 @@
 				<el-row>
 					<el-button @click="showPost" type="primary" :disabled="mute">发布帖子 </el-button>
 					<post-dialog :visible.sync="postDialogVisible" :author="name" :avatarUrl='avatarUrl' :threadId='activeIndex'></post-dialog>
-					<questionDialog :visible.sync="questionDialogVisible" :author="name" :avatarUrl='avatarUrl' :threadId='activeIndex'></questionDialog>
 				</el-row>
 				<el-row>
 					<el-col :span="7">
@@ -79,8 +77,7 @@
 	import outpost from "@/components/common/outPost.vue";
 	import navi from "@/components/common/navi.vue";
 	import naviHeader from "@/components/common/naviHeader.vue";
-	import PostDialog from "@/components/message/PostDialog.vue";
-	import questionDialog from "@/components/message/questionDialog.vue"
+	import PostDialog from "@/components/message/PostDialog.vue"
 	import {
 		mapState,
 		mapActions,
@@ -97,7 +94,6 @@
 			navi,
 			PostDialog,
 			naviHeader,
-			questionDialog,
 		},
 		// computed: {
 		// 	...mapState({
@@ -169,12 +165,7 @@
 						}
 					});
 				} else {
-					if (this.activeIndex == 3) {
-						this.questionDialogVisible = true;
-					} else {
-						this.postDialogVisible = true;
-					}
-
+					this.postDialogVisible = true;
 				}
 			},
 			handleSortChange(val) {
@@ -215,7 +206,6 @@
 				currentPage: 1,
 				items: [require("@/assets/access.jpg"), require("@/assets/access1.jpg"), require("@/assets/default-8.png")],
 				postDialogVisible: false,
-				questionDialogVisible: false,
 				posts: [],
 				totalPostNum: 1,
 				sortedby: "createdDate",
@@ -226,25 +216,13 @@
 				sortbys: ['最新回复', '最早回复', '最新发布', '最早发布'],
 				isPublish: true,
 				isReply: false,
-				activeIndex: 1,
+				activeIndex: "1",
 				sortId: 3,
 				reFresh: true,
 				mute: false,
-				announce: [],
-				options: [{
-					value: '5d6a2546b1a29323a0caf9f9',
-					label: this.activeIndex
-				}, {
-					value: '5d6a251db1a29323a0caf9f8',
-					label: this.activeIndex
-				}, {
-					value: '5d6a24e6b1a29323a0caf9f7',
-					label: this.activeIndex
-				}],
 			};
 		},
 		created() {
-			announce.push()
 			this.getPostPage();
 			let uname = getCookie('username')
 			this.name = uname

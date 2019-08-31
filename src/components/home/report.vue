@@ -79,6 +79,7 @@
 
 <style>
 	.report-card{
-		width: 750px;
+		width: 740px;
+		height: 340px;
 	}
 </style>

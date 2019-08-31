@@ -111,10 +111,11 @@
 	}
 	.notificationCard {
 		margin-top: 0px;
-		width: 812px;
+		width: 790px;
 		height: 270px;
 	}
 	.notificationList{
 		margin-top: -10px;
+		margin-left: 0px;
 	}
 </style>

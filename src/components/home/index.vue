@@ -40,7 +40,7 @@
 				</el-card>
 			</el-col>
 
-			<el-col :span="12" :offset='1'>
+			<el-col :span="11" :offset='1'>
 				<el-row>
 					<notification :notiData='this.user.notifications' :name='this.user.username'></notification>
 				</el-row>
@@ -50,15 +50,15 @@
 				</el-row>
 			</el-col>
 		</el-row>
-		<br />
-		<el-row v-if="adm">
-			<el-col :span="2">
-			</el-col>
-			<el-col :span="13" :offset='2'>
+		<br/>
+		
+		<el-row v-if="adm" type="flex" align="top">
+
+			<el-col :span="11" :offset='3'>
 				<report :report='reports'></report>
 			</el-col>
 
-			<el-col :span="7">
+			<el-col :span="6" :offset='1'>
 				<muteUser :user='users'></muteUser>
 			</el-col>
 		</el-row>
@@ -264,16 +264,9 @@
 		height: 570px;
 	}
 	
-	
-
-	
-
 	.wrap {
 		text-align: center;
 	}
-
-
-
 
 	span {
 		cursor: pointer;

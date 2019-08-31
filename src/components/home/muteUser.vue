@@ -6,9 +6,9 @@
 				 >
 					<el-table-column prop="username" label="禁言人" width="150">
 					</el-table-column>
-					<el-table-column prop="prestige" label="声望">
+					<el-table-column prop="prestige" label="声望" width="80">
 					</el-table-column>
-					<el-table-column fixed="right" width="200" label="处理意见">
+					<el-table-column fixed="right" width="100" label="处理意见">
 						<template slot-scope="scope">
 							<el-button size="mini" @click.stop="accecptRow(scope.$index, scope.row)">取消禁言</el-button>
 						</template>
@@ -56,6 +56,7 @@
 
 <style>
 	.mute-card{
-		width: 500px;
+		width: 450px;
+		height: 340px;
 	}
 </style>
