@@ -222,7 +222,7 @@
 
 	.self-card {
 		width: 360px;
-		height: 600px;
+		height: 650px;
 	}
 
 	.box-card {
