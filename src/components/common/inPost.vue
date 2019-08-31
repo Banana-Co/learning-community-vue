@@ -128,12 +128,12 @@
 		},
 		methods: { //   时间格式化
 			report() {
-				this.$axios.post('reportComment',  {
-							reportUsername: this.name,
-							usernameReported: this.con.author,
-							fatherId: this.con.fatherId,
-							no:this.con.no
-						})
+				this.$axios.post('reportComment', {
+						reportUsername: this.name,
+						usernameReported: this.con.author,
+						fatherId: this.con.fatherId,
+						no: this.con.no
+					})
 					.then((res) => {
 						this.$message({
 							type: 'success',
@@ -147,7 +147,36 @@
 
 			},
 			forbid() {
-
+				this.$confirm('此操作将禁言该用户, 是否继续?', '提示', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'warning'
+				}).then(() => {
+					this.$axios.get('muteUser', {
+							params: {
+								username: this.con.author,
+							}
+						}).then(res => {
+							if(res.data.code==200){
+								this.$message({
+									type: 'success',
+									message: '禁言成功!'
+								})
+							}
+							else{
+								this.$message({
+									type: 'info',
+									message: '该用户已被禁言'
+								});
+							}
+						})
+						.catch(failResponse => {})
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已取消禁言'
+					});
+				})
 			},
 			like() {
 				this.$axios.get('addLike', {
