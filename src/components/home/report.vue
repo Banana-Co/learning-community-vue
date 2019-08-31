@@ -82,6 +82,6 @@
 
 <style>
 	.report-card{
-		width: 800px;
+		width: 750px;
 	}
 </style>
