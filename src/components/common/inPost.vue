@@ -5,7 +5,7 @@
 				<el-col :span="4">
 					<el-row>
 						<div class="inPostAvatar">
-						<el-avatar :src="this.author.avatarUrl" :size="60"></el-avatar>
+						<el-avatar :src="this.author.avatarUrl" :size="60" @click.native="handleClickAvatar"></el-avatar>
 						</div>
 					</el-row>
 					<el-row><span>{{this.con.author}}</span></el-row>
@@ -242,8 +242,10 @@
 					.catch(function(error) {
 						console.log(error);
 					})
-
 			},
+        handleClickAvatar() {
+			    this.$emit('click-avatar', this.con.author)
+        }
 		},
 		props: [
 			'id',
