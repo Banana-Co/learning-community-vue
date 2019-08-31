@@ -4,7 +4,7 @@
 			<el-col :span="4">
 				<el-button type="text" @click="ToForum">
 					<!-- <img src="@/assets/logo2.png" alt="" @click="ToForum" height="40px"> -->
-					<h1>论坛LOGO</h1>
+					<h1><img src="http://localhost:8000/file/5d6a21127ab0942bc87fc284" alt="" height="110px"></h1>
 					<!-- 
 					<h5>{{checkAvatar}}</h5>
 					<h5>{{this.$store.state.avatarNum}}</h5> -->

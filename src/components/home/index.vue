@@ -1,55 +1,67 @@
 <template>
 	<div>
-		<el-col :span="2">
-		</el-col>
-		<el-col :span="7" :offset='2'>
-			<el-card class="self-card">
-				<div slot="header" class="clearfix">
-					<center><span>你好!</span></center>
-				</div>
-				<div>
+		<el-row>
+			<el-col :span="2">
+			</el-col>
+			<el-col :span="7" :offset='2'>
+				<el-card class="self-card">
+					<div slot="header" class="clearfix">
+						<center><span>你好!</span></center>
+					</div>
+					<div>
 
-					<el-tooltip class="item" effect="dark" content="点击修改头像" placement="top">
-						<el-upload class="avatar-uploader" action="http://localhost:8000/uploadFile" :show-file-list="false" :on-success="handleAvatarSuccess"
-						 :before-upload="beforeAvatarUpload">
-							<img v-if="this.user.avatarUrl" :src="this.user.avatarUrl" class="avatar">
-						</el-upload>
-					</el-tooltip>
-				</div>
-				<div>
-					<span><br />用户名:<br />{{this.user.username}}</span><br /><br />
-					<span>注册日期:<br />{{formattedDate}}</span><br /><br />
-					<span>邮箱:<br />{{this.user.emailAddress}}</span><br /><br />
-					<span>声望:<br />{{this.user.prestige}}</span>
-				</div>
+						<el-tooltip class="item" effect="dark" content="点击修改头像" placement="top">
+							<el-upload class="avatar-uploader" action="http://localhost:8000/uploadFile" :show-file-list="false" :on-success="handleAvatarSuccess"
+							 :before-upload="beforeAvatarUpload">
+								<img v-if="this.user.avatarUrl" :src="this.user.avatarUrl" class="avatar">
+							</el-upload>
+						</el-tooltip>
+					</div>
+					<div>
+						<span><br />用户名:<br />{{this.user.username}}</span><br /><br />
+						<span>注册日期:<br />{{formattedDate}}</span><br /><br />
+						<span>邮箱:<br />{{this.user.emailAddress}}</span><br /><br />
+						<span>声望: {{this.user.prestige}}</span>
+					</div>
 
-				<br /><br /><br />
-				<div>
-					<el-button plain @click="ToChange">更改密码</el-button>
-					<el-button plain @click="ToMyPost">我的帖子</el-button>
-					<el-button plain @click="quit">注销</el-button>
-					<!-- <el-button plain><el-upload class="avatar-uploader" action="http://localhost:8000/uploadFile" :show-file-list="false" :on-success="handleAvatarSuccess"
+					<br /><br /><br />
+					<div>
+						<el-button plain @click="ToChange">更改密码</el-button>
+						<el-button plain @click="ToMyPost">我的帖子</el-button>
+						<el-button plain @click="quit">注销</el-button>
+						<!-- <el-button plain><el-upload class="avatar-uploader" action="http://localhost:8000/uploadFile" :show-file-list="false" :on-success="handleAvatarSuccess"
 					 :before-upload="beforeAvatarUpload">修改头像</el-upload></el-button> -->
-				</div>
-				<!-- <div>
+					</div>
+					<!-- <div>
 					<center>
 						<el-button type=text @click="$router.back(-1)">返回</el-button>
 					</center>
 				</div> -->
 
-			</el-card>
-		</el-col>
+				</el-card>
+			</el-col>
 
-		<el-col :span="15">
-			<el-row>
-				<notification :notiData='this.user.notifications' :name='this.user.username'></notification>
-			</el-row>
+			<el-col :span="15">
+				<el-row>
+					<notification :notiData='this.user.notifications' :name='this.user.username'></notification>
+				</el-row>
 
-			<el-row>
-				<my-simple-post :post="posts"></my-simple-post>
-			</el-row>
-		</el-col>
+				<el-row>
+					<my-simple-post :post="posts"></my-simple-post>
+				</el-row>
+			</el-col>
+		</el-row>
 
+		<el-row>
+			<el-col :span="2">
+			</el-col>
+			<el-col :span="7" :offset='2'>
+				<report :report='reports'></report>
+				</el-col>
+			
+			<el-col :span="15">
+				</el-col>
+		</el-row>
 
 	</div>
 </template>
@@ -81,6 +93,7 @@
 				posts: [],
 				read: '',
 				user: '',
+				reports:[],
 			}
 		},
 		computed: {
@@ -101,7 +114,10 @@
 				if (this.user.notiData == null) {
 					this.user.notiData = []
 				}
-				console.log(this.user)
+			})
+			this.$axios.get('getAllReports').then((res) => {
+				this.reports = res.data || []
+				
 			})
 			this.getLatestPosts(this.name)
 		},
