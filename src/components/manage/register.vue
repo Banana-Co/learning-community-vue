@@ -3,32 +3,23 @@
 		<div class="grid-content"><br /><br /><br /><br /><br /><br /><br /></div>
 		<center>
 			<el-card class="register-card">
-				<el-row>
 					<el-input type="text" v-model="loginInfoVo.username" placeholder="请输入用户名"></el-input>
-				</el-row>
-				<el-row>
+				
 					<el-input type="password" v-model="loginInfoVo.password" placeholder="请输入6~20位密码"></el-input>
-				</el-row>
-				<el-row>
+				
 					<el-input type="text" v-model="loginInfoVo.emailAddress" placeholder="请输入邮箱" :disabled="inputed"></el-input>
-				</el-row>
-				<el-row :gutter="10">
-					<el-col :span="16">
+				
+				<el-row type="flex" align="top">
 						<el-input type="text" v-model="loginInfoVo.code" placeholder="请输入验证码"> </el-input>
-					</el-col>
-					<el-col :span="8">
-						<el-button type="primary" @click='sendPin' name='codeButton' :disabled="inputed"><span v-if="inputed">{{this.auth_time}}</span>
+					
+						<el-button type="primary" @click='sendPin' name='codeButton' :disabled="inputed" class="bottomControl"><span v-if="inputed">{{this.auth_time}}</span>
 							<span v-else>获取验证码</span> </el-button>
-					</el-col>
+					
 				</el-row>
-				<el-row>
 					<el-button type="primary" v-on:click="register">注册</el-button>
-				</el-row>
-				<el-row>
 					<div>
 						<span v-on:click="ToLogin">已有账号？马上登录</span><br />
 					</div>
-				</el-row>
 
 			</el-card>
 		</center>
@@ -200,6 +191,10 @@
 		border: 1px solid #888;
 		padding: 10px;
 		box-sizing: border-box;
+	}
+	.bottomControl{
+		height: 40px;
+		margin-left: 20px;
 	}
 
 	.tishiText {
