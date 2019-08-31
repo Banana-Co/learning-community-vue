@@ -12,11 +12,9 @@
 				<threadBlock id='3' title="刷题" url="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567169178356&di=ab1ccd438b1cda44cdd3b9ffe46c690e&imgtype=0&src=http%3A%2F%2Fku.90sjimg.com%2Felement_origin_min_pic%2F18%2F03%2F16%2F596c46ef57e65435748eff55d8af5f48.jpg%2521%2Ffwfh%2F804x650%2Fquality%2F90%2Funsharp%2Ftrue%2Fcompress%2Ftrue"></threadBlock>
 			</el-col>
 			<el-col :span="6">
-				<el-card class='threadBlock'>
-					当前热门
-				</el-card>
+          <hot-posts></hot-posts>
 			</el-col>
-				
+
 
 		</el-row>
 		</center>
@@ -25,8 +23,10 @@
 
 <script>
 	import threadBlock from "@/components/common/threadBlock.vue";
+  import HotPosts from "./HotPosts";
 	export default {
 		components: {
+        HotPosts,
 			threadBlock,
 		},
 		data() {
