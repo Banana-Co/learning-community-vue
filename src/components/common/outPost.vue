@@ -51,9 +51,9 @@
 					)
 				}
 			},
-        handleClickAvatar() {
-			    this.$emit('click-avatar', this.con.author)
-        }
+			handleClickAvatar() {
+				this.$emit('click-avatar', this.con.author)
+			}
 		},
 		created() {
 			if (this.con.author != '') {
@@ -70,8 +70,8 @@
 					console.log(error);
 				})
 			}
-			if(this.con.title.length>30){
-				this.con.title=this.con.title.slice(0,30)+"...";
+			if (this.con.title.length > 30) {
+				this.con.title = this.con.title.slice(0, 30) + "...";
 			}
 		},
 		computed: {

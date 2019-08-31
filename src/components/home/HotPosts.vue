@@ -7,7 +7,7 @@
 				</el-table-column>
 			</el-table>
 			<el-row>当前热门 🔥</el-row>
-			<el-divider class = hotpostDivider></el-divider>
+			<!-- <el-divider class = hotpostDivider></el-divider> -->
 			<el-table :data="post" :show-header="false" @row-click="handleRowClick" style="width: 100%" height="200">
 				<el-table-column prop="title" label="标题" width="260">
 				</el-table-column>
