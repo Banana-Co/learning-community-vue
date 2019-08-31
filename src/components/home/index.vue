@@ -20,6 +20,7 @@
 						<span>声望 : {{this.user.prestige}}</span><br /><br />
 						<span>注册邮箱 : {{this.user.emailAddress}}</span><br /><br />
 						<span>注册日期 : {{formattedDate}}</span>
+						
 					</div>
 
 					<br /><br />
