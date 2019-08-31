@@ -1,8 +1,7 @@
 <template>
   <div>
     <el-card shadow="hover">
-    <el-row>当前热门</el-row>
-    <el-rol>
+    <el-row>当前热门 🔥</el-row>
     <el-table
     :data="post"
     :show-header="false"
@@ -14,7 +13,7 @@
       width="290">
     </el-table-column>
   </el-table>
-    </el-rol>
+    </.el-row>
     </el-card>
   </div>
 </template>
