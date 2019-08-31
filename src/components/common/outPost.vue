@@ -1,10 +1,10 @@
 <template>
 	<div>
-		<el-card shadow="hover" class="outPost" @click.native="ToContent">
+		<el-card shadow="hover" class="outPost" @click.native="ToContent" title="查看帖子">
 			<el-row :gutter="20">
 				<el-col :span="4">
 					<div class="avatar">
-						<el-avatar :src="this.avatarUrl" :size="60" @click.native="handleClickAvatar"></el-avatar>
+						<el-avatar :src="this.avatarUrl" :size="60" @click.stop.native="handleClickAvatar" title="查看作者主页"></el-avatar>
 					</div>
 				</el-col>
 				<el-col :span="10">
@@ -52,7 +52,7 @@
 				}
 			},
         handleClickAvatar() {
-			    this.push(`/profile/${this.con.author}`)
+			    this.$emit('click-avatar', this.con.author)
         }
 		},
 		created() {
