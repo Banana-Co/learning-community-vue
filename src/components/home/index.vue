@@ -44,7 +44,7 @@
 			</el-row>
 		</div>
 		
-		<div class="muteAndReport">
+		<div class="muteAndReport" v-if="adm">
 			<el-row type="flex" align="top">
 				<report :report='reports'></report>
 				<muteUser :user='users'></muteUser>

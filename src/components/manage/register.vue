@@ -109,22 +109,22 @@
 					})
 			},
 			register() {
-				if (this.code != this.loginInfoVo.code) {
-					this.$notify.error({
-						title: '错误',
-						message: '验证码有误或已过期'
-					});
-				} else if (this.loginInfoVo.emailAddress == '') {
-					this.$notify.error({
-						title: '错误',
-						message: '请输入邮箱'
-					});
-				} else if (this.inputed == false) {
-					this.$notify.error({
-						title: '提示',
-						message: '请重新获取验证码'
-					});
-				} else {
+				// if (this.code != this.loginInfoVo.code) {
+				// 	this.$notify.error({
+				// 		title: '错误',
+				// 		message: '验证码有误或已过期'
+				// 	});
+				// } else if (this.loginInfoVo.emailAddress == '') {
+				// 	this.$notify.error({
+				// 		title: '错误',
+				// 		message: '请输入邮箱'
+				// 	});
+				// } else if (this.inputed == false) {
+				// 	this.$notify.error({
+				// 		title: '提示',
+				// 		message: '请重新获取验证码'
+				// 	});
+				// } else {
 					this.$axios
 						.post('register', {
 							username: this.loginInfoVo.username,
@@ -163,7 +163,7 @@
 							}
 						})
 						.catch(failResponse => {})
-				}
+				// }
 
 			}
 		}
